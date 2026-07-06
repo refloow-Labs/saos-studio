@@ -1,0 +1,35 @@
+{
+  "openai": {
+    "apiKey": "sk-your-openai-key",
+    "model": "gpt-4o-mini",
+    "baseURL": "https://api.openai.com/v1"
+  },
+  "resend": {
+    "apiKey": "re_your-resend-key",
+    "from": "hello@saos.studio",
+    "fromName": "SAOS Studio"
+  },
+  "serpapi": {
+    "apiKey": "your-serpapi-key"
+  },
+  "business": {
+    "name": "SAOS Studio",
+    "website": "https://saos.studio",
+    "phone": "+30 000 000 0000",
+    "ownerName": "Your Name",
+    "signature": "Best,\nYour Name\nSAOS Studio\nhello@saos.studio | saos.studio"
+  },
+  "pricing": {
+    "landing": 299,
+    "business": 499,
+    "growth": 799
+  },
+  "drafts": {
+    "outputDir": "./previews",
+    "previewBaseURL": "https://saos-draft.netlify.app"
+  },
+  "email": {
+    "delayBetweenMs": 5000,
+    "dailyLimit": 50
+  }
+}

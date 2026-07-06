@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>γη & ύδωρ — Εστιατόριο | Αλεξανδρούπολη</title>
+<meta name="description" content="γη & ύδωρ — Εστιατόριο στην Αλεξανδρούπολη. Μαγειρική που αντλεί από τη γη και τη θάλασσα της Θράκης. Λεωφ. Δημοκρατίας 363." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   γη & ύδωρ — Landing Page by SAOS Studio
+   Earth & Water concept: terracotta, sage, cream, warm brown
+   ============================================================ */
+
+:root {
+  --earth:        #8B5E3C;
+  --earth-deep:   #5C3A1E;
+  --earth-light:  #C4956A;
+  --terracotta:   #C17A5A;
+  --terracotta-d: #A0603E;
+  --sage:         #7A8C6E;
+  --sage-light:   #A8B89A;
+  --sage-deep:    #4A5E40;
+  --cream:        #F5EFE3;
+  --cream-deep:   #EDE3D2;
+  --parchment:    #FAF7F0;
+  --water:        #5B7FA6;
+  --water-light:  #8BABC8;
+  --water-deep:   #2C5A82;
+  --ink:          #1C1712;
+  --ink-soft:     #3D2E1E;
+  --muted:        #6E5A45;
+  --line:         rgba(28,23,18,.10);
+  --line-soft:    rgba(28,23,18,.06);
+
+  --serif:  "Cormorant Garamond", Georgia, serif;
+  --sans:   "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease:   cubic-bezier(.22,.61,.36,1);
+  --pad:    clamp(1.5rem, 6vw, 7rem);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* subtle grain texture */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: .028;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img { display: block; max-width: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--terracotta); color: #fff; }
+
+/* ---- Reveal animations ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(.96);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.reveal-scale.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* delay helpers */
+.d1 { transition-delay: .1s; }
+.d2 { transition-delay: .2s; }
+.d3 { transition-delay: .3s; }
+.d4 { transition-delay: .4s; }
+.d5 { transition-delay: .5s; }
+.d6 { transition-delay: .6s; }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem var(--pad);
+  transition: background .4s ease, backdrop-filter .4s ease, box-shadow .4s ease;
+}
+nav.scrolled {
+  background: rgba(245, 239, 227, .88);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 var(--line);
+}
+/* Default (over hero image) — light text for contrast; dark once scrolled. */
+.nav-logo .wordmark { color: #fff; text-shadow: 0 1px 20px rgba(0,0,0,.35); }
+.nav-logo .tagline-logo { color: rgba(255,255,255,.72); }
+.nav-links a { color: rgba(255,255,255,.88); }
+.nav-links a:hover { color: #fff; }
+.nav-cta { border-color: rgba(255,255,255,.6); color: #fff; }
+.nav-cta:hover { background: rgba(255,255,255,.16); color: #fff; }
+.nav-hamburger span { background: #fff; }
+nav.scrolled .nav-logo .wordmark { color: var(--ink); text-shadow: none; }
+nav.scrolled .nav-logo .tagline-logo { color: var(--muted); }
+nav.scrolled .nav-links a { color: var(--ink-soft); }
+nav.scrolled .nav-links a:hover { color: var(--terracotta); }
+nav.scrolled .nav-cta { border-color: var(--earth); color: var(--earth); }
+nav.scrolled .nav-cta:hover { background: var(--earth); color: #fff; }
+nav.scrolled .nav-hamburger span { background: var(--ink); }
+
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: .15rem;
+}
+.nav-logo .wordmark {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--ink);
+}
+.nav-logo .tagline-logo {
+  font-size: .65rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 400;
+  transition: color .25s;
+}
+.nav-links a:hover { color: var(--terracotta); }
+
+.nav-cta {
+  font-size: .75rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: .65rem 1.6rem;
+  border: 1px solid var(--earth);
+  color: var(--earth);
+  font-weight: 500;
+  transition: background .25s, color .25s;
+}
+.nav-cta:hover {
+  background: var(--earth);
+  color: #fff;
+}
+
+/* hamburger mobile */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: .4rem;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform .3s, opacity .3s;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--pad) 6rem;
+  overflow: hidden;
+}
+
+/* layered gradient background — earth meets water */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 110%, rgba(139,94,60,.30) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 80% -10%, rgba(91,127,166,.22) 0%, transparent 55%),
+    linear-gradient(160deg, rgba(30,19,9,.84) 0%, rgba(74,48,26,.6) 32%, rgba(110,74,48,.42) 56%, rgba(28,23,18,.52) 80%, rgba(28,23,18,.76) 100%),
+    url("hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* animated water ripple lines */
+.hero-water {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-water::before,
+.hero-water::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(91,127,166,.18);
+  animation: ripple 8s ease-in-out infinite;
+}
+.hero-water::before {
+  width: 900px; height: 900px;
+  right: -200px; top: -300px;
+  animation-delay: 0s;
+}
+.hero-water::after {
+  width: 600px; height: 600px;
+  right: 50px; top: -100px;
+  animation-delay: -3s;
+  border-color: rgba(91,127,166,.10);
+}
+
+/* earth texture layer */
+.hero-earth {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 35%;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(28,23,18,.5) 0%, transparent 100%);
+}
+
+@keyframes ripple {
+  0%   { transform: scale(1); opacity: .8; }
+  50%  { transform: scale(1.08); opacity: .4; }
+  100% { transform: scale(1); opacity: .8; }
+}
+
+/* scattered dots — earth texture motif */
+.hero-dots {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    radial-gradient(circle, rgba(196,149,106,.4) 1px, transparent 1px),
+    radial-gradient(circle, rgba(122,140,110,.2) 1px, transparent 1px);
+  background-size: 48px 48px, 96px 96px;
+  background-position: 0 0, 24px 24px;
+  opacity: .3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-size: .7rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--earth-light);
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--earth-light);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 11vw, 10rem);
+  font-weight: 300;
+  line-height: .95;
+  color: var(--cream);
+  margin-bottom: 1.2rem;
+  letter-spacing: -.01em;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--earth-light);
+}
+
+.hero-subtitle {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,239,227,.7);
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-primary {
+  padding: 1rem 2.5rem;
+  background: var(--terracotta);
+  color: #fff;
+  font-size: .78rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background .25s, transform .25s;
+}
+.btn-primary:hover {
+  background: var(--terracotta-d);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  padding: .95rem 2.2rem;
+  border: 1px solid rgba(245,239,227,.35);
+  color: rgba(245,239,227,.8);
+  font-size: .75rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: border-color .25s, color .25s;
+}
+.btn-ghost:hover {
+  border-color: rgba(245,239,227,.7);
+  color: var(--cream);
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  right: var(--pad);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  writing-mode: vertical-rl;
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(245,239,227,.45);
+}
+.hero-scroll-hint::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 50px;
+  background: rgba(245,239,227,.25);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { opacity: .3; transform: scaleY(1); }
+  50%       { opacity: .8; transform: scaleY(.6); }
+}
+
+/* ============================================================
+   SECTION SHARED
+   ============================================================ */
+section {
+  position: relative;
+}
+
+.section-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 7rem var(--pad);
+}
+
+.eyebrow {
+  font-size: .68rem;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin-bottom: 1.2rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.section-title em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+
+.section-body {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 540px;
+  line-height: 1.8;
+}
+
+/* divider wave */
+.wave-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+.wave-divider svg {
+  display: block;
+  width: 100%;
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about {
+  background: var(--cream);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.about-image-wrap {
+  position: relative;
+}
+.about-image-wrap .img-main {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+}
+.about-image-wrap .img-accent {
+  position: absolute;
+  width: 55%;
+  height: 240px;
+  object-fit: cover;
+  bottom: -3rem;
+  right: -2.5rem;
+  border: 6px solid var(--cream);
+}
+.about-badge {
+  position: absolute;
+  top: 2rem;
+  left: -1.5rem;
+  background: var(--earth);
+  color: #fff;
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+}
+.about-badge .num {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1;
+  display: block;
+}
+.about-badge .label {
+  font-size: .6rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 400;
+  opacity: .8;
+}
+
+.about-text {
+  padding-bottom: 3rem;
+}
+.about-text .section-body {
+  margin: 1.8rem 0 2.5rem;
+}
+
+.divider-line {
+  width: 60px;
+  height: 2px;
+  background: var(--terracotta);
+  margin: 2rem 0;
+}
+
+.about-pillars {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.pillar {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.pillar-icon {
+  font-size: 1.4rem;
+  margin-bottom: .3rem;
+}
+.pillar-title {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.pillar-text {
+  font-size: .82rem;
+  color: var(--muted);
+  max-width: 160px;
+}
+
+/* ============================================================
+   MENU HIGHLIGHTS
+   ============================================================ */
+#menu {
+  background: var(--parchment);
+}
+
+.menu-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.menu-item {
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.menu-item-img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  transition: transform .7s var(--ease);
+}
+.menu-item:hover .menu-item-img {
+  transform: scale(1.04);
+}
+
+.menu-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(28,23,18,.75) 0%, rgba(28,23,18,.1) 60%, transparent 100%);
+  transition: opacity .4s;
+}
+.menu-item:hover .menu-item-overlay {
+  opacity: .85;
+}
+
+.menu-item-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.8rem;
+  transform: translateY(8px);
+  transition: transform .4s var(--ease);
+}
+.menu-item:hover .menu-item-content {
+  transform: none;
+}
+
+.menu-item-category {
+  font-size: .62rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--earth-light);
+  font-weight: 500;
+  margin-bottom: .4rem;
+}
+.menu-item-name {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.25;
+  margin-bottom: .5rem;
+}
+.menu-item-desc {
+  font-size: .82rem;
+  color: rgba(245,239,227,.65);
+  line-height: 1.5;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s var(--ease), opacity .4s;
+  opacity: 0;
+}
+.menu-item:hover .menu-item-desc {
+  max-height: 100px;
+  opacity: 1;
+}
+
+.menu-item-featured {
+  grid-column: span 2;
+}
+.menu-item-featured .menu-item-img {
+  height: 420px;
+}
+
+.menu-cta-wrap {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 4rem;
+  background: var(--cream-deep);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.menu-cta-title {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   ATMOSPHERE / GALLERY
+   ============================================================ */
+#atmosphere {
+  background: var(--earth-deep);
+  padding: 7rem 0;
+  overflow: hidden;
+}
+
+.atmosphere-header {
+  text-align: center;
+  padding: 0 var(--pad) 4rem;
+}
+.atmosphere-header .eyebrow {
+  justify-content: center;
+  color: var(--earth-light);
+}
+.atmosphere-header .eyebrow::before { background: var(--earth-light); }
+.atmosphere-header .section-title { color: var(--cream); }
+
+/* horizontal scroll gallery */
+.gallery-track-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.gallery-track {
+  display: flex;
+  gap: 1rem;
+  animation: trackScroll 35s linear infinite;
+  width: max-content;
+  padding: 0 .5rem;
+}
+.gallery-track:hover { animation-play-state: paused; }
+
+.gallery-track-2 {
+  animation-direction: reverse;
+  animation-duration: 28s;
+  margin-top: 1rem;
+}
+
+@keyframes trackScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.gallery-img {
+  width: 340px;
+  height: 260px;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: filter .4s, transform .4s;
+  filter: saturate(.85);
+}
+.gallery-img:hover {
+  filter: saturate(1.1);
+  transform: scale(1.02);
+}
+
+.gallery-img-tall {
+  height: 360px;
+  width: 260px;
+}
+
+/* overlay text on atmosphere section */
+.atmosphere-tagline {
+  text-align: center;
+  padding: 4rem var(--pad) 0;
+}
+.atmosphere-tagline p {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,239,227,.65);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+.atmosphere-tagline p em {
+  color: var(--earth-light);
+  font-style: italic;
+}
+
+/* ============================================================
+   PHILOSOPHY / EARTH & WATER
+   ============================================================ */
+#philosophy {
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.philosophy-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.philosophy-visual {
+  position: relative;
+  overflow: hidden;
+}
+.philosophy-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 500px;
+}
+.philosophy-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(139,94,60,.4) 0%, rgba(91,127,166,.2) 100%);
+}
+
+/* decorative symbols */
+.philosophy-symbol {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgba(245,239,227,.9);
+}
+.philosophy-symbol .glyph {
+  font-family: var(--serif);
+  font-size: 5rem;
+  font-weight: 300;
+  line-height: 1;
+  display: block;
+}
+.philosophy-symbol .glyph-label {
+  font-size: .65rem;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  opacity: .7;
+  margin-top: .5rem;
+}
+
+.philosophy-content {
+  padding: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.philosophy-content .section-body {
+  margin-top: 1.5rem;
+  max-width: none;
+}
+
+.philosophy-duality {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.duality-card {
+  padding: 1.8rem;
+  border-top: 2px solid;
+}
+.duality-card.earth {
+  border-color: var(--earth);
+  background: rgba(139,94,60,.05);
+}
+.duality-card.water {
+  border-color: var(--water);
+  background: rgba(91,127,166,.05);
+}
+.duality-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: .6rem;
+}
+.duality-card.earth .duality-title { color: var(--earth-deep); }
+.duality-card.water .duality-title { color: var(--water-deep); }
+.duality-body {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ============================================================
+   CONTACT & HOURS
+   ============================================================ */
+#contact {
+  background: var(--parchment);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.contact-block {}
+.contact-label {
+  font-size: .66rem;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 500;
+  margin-bottom: .5rem;
+}
+.contact-value {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.contact-value a:hover { color: var(--terracotta); transition: color .2s; }
+
+.hours-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.hours-table tr {
+  border-bottom: 1px solid var(--line);
+}
+.hours-table tr:last-child { border-bottom: none; }
+.hours-table td {
+  padding: .8rem 0;
+  font-size: .9rem;
+}
+.hours-table td:first-child {
+  color: var(--muted);
+  width: 45%;
+}
+.hours-table td:last-child {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-align: right;
+}
+
+.contact-map {
+  position: relative;
+  overflow: hidden;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 420px;
+  background: var(--cream-deep);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  transition: background .3s;
+}
+.map-placeholder:hover { background: var(--cream); }
+.map-pin-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--terracotta);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .5rem;
+}
+.map-pin-icon::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+.map-address-text {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.5;
+}
+.map-hint {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--earth-deep);
+  color: #fff;
+  padding: .9rem 1.6rem;
+  margin-top: 2rem;
+}
+.rating-stars {
+  color: #F5C842;
+  font-size: 1rem;
+  letter-spacing: .1em;
+}
+.rating-text {
+  font-size: .78rem;
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--ink);
+  color: rgba(245,239,227,.55);
+  padding: 5rem var(--pad) 3rem;
+}
+
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 5rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(245,239,227,.07);
+}
+
+.footer-brand .wordmark {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: .5rem;
+}
+.footer-brand p {
+  font-size: .85rem;
+  color: rgba(245,239,227,.45);
+  line-height: 1.7;
+  max-width: 300px;
+  margin-top: 1rem;
+}
+
+.footer-col h4 {
+  font-size: .66rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(245,239,227,.55);
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+.footer-col li a {
+  font-size: .88rem;
+  color: rgba(245,239,227,.5);
+  transition: color .2s;
+}
+.footer-col li a:hover { color: var(--earth-light); }
+
+.footer-bottom {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .75rem;
+  color: rgba(245,239,227,.5);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-bottom a { color: rgba(245,239,227,.65); transition: color .2s; }
+.footer-bottom a:hover { color: var(--earth-light); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-image-wrap .img-accent { display: none; }
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+  .menu-item-featured { grid-column: span 2; }
+  .philosophy-layout { grid-template-columns: 1fr; }
+  .philosophy-content { padding: 4rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .footer-brand { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+
+  #hero { padding-bottom: 5rem; }
+  .hero-title { font-size: clamp(3rem, 14vw, 5.5rem); }
+
+  .menu-intro { grid-template-columns: 1fr; gap: 2rem; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .menu-item-featured { grid-column: auto; }
+  .menu-item-desc { max-height: 80px; opacity: 1; }
+
+  .philosophy-content { padding: 3rem 2rem; }
+  .philosophy-duality { grid-template-columns: 1fr; }
+
+  .gallery-img { width: 260px; height: 200px; }
+  .gallery-img-tall { width: 200px; height: 280px; }
+
+  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-brand { grid-column: auto; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .about-badge { display: none; }
+  .contact-grid { gap: 3rem; }
+  .menu-cta-wrap { padding: 2rem; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="wordmark">γη & ύδωρ</span>
+    <span class="tagline-logo">Αλεξανδρούπολη</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">Σχετικά</a></li>
+    <li><a href="#menu">Μενού</a></li>
+    <li><a href="#atmosphere">Ατμόσφαιρα</a></li>
+    <li><a href="#contact">Επικοινωνία</a></li>
+  </ul>
+  <a href="tel:+302551024364" class="nav-cta">Κράτηση</a>
+  <button class="nav-hamburger" aria-label="Μενού">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-water"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-earth"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal d1">
+      Εστιατόριο · Αλεξανδρούπολη
+    </div>
+    <h1 class="hero-title reveal d2">
+      <em>γη</em><br>& ύδωρ
+    </h1>
+    <p class="hero-subtitle reveal d3">
+      Από τη γη της Θράκης και τα νερά του Αιγαίου — στο τραπέζι σας.
+    </p>
+    <div class="hero-actions reveal d4">
+      <a href="#menu" class="btn-primary">Δείτε το Μενού</a>
+      <a href="#contact" class="btn-ghost">Βρείτε μας</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">κάντε scroll</div>
+</section>
+
+<!-- wave divider -->
+<div class="wave-divider" style="background: var(--earth-deep); line-height:0; margin-top:-2px;">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;">
+    <path d="M0,60 C360,0 1080,60 1440,20 L1440,0 L0,0 Z" fill="#F5EFE3"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal-left">
+        <img
+          class="img-main"
+          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80"
+          alt="Εσωτερικό εστιατορίου"
+          loading="lazy"
+        />
+        <div class="about-badge">
+          <span class="num">4.8</span>
+          <span class="label">Google ★</span>
+        </div>
+        <img
+          class="img-accent reveal d4"
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
+          alt="Πιάτο εστιατορίου"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="about-text">
+        <div class="reveal d1">
+          <span class="eyebrow">Η ιστορία μας</span>
+        </div>
+        <h2 class="section-title reveal d2">
+          Μαγειρεύουμε<br>με <em>σεβασμό</em><br>στη φύση
+        </h2>
+        <div class="divider-line reveal d3"></div>
+        <p class="section-body reveal d3">
+          Στο γη & ύδωρ, η κουζίνα ξεκινά από δύο στοιχεία: τη γη που καλλιεργεί και η θάλασσα που προσφέρει. Φρέσκα υλικά από τη Θράκη, θαλασσινά από το Αιγαίο — μαγειρεμένα με αγάπη και χωρίς περιττά.
+        </p>
+        <p class="section-body reveal d4" style="margin-top:1rem;">
+          Ένα εστιατόριο για αυτούς που πιστεύουν ότι ένα καλό γεύμα είναι πάνω απ' όλα μια ειλικρινής εμπειρία.
+        </p>
+
+        <div class="about-pillars reveal d5">
+          <div class="pillar">
+            <span class="pillar-icon">🌿</span>
+            <span class="pillar-title">Τοπικά Υλικά</span>
+            <p class="pillar-text">Απευθείας από παραγωγούς της Θράκης</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">🐟</span>
+            <span class="pillar-title">Φρέσκα Ψάρια</span>
+            <p class="pillar-text">Ημερήσια αλιεία από το Αιγαίο</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">🫒</span>
+            <span class="pillar-title">Παραδοσιακές Συνταγές</span>
+            <p class="pillar-text">Γεύσεις που ξυπνούν μνήμες</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MENU HIGHLIGHTS
+     ============================================================ -->
+<section id="menu">
+  <div class="section-inner">
+    <div class="menu-intro">
+      <div>
+        <span class="eyebrow reveal">Το Μενού</span>
+        <h2 class="section-title reveal d2">
+          Οι <em>γεύσεις</em><br>της γης & της θάλασσας
+        </h2>
+      </div>
+      <div class="reveal d3">
+        <p class="section-body">
+          Από ορεκτικά με τοπικά τυριά και φρέσκα χορταρικά, έως κυρίως με ψάρι και κρέας — κάθε πιάτο αντικατοπτρίζει την αρμονία των δύο στοιχείων.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-item menu-item-featured reveal-left">
+      <img
+        class="menu-item-img"
+        src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&q=80"
+        alt="Φρέσκα ψάρια"
+        loading="lazy"
+      />
+      <div class="menu-item-overlay"></div>
+      <div class="menu-item-content">
+        <div class="menu-item-category">Ειδικότητα</div>
+        <div class="menu-item-name">Ψάρι της Ημέρας</div>
+        <div class="menu-item-desc">Φρέσκο αλίευμα από το Αιγαίο, μαγειρεμένο με ελαιόλαδο, δεντρολίβανο και λεμόνι Θράκης.</div>
+      </div>
+    </div>
+    <div class="menu-item reveal">
+      <img
+        class="menu-item-img"
+        src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700&q=80"
+        alt="Μεζέδες"
+        loading="lazy"
+      />
+      <div class="menu-item-overlay"></div>
+      <div class="menu-item-content">
+        <div class="menu-item-category">Ορεκτικά</div>
+        <div class="menu-item-name">Μεζεδάκια Θράκης</div>
+        <div class="menu-item-desc">Τοπικά τυριά, ελιές Καβάλας, χωριάτικη πίτα και φρέσκα ντιπ.</div>
+      </div>
+    </div>
+    <div class="menu-item reveal d1">
+      <img
+        class="menu-item-img"
+        src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=700&q=80"
+        alt="Κρεατικά"
+        loading="lazy"
+      />
+      <div class="menu-item-overlay"></div>
+      <div class="menu-item-content">
+        <div class="menu-item-category">Κυρίως</div>
+        <div class="menu-item-name">Αρνάκι στη Λαδόκολλα</div>
+        <div class="menu-item-desc">Αρνάκι Θράκης με βότανα της γης, πατάτες και σκόρδο.</div>
+      </div>
+    </div>
+    <div class="menu-item reveal d2">
+      <img
+        class="menu-item-img"
+        src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=700&q=80"
+        alt="Σαλάτα"
+        loading="lazy"
+      />
+      <div class="menu-item-overlay"></div>
+      <div class="menu-item-content">
+        <div class="menu-item-category">Σαλάτες</div>
+        <div class="menu-item-name">Χωριάτικη της Γης</div>
+        <div class="menu-item-desc">Ντομάτα, αγγούρι, πιπεριά, φέτα ΠΟΠ, και ελαιόλαδο.</div>
+      </div>
+    </div>
+    <div class="menu-item reveal d3">
+      <img
+        class="menu-item-img"
+        src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=700&q=80"
+        alt="Γλυκό"
+        loading="lazy"
+      />
+      <div class="menu-item-overlay"></div>
+      <div class="menu-item-content">
+        <div class="menu-item-category">Επιδόρπια</div>
+        <div class="menu-item-name">Γλυκά της Ώρας</div>
+        <div class="menu-item-desc">Εποχιακά γλυκά με τοπικά φρούτα και μέλι Θράκης.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-inner" style="padding-top:0;">
+    <div class="menu-cta-wrap reveal">
+      <p class="menu-cta-title">Το πλήρες μενού σας περιμένει</p>
+      <a href="tel:+302551024364" class="btn-primary">Καλέστε για Κράτηση — 2551 024364</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ATMOSPHERE
+     ============================================================ -->
+<section id="atmosphere">
+  <div class="atmosphere-header">
+    <span class="eyebrow reveal">Ατμόσφαιρα</span>
+    <h2 class="section-title reveal d2">Ένας χώρος που <em>ζει</em></h2>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="gallery-track-wrap">
+    <div class="gallery-track">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700&q=75" alt="Εσωτερικό εστιατορίου" loading="lazy" />
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=75" alt="Πιάτο" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=700&q=75" alt="Τραπέζια εξωτερικού χώρου" loading="lazy" />
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=75" alt="Bar" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=700&q=75" alt="Ποτά" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=700&q=75" alt="Γεύμα" loading="lazy" />
+      <!-- duplicate for seamless loop -->
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700&q=75" alt="Εσωτερικό εστιατορίου" loading="lazy" />
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=75" alt="Πιάτο" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=700&q=75" alt="Τραπέζια εξωτερικού χώρου" loading="lazy" />
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=75" alt="Bar" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=700&q=75" alt="Ποτά" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=700&q=75" alt="Γεύμα" loading="lazy" />
+    </div>
+  </div>
+
+  <!-- Row 2 reverse -->
+  <div class="gallery-track-wrap">
+    <div class="gallery-track gallery-track-2">
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=500&q=75" alt="Φαγητό" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1470338745628-171cf53de3a8?w=700&q=75" alt="Κρασί" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700&q=75" alt="Τραπέζι" loading="lazy" />
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=75" alt="Πιάτο κυρίως" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1493770348161-369560ae357d?w=700&q=75" alt="Σαλάτα" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1560180474-e8563fd75bab?w=700&q=75" alt="Πάστα" loading="lazy" />
+      <!-- duplicate -->
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=500&q=75" alt="Φαγητό" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1470338745628-171cf53de3a8?w=700&q=75" alt="Κρασί" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700&q=75" alt="Τραπέζι" loading="lazy" />
+      <img class="gallery-img gallery-img-tall" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=75" alt="Πιάτο κυρίως" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1493770348161-369560ae357d?w=700&q=75" alt="Σαλάτα" loading="lazy" />
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1560180474-e8563fd75bab?w=700&q=75" alt="Πάστα" loading="lazy" />
+    </div>
+  </div>
+
+  <div class="atmosphere-tagline">
+    <p class="reveal">
+      <em>«Κάθε γεύμα είναι ένας διάλογος</em><br>ανάμεσα στη γη και τη θάλασσα.»
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PHILOSOPHY
+     ============================================================ -->
+<section id="philosophy">
+  <div class="philosophy-layout">
+    <div class="philosophy-visual reveal-left">
+      <img
+        src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80"
+        alt="Παραδοσιακό ελληνικό φαγητό"
+        loading="lazy"
+      />
+      <div class="philosophy-symbol">
+        <span class="glyph">γη &amp; ύδωρ</span>
+        <span class="glyph-label">Γη · Θάλασσα · Τραπέζι</span>
+      </div>
+    </div>
+
+    <div class="philosophy-content">
+      <span class="eyebrow reveal">Φιλοσοφία</span>
+      <h2 class="section-title reveal d2">
+        Δύο στοιχεία,<br>μία <em>αρμονία</em>
+      </h2>
+      <p class="section-body reveal d3">
+        Το όνομά μας λέει τα πάντα. Η γη και το ύδωρ είναι τα δύο θεμέλια της ελληνικής μαγειρικής παράδοσης — και της φιλοσοφίας μας. Σεβόμαστε την εποχικότητα, τιμάμε τον τοπικό παραγωγό.
+      </p>
+
+      <div class="philosophy-duality reveal d4">
+        <div class="duality-card earth">
+          <div class="duality-title">γη — Γη</div>
+          <p class="duality-body">Λαχανικά, αρωματικά χόρτα, όσπρια και κρέατα από τη θρακική ύπαιθρο. Η γη είναι η βάση.</p>
+        </div>
+        <div class="duality-card water">
+          <div class="duality-title">ύδωρ — Νερό</div>
+          <p class="duality-body">Φρέσκα ψάρια και θαλασσινά από το Αιγαίο. Το νερό φέρνει τη φρεσκάδα και τη ζωή.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave divider -->
+<div class="wave-divider" style="background: var(--parchment); line-height:0;">
+  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;">
+    <path d="M0,0 C480,50 960,0 1440,30 L1440,50 L0,50 Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     CONTACT & HOURS
+     ============================================================ -->
+<section id="contact" style="background: var(--cream);">
+  <div class="section-inner">
+    <div style="margin-bottom:4rem;">
+      <span class="eyebrow reveal">Βρείτε μας</span>
+      <h2 class="section-title reveal d2">Έλατε να <em>γευτείτε</em></h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-block reveal d1">
+          <div class="contact-label">Διεύθυνση</div>
+          <div class="contact-value">
+            Λεωφ. Δημοκρατίας 363<br>
+            Αλεξανδρούπολη, 68100
+          </div>
+        </div>
+
+        <div class="contact-block reveal d2">
+          <div class="contact-label">Τηλέφωνο</div>
+          <div class="contact-value">
+            <a href="tel:+302551024364">2551 024364</a>
+          </div>
+        </div>
+
+        <div class="contact-block reveal d3">
+          <div class="contact-label">Ώρες Λειτουργίας</div>
+          <table class="hours-table">
+            <tr>
+              <td>Δευτέρα – Παρασκευή</td>
+              <td>12:00 – 24:00</td>
+            </tr>
+            <tr>
+              <td>Σάββατο</td>
+              <td>12:00 – 01:00</td>
+            </tr>
+            <tr>
+              <td>Κυριακή</td>
+              <td>12:00 – 23:00</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="reveal d4">
+          <div class="rating-badge">
+            <span class="rating-stars">★★★★★</span>
+            <span class="rating-text">4.8 — 142 αξιολογήσεις Google</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <a
+          href="https://maps.google.com/?q=Λεωφ.+Δημοκρατίας+363,+Αλεξανδρούπολη"
+          target="_blank"
+          rel="noopener"
+          class="map-placeholder"
+        >
+          <div class="map-pin-icon"></div>
+          <div class="map-address-text">
+            Λεωφ. Δημοκρατίας 363<br>
+            Αλεξανδρούπολη
+          </div>
+          <span class="map-hint">Άνοιγμα στο Google Maps →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="wordmark">γη & ύδωρ</div>
+      <p>
+        Εστιατόριο στην Αλεξανδρούπολη, Θράκη.<br>
+        Γεύσεις που αντλούν από τη γη και τη θάλασσα — με σεβασμό στις παραδόσεις και αγάπη για το καλό φαγητό.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Πλοήγηση</h4>
+      <ul>
+        <li><a href="#about">Σχετικά</a></li>
+        <li><a href="#menu">Μενού</a></li>
+        <li><a href="#atmosphere">Ατμόσφαιρα</a></li>
+        <li><a href="#contact">Επικοινωνία</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Επικοινωνία</h4>
+      <ul>
+        <li><a href="tel:+302551024364">2551 024364</a></li>
+        <li><a href="https://maps.google.com/?q=Λεωφ.+Δημοκρατίας+363,+Αλεξανδρούπολη" target="_blank">Λεωφ. Δημοκρατίας 363</a></li>
+        <li><a href="https://maps.google.com/?q=Λεωφ.+Δημοκρατίας+363,+Αλεξανδρούπολη" target="_blank">Αλεξανδρούπολη 68100</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 γη & ύδωρ — Αλεξανδρούπολη</span>
+    <span>Σχεδιασμός από <a href="#">SAOS Studio</a></span>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT — Scroll reveal + Navbar
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // --- Navbar scroll effect ---
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  // --- Intersection Observer for reveal animations ---
+  const observerOptions = {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Once revealed, no need to keep observing
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all reveal elements
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  revealEls.forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // --- Smooth anchor scrolling with offset for fixed nav ---
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const navH = navbar.offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH - 10;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // --- Hamburger menu (mobile) ---
+  const hamburger = document.querySelector('.nav-hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function() {
+      const open = navLinks.style.display === 'flex';
+      navLinks.style.display = open ? 'none' : 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '100%';
+      navLinks.style.left = '0';
+      navLinks.style.right = '0';
+      navLinks.style.background = 'rgba(245, 239, 227, .97)';
+      navLinks.style.padding = '1.5rem var(--pad, 2rem)';
+      navLinks.style.boxShadow = '0 8px 30px rgba(0,0,0,.08)';
+      navLinks.style.gap = '1.2rem';
+      if (open) navLinks.style.display = 'none';
+    });
+  }
+
+  // --- Parallax on hero background ---
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    window.addEventListener('scroll', function() {
+      const scroll = window.scrollY;
+      heroBg.style.transform = 'translateY(' + (scroll * 0.25) + 'px)';
+    }, { passive: true });
+  }
+
+  // --- Active nav link on scroll ---
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', function() {
+    let current = '';
+    sections.forEach(function(s) {
+      const sTop = s.offsetTop - 100;
+      if (window.scrollY >= sTop) current = s.id;
+    });
+    navAnchors.forEach(function(a) {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--terracotta)'
+        : '';
+    });
+  }, { passive: true });
+
+})();
+</script>
+
+</body>
+</html>

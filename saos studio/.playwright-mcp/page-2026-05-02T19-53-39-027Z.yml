@@ -1,0 +1,181 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - link "Home" [ref=e4]:
+      - /url: "#"
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link "Μανιφέστο" [ref=e8]:
+          - /url: "#manifesto"
+          - text: Μανιφέστο
+      - listitem [ref=e9]:
+        - link "Υπηρεσίες" [ref=e10]:
+          - /url: "#services"
+          - text: Υπηρεσίες
+      - listitem [ref=e11]:
+        - link "Προσέγγιση" [ref=e12]:
+          - /url: "#approach"
+          - text: Προσέγγιση
+      - listitem [ref=e13]:
+        - link "Τιμές" [ref=e14]:
+          - /url: "#pricing"
+          - text: Τιμές
+      - listitem [ref=e15]:
+        - link "Επικοινωνία" [ref=e16]:
+          - /url: "#contact"
+          - text: Επικοινωνία
+    - link "Κλείστε Κλήση" [ref=e18]:
+      - /url: https://calendly.com/tambakisgiannis/refloow-labs-discovery-call
+  - main [ref=e19]:
+    - article [ref=e20]:
+      - paragraph [ref=e21]: Νομικά
+      - heading "Πολιτική απορρήτου & cookies" [level=1] [ref=e22]
+      - paragraph [ref=e23]: "Τελευταία ενημέρωση: Απρίλιος 2026"
+      - generic [ref=e24]:
+        - heading "1. Ποιοι είμαστε" [level=2] [ref=e25]
+        - generic [ref=e26]:
+          - paragraph [ref=e27]:
+            - text: Το
+            - strong [ref=e28]: SAOS Studio
+            - text: είναι μικρό στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Θεσσαλονίκη, Ελλάδα. Υπεύθυνος επεξεργασίας δεδομένων είστε εσείς όταν χρησιμοποιείτε το site μας στη διεύθυνση
+            - emphasis [ref=e29]: saosstudio.gr
+            - text: .
+          - paragraph [ref=e30]:
+            - text: Για ερωτήσεις σχετικά με τα δεδομένα σας, επικοινωνήστε στο
+            - link "hello@saosstudio.gr" [ref=e31]:
+              - /url: mailto:hello@saosstudio.gr
+            - text: .
+      - generic [ref=e32]:
+        - heading "2. Τι δεδομένα συλλέγουμε" [level=2] [ref=e33]
+        - generic [ref=e34]:
+          - paragraph [ref=e35]: "Όταν επισκέπτεστε το site μας, μπορεί να συλλέξουμε τα εξής:"
+          - list [ref=e36]:
+            - listitem [ref=e37]:
+              - text: —
+              - strong [ref=e38]: Τεχνικά δεδομένα
+              - text: — IP διεύθυνση (ανωνυμοποιημένη), τύπος browser, σύστημα, ώρα επίσκεψης.
+            - listitem [ref=e39]:
+              - text: —
+              - strong [ref=e40]: Στατιστικά χρήσης
+              - text: (μόνο με τη συγκατάθεσή σας) — ποιες σελίδες είδατε, χρόνος παραμονής, source επίσκεψης. Συλλέγονται μέσω Google Analytics 4 με ανωνυμοποίηση IP.
+            - listitem [ref=e41]:
+              - text: —
+              - strong [ref=e42]: Στοιχεία επικοινωνίας
+              - text: — μόνο εάν εσείς επιλέξετε να μας στείλετε email ή να κλείσετε ραντεβού μέσω Calendly.
+          - paragraph [ref=e43]: Δεν συλλέγουμε ευαίσθητα προσωπικά δεδομένα ούτε οικονομικά στοιχεία.
+      - generic [ref=e44]:
+        - heading "3. Νομική βάση" [level=2] [ref=e45]
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: "Επεξεργαζόμαστε τα δεδομένα σας με βάση:"
+          - list [ref=e48]:
+            - listitem [ref=e49]:
+              - text: —
+              - strong [ref=e50]: Τη συγκατάθεσή σας
+              - text: (Άρθρο 6.1.α GDPR) — για στατιστικά cookies, η οποία μπορεί να ανακληθεί οποιαδήποτε στιγμή.
+            - listitem [ref=e51]:
+              - text: —
+              - strong [ref=e52]: Έννομο συμφέρον
+              - text: (Άρθρο 6.1.στ GDPR) — για βασική λειτουργικότητα και ασφάλεια του site.
+            - listitem [ref=e53]:
+              - text: —
+              - strong [ref=e54]: Εκτέλεση σύμβασης
+              - text: (Άρθρο 6.1.β GDPR) — όταν μας προσλαμβάνετε για ένα project.
+      - generic [ref=e55]:
+        - heading "4. Cookies που χρησιμοποιούμε" [level=2] [ref=e56]
+        - generic [ref=e57]:
+          - paragraph [ref=e58]: "Χρησιμοποιούμε δύο τύπους cookies:"
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - generic [ref=e61]: Κατηγορία
+              - generic [ref=e62]: Όνομα
+              - generic [ref=e63]: Σκοπός
+              - generic [ref=e64]: Διάρκεια
+            - generic [ref=e65]:
+              - generic [ref=e66]: Απαραίτητα
+              - generic [ref=e67]: saos_consent_v1
+              - generic [ref=e68]: Αποθήκευση των επιλογών συγκατάθεσής σας.
+              - generic [ref=e69]: 12 μήνες
+            - generic [ref=e70]:
+              - generic [ref=e71]: Στατιστικά
+              - generic [ref=e72]: _ga, _ga_*
+              - generic [ref=e73]: Google Analytics — μέτρηση επισκεψιμότητας με ανωνυμοποιημένη IP.
+              - generic [ref=e74]: 14 μήνες
+      - generic [ref=e75]:
+        - heading "5. Διαμοιρασμός δεδομένων" [level=2] [ref=e76]
+        - generic [ref=e77]:
+          - paragraph [ref=e78]: "Δεν πουλάμε τα δεδομένα σας. Τα μοιραζόμαστε μόνο με τους ακόλουθους παρόχους υπηρεσιών, αυστηρά για τους σκοπούς που αναφέρονται:"
+          - list [ref=e79]:
+            - listitem [ref=e80]:
+              - text: —
+              - strong [ref=e81]: Google (Analytics)
+              - text: — στατιστικά επισκεψιμότητας. Δεδομένα μπορεί να μεταφερθούν σε ΗΠΑ υπό το EU-US Data Privacy Framework.
+            - listitem [ref=e82]:
+              - text: —
+              - strong [ref=e83]: Calendly
+              - text: — προγραμματισμός ραντεβού, μόνο όταν επιλέγετε να κλείσετε call.
+            - listitem [ref=e84]:
+              - text: —
+              - strong [ref=e85]: Netlify / Vercel
+              - text: — hosting του site (logs, χωρίς προσωπικά δεδομένα).
+      - generic [ref=e86]:
+        - heading "6. Πόσο χρόνο κρατάμε τα δεδομένα" [level=2] [ref=e87]
+        - paragraph [ref=e89]: Τα στατιστικά Google Analytics διατηρούνται για 14 μήνες. Emails πελατών διατηρούνται όσο χρειάζεται για το project συν 5 χρόνια για λογιστικούς σκοπούς. Τα cookies συγκατάθεσης διατηρούνται για 12 μήνες.
+      - generic [ref=e90]:
+        - heading "7. Τα δικαιώματά σας (GDPR)" [level=2] [ref=e91]
+        - generic [ref=e92]:
+          - paragraph [ref=e93]: "Έχετε δικαίωμα να:"
+          - list [ref=e94]:
+            - listitem [ref=e95]: — Ζητήσετε αντίγραφο των δεδομένων σας (πρόσβαση).
+            - listitem [ref=e96]: — Διορθώσετε ανακριβή δεδομένα.
+            - listitem [ref=e97]: — Ζητήσετε διαγραφή των δεδομένων σας (δικαίωμα στη λήθη).
+            - listitem [ref=e98]: — Περιορίσετε ή αντιταχθείτε στην επεξεργασία.
+            - listitem [ref=e99]: — Ζητήσετε φορητότητα των δεδομένων σας.
+            - listitem [ref=e100]: — Ανακαλέσετε τη συγκατάθεσή σας ανά πάσα στιγμή.
+            - listitem [ref=e101]:
+              - text: — Υποβάλετε καταγγελία στην Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα (
+              - link "dpa.gr" [ref=e102]:
+                - /url: https://www.dpa.gr
+              - text: ).
+          - paragraph [ref=e103]:
+            - text: Για να ασκήσετε οποιοδήποτε από αυτά τα δικαιώματα, στείλτε email στο
+            - link "hello@saosstudio.gr" [ref=e104]:
+              - /url: mailto:hello@saosstudio.gr
+            - text: . Απαντάμε εντός 30 ημερών.
+      - generic [ref=e105]:
+        - heading "8. Διαχείριση cookies" [level=2] [ref=e106]
+        - generic [ref=e107]:
+          - paragraph [ref=e108]: "Μπορείτε να αλλάξετε τις προτιμήσεις σας για cookies οποιαδήποτε στιγμή:"
+          - button "Αλλαγή προτιμήσεων cookies →" [ref=e109]:
+            - text: Αλλαγή προτιμήσεων cookies
+            - generic [ref=e110]: →
+      - generic [ref=e111]:
+        - heading "9. Αλλαγές στην πολιτική" [level=2] [ref=e112]
+        - paragraph [ref=e114]: Μπορεί να ενημερώνουμε αυτήν την πολιτική κατά καιρούς. Σε σημαντικές αλλαγές θα ζητήσουμε εκ νέου τη συγκατάθεσή σας.
+      - link "← Επιστροφή στην αρχική" [ref=e116]:
+        - /url: /
+  - contentinfo [ref=e117]:
+    - generic [ref=e118]:
+      - generic [ref=e121]: SAOS Studio — Thessaloniki
+      - generic [ref=e122]:
+        - link "Μανιφέστο" [ref=e123]:
+          - /url: "#manifesto"
+        - link "Υπηρεσίες" [ref=e124]:
+          - /url: "#services"
+        - link "Επικοινωνία" [ref=e125]:
+          - /url: "#contact"
+        - link "Απόρρητο" [ref=e126]:
+          - /url: /privacy
+        - button "Cookies" [ref=e127] [cursor=pointer]
+      - generic [ref=e128]: © 2026 SAOS Studio
+  - dialog "Συγκατάθεση cookies" [ref=e129]:
+    - generic [ref=e130]:
+      - paragraph [ref=e131]: Cookies
+      - paragraph [ref=e132]:
+        - text: Χρησιμοποιούμε cookies για να βελτιώσουμε την εμπειρία σας και να κατανοήσουμε πώς χρησιμοποιείται το site.
+        - link "Πολιτική απορρήτου" [ref=e133]:
+          - /url: /privacy
+        - text: .
+      - generic [ref=e134]:
+        - button "Αποδοχή όλων" [ref=e135]
+        - generic [ref=e136]:
+          - button "Απόρριψη" [ref=e137]
+          - button "Προτιμήσεις" [ref=e138]

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Almasi Luxury Suites — A Hidden Gem in Alexandroupoli</title>
+<meta name="description" content="Almasi Luxury Suites — boutique guesthouse in Alexandroupoli, Greece. Personal hospitality, elegant suites, steps from the Thracian Sea. Rated 4.9 on Google." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   ALMASI LUXURY SUITES — concept landing page by SAOS Studio
+   Warm Mediterranean earth palette. Terracotta / cream / olive.
+   ============================================================ */
+
+:root{
+  --cream:       #F6F1EB;
+  --cream-deep:  #EDE6DA;
+  --paper:       #FBF9F5;
+  --ink:         #2D2B28;
+  --ink-soft:    #5A564F;
+  --muted:       #8E877C;
+  --terra:       #C07B4A;
+  --terra-deep:  #A86638;
+  --olive:       #7B8B6A;
+  --olive-soft:  #9CA88F;
+  --line:        rgba(45,43,40,.12);
+  --line-soft:   rgba(45,43,40,.07);
+
+  --serif: "Lora", Georgia, serif;
+  --sans:  "Outfit", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --pad: clamp(1.25rem, 5vw, 6.5rem);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.65;
+  overflow-x:hidden;
+  position:relative;
+}
+
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:9000;
+  opacity:.03;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+
+::selection{ background:var(--terra); color:#fff; }
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:.72rem;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--terra);
+}
+.display{
+  font-family:var(--serif);
+  font-weight:600;
+  line-height:1;
+  letter-spacing:-.015em;
+}
+.display em{ font-style:italic; color:var(--terra-deep); font-weight:500; }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.nav{
+  position:fixed; top:0; left:0; right:0;
+  z-index:1000;
+  background:transparent;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.4rem var(--pad);
+  transition:background .5s var(--ease), padding .5s var(--ease), box-shadow .5s var(--ease);
+}
+.nav.scrolled{
+  background:rgba(246,241,235,.85);
+  backdrop-filter:saturate(140%) blur(14px);
+  -webkit-backdrop-filter:saturate(140%) blur(14px);
+  padding-top:1rem; padding-bottom:1rem;
+  box-shadow:0 1px 0 var(--line-soft);
+}
+.nav.scrolled .brand{ color:var(--ink); text-shadow:none; }
+.nav.scrolled .brand .b-sub{ color:var(--muted); }
+.nav.scrolled .nav-links a{ color:var(--ink-soft); text-shadow:none; }
+.nav.scrolled .nav-links a:hover{ color:var(--ink); }
+.nav.scrolled .nav-cta{ border-color:var(--ink); color:var(--ink); text-shadow:none; }
+.nav.scrolled .nav-cta:hover{ background:var(--ink); color:var(--cream) !important; }
+.nav.scrolled .nav-toggle span{ background:var(--ink); }
+.brand{
+  font-family:var(--serif);
+  font-size:1.45rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  line-height:1;
+  display:flex; flex-direction:column;
+  color:#fff;
+  text-shadow:0 1px 12px rgba(0,0,0,.35);
+}
+.brand .b-sub{
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:.54rem;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+  margin-top:.28rem;
+  padding-left:.08rem;
+}
+.nav-links{
+  display:flex; gap:2.2rem; align-items:center;
+  font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; font-weight:400;
+}
+.nav-links a{ position:relative; padding:.2rem 0; color:rgba(255,255,255,.85); text-shadow:0 1px 12px rgba(0,0,0,.35); transition:color .3s; }
+.nav-links a::after{
+  content:""; position:absolute; left:0; bottom:-2px; height:1.5px; width:0; background:var(--terra);
+  transition:width .4s var(--ease);
+}
+.nav-links a:hover{ color:#fff; }
+.nav-links a:hover::after{ width:100%; }
+.nav-cta{
+  border:1px solid rgba(255,255,255,.6);
+  color:rgba(255,255,255,.85);
+  text-shadow:0 1px 12px rgba(0,0,0,.35);
+  padding:.62rem 1.3rem !important;
+  border-radius:40px;
+  transition:background .35s var(--ease), color .35s var(--ease), border-color .35s;
+}
+.nav-cta::after{ display:none; }
+.nav-cta:hover{ background:rgba(255,255,255,.15); color:#fff !important; border-color:#fff; }
+.nav-toggle{ display:none; background:none; border:0; cursor:pointer; flex-direction:column; gap:5px; }
+.nav-toggle span{ width:24px; height:1.5px; background:#fff; display:block; transition:background .3s,transform .3s; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex; align-items:flex-end;
+  padding:0 var(--pad) clamp(3rem,7vh,5.5rem);
+  overflow:hidden;
+}
+.hero-media{
+  position:absolute; inset:-8% 0 0 0;
+  z-index:-2;
+  background-position:center 35%;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-image:linear-gradient(180deg, rgba(35,30,24,.55) 0%, rgba(35,30,24,.18) 34%, rgba(35,30,24,.5) 80%, rgba(35,30,24,.72) 93%, rgba(246,241,235,.97) 100%),
+                   url("hero.jpg");
+  animation:kenburns 24s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes kenburns{
+  from{ transform:scale(1.05) translate(0,0); }
+  to{   transform:scale(1.14) translate(-1.2%, -1.8%); }
+}
+.hero-grain{
+  position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(180deg, rgba(246,241,235,0) 88%, var(--cream) 100%);
+  pointer-events:none;
+}
+.hero-inner{ max-width:1100px; }
+.hero .eyebrow{
+  color:#fff; opacity:0; transform:translateY(18px);
+  text-shadow:0 1px 18px rgba(0,0,0,.35);
+}
+.hero h1{
+  color:#fff;
+  font-size:clamp(3rem, 10vw, 9rem);
+  margin:.7rem 0 1.3rem;
+  text-shadow:0 2px 42px rgba(0,0,0,.3);
+  max-width:15ch;
+}
+.hero h1 .line{ display:block; overflow:hidden; }
+.hero h1 .line > span{ display:block; transform:translateY(108%); }
+.hero-tag{
+  color:#fff;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(1.15rem, 2.4vw, 1.85rem);
+  line-height:1.45;
+  max-width:34ch;
+  margin-bottom:2rem;
+  text-shadow:0 1px 26px rgba(0,0,0,.38);
+  opacity:0; transform:translateY(20px);
+}
+.hero-actions{ display:flex; gap:1rem; flex-wrap:wrap; opacity:0; transform:translateY(20px); }
+
+.btn{
+  display:inline-flex; align-items:center; gap:.6rem;
+  font-family:var(--sans); font-weight:500;
+  font-size:.76rem; letter-spacing:.2em; text-transform:uppercase;
+  padding:1.05rem 2.1rem; border-radius:46px;
+  cursor:pointer; border:1px solid transparent;
+  transition:transform .4s var(--ease), background .4s var(--ease), color .4s, border-color .4s, box-shadow .4s;
+}
+.btn .arrow{ transition:transform .4s var(--ease); }
+.btn:hover .arrow{ transform:translateX(5px); }
+.btn-terra{ background:var(--terra); color:#fff; box-shadow:0 14px 34px -16px rgba(192,123,74,.8); }
+.btn-terra:hover{ background:var(--terra-deep); transform:translateY(-3px); }
+.btn-ghost-light{ border-color:rgba(255,255,255,.6); color:#fff; }
+.btn-ghost-light:hover{ background:#fff; color:var(--ink); transform:translateY(-3px); }
+.btn-dark{ background:var(--ink); color:var(--cream); }
+.btn-dark:hover{ background:#000; transform:translateY(-3px); }
+.btn-ghost{ border-color:var(--ink); color:var(--ink); }
+.btn-ghost:hover{ background:var(--ink); color:var(--cream); transform:translateY(-3px); }
+
+/* hero loaded animations */
+.hero.in .eyebrow{ animation:rise .9s var(--ease) .35s forwards; }
+.hero.in h1 .line > span{ animation:slideUp 1.1s var(--ease) forwards; }
+.hero.in h1 .line:nth-child(1) > span{ animation-delay:.45s; }
+.hero.in h1 .line:nth-child(2) > span{ animation-delay:.58s; }
+.hero.in h1 .line:nth-child(3) > span{ animation-delay:.7s; }
+.hero.in .hero-tag{ animation:rise 1s var(--ease) .95s forwards; }
+.hero.in .hero-actions{ animation:rise 1s var(--ease) 1.15s forwards; }
+@keyframes slideUp{ to{ transform:translateY(0); } }
+@keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+
+.scroll-hint{
+  position:absolute; bottom:2rem; right:var(--pad);
+  display:flex; align-items:center; gap:.8rem;
+  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft);
+  opacity:0;
+}
+.hero.in .scroll-hint{ animation:rise 1s var(--ease) 1.6s forwards; }
+.scroll-hint .bar{ width:46px; height:1.5px; background:var(--ink-soft); position:relative; overflow:hidden; }
+.scroll-hint .bar::after{ content:""; position:absolute; inset:0; background:var(--terra); animation:sweep 2.6s var(--ease) infinite; }
+@keyframes sweep{ 0%{ transform:translateX(-100%); } 60%,100%{ transform:translateX(100%); } }
+
+/* ============================================================
+   SCROLL REVEAL primitives
+   ============================================================ */
+.reveal{ opacity:0; transform:translateY(42px) scale(.985); transition:opacity 1s var(--ease), transform 1s var(--ease); }
+.reveal.show{ opacity:1; transform:none; }
+.reveal-pop{ opacity:0; transform:translateY(54px) scale(.93); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal-pop.show{ opacity:1; transform:none; }
+[data-delay="1"]{ transition-delay:.09s; }
+[data-delay="2"]{ transition-delay:.18s; }
+[data-delay="3"]{ transition-delay:.27s; }
+[data-delay="4"]{ transition-delay:.36s; }
+[data-delay="5"]{ transition-delay:.45s; }
+
+/* word-by-word headline reveal */
+.split .w{ display:inline-block; overflow:hidden; vertical-align:top; }
+.split .w > i{ display:inline-block; font-style:inherit; transform:translateY(110%); transition:transform .9s var(--ease); }
+.split.show .w > i{ transform:translateY(0); }
+.split.show .w:nth-child(2) > i{ transition-delay:.06s; }
+.split.show .w:nth-child(3) > i{ transition-delay:.12s; }
+.split.show .w:nth-child(4) > i{ transition-delay:.18s; }
+.split.show .w:nth-child(5) > i{ transition-delay:.24s; }
+.split.show .w:nth-child(6) > i{ transition-delay:.30s; }
+.split.show .w:nth-child(7) > i{ transition-delay:.36s; }
+
+/* ============================================================
+   SECTION shells
+   ============================================================ */
+section{ position:relative; }
+.wrap{ padding:clamp(5rem,11vh,9rem) var(--pad); }
+.section-head{ display:flex; flex-direction:column; gap:1.2rem; }
+
+/* ---------- feature strip (instead of marquee) ---------- */
+.features-strip{
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  background:var(--paper);
+  display:flex; justify-content:center; gap:clamp(2rem,5vw,5rem);
+  padding:1.3rem var(--pad);
+  flex-wrap:wrap;
+}
+.feat{
+  display:flex; align-items:center; gap:.7rem;
+  font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; font-weight:400;
+  color:var(--ink-soft);
+}
+.feat .feat-icon{
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--line);
+  display:grid; place-content:center;
+  font-size:.9rem; color:var(--terra);
+}
+
+/* ============================================================
+   STORY
+   ============================================================ */
+.story{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(2.5rem,6vw,7rem); align-items:center; }
+.story-copy h2{ font-size:clamp(2.4rem,5vw,4.8rem); margin:1.2rem 0 1.6rem; max-width:14ch; }
+.story-copy p{ font-size:1.06rem; color:var(--ink-soft); max-width:42ch; margin-bottom:1.3rem; }
+.story-copy p:last-of-type{ margin-bottom:2rem; }
+.story-figure{ position:relative; }
+.story-figure .frame{
+  position:relative; overflow:hidden;
+  aspect-ratio:4/5; border-radius:3px;
+  box-shadow:0 40px 80px -50px rgba(45,43,40,.5);
+}
+.story-figure img{ width:100%; height:100%; object-fit:cover; transform:scale(1.06); transition:transform 1.4s var(--ease); }
+.story-figure:hover img{ transform:scale(1); }
+.story-figure .badge{
+  position:absolute; bottom:-24px; left:-24px;
+  width:140px; height:140px; border-radius:50%;
+  background:var(--cream); color:var(--ink);
+  border:1px solid var(--line);
+  display:grid; place-content:center; text-align:center;
+  font-family:var(--serif); font-style:italic; font-size:1rem; line-height:1.25;
+  box-shadow:0 24px 50px -28px rgba(45,43,40,.45);
+}
+.story-figure .badge b{ display:block; font-style:normal; font-family:var(--sans); font-weight:600; font-size:.58rem; letter-spacing:.3em; color:var(--terra); margin-bottom:.35rem; }
+
+/* ============================================================
+   SUITES
+   ============================================================ */
+.suites{ background:var(--paper); }
+.suites-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; flex-wrap:wrap; margin-bottom:3.4rem; }
+.suites-head h2{ font-size:clamp(2.4rem,6vw,5.8rem); max-width:13ch; }
+.suites-head p{ color:var(--ink-soft); max-width:34ch; font-size:1.02rem; }
+
+.suite-grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:1.4rem; }
+.suite{
+  position:relative; overflow:hidden; border-radius:3px;
+  background:var(--cream-deep);
+  cursor:pointer;
+}
+.suite .ph{ position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1.04); transition:transform 1.3s var(--ease); }
+.suite:hover .ph{ transform:scale(1.12); }
+.suite::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg, rgba(35,30,24,0) 35%, rgba(35,30,24,.74) 100%);
+  transition:opacity .5s;
+}
+.suite-body{
+  position:relative; z-index:2;
+  height:100%; display:flex; flex-direction:column; justify-content:flex-end;
+  padding:2rem; color:#fff;
+}
+.suite-body .k{ font-size:.6rem; letter-spacing:.32em; text-transform:uppercase; opacity:.85; margin-bottom:.5rem; }
+.suite-body h3{ font-family:var(--serif); font-weight:500; font-size:clamp(1.6rem,2.4vw,2.3rem); line-height:1.05; margin-bottom:.5rem; }
+.suite-body .d{ font-size:.85rem; max-width:30ch; opacity:0; transform:translateY(12px); transition:opacity .5s var(--ease) .05s, transform .5s var(--ease) .05s; }
+.suite:hover .suite-body .d{ opacity:.92; transform:none; }
+.suite .corner{
+  position:absolute; top:1.4rem; right:1.4rem; z-index:2;
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.5); color:#fff;
+  display:grid; place-content:center; font-size:.9rem;
+  transition:background .4s, color .4s, transform .4s var(--ease);
+}
+.suite:hover .corner{ background:#fff; color:var(--ink); transform:scale(1.06); }
+
+.s-wide{ grid-column:span 7; aspect-ratio:16/10; }
+.s-tall{ grid-column:span 5; aspect-ratio:3/4; }
+.s-full{ grid-column:span 12; aspect-ratio:21/8; }
+
+/* ============================================================
+   EXPERIENCE (dark section)
+   ============================================================ */
+.experience{ background:var(--ink); color:var(--cream); }
+.experience .eyebrow{ color:var(--terra); }
+.experience h2{ font-size:clamp(2.6rem,6.5vw,6.4rem); max-width:14ch; margin:1.2rem 0 1rem; }
+.experience .lead{ color:rgba(246,241,235,.7); max-width:42ch; font-size:1.04rem; margin-bottom:3.8rem; }
+
+.exp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+.exp-card{
+  padding:2.4rem 2rem;
+  border:1px solid rgba(246,241,235,.1);
+  border-radius:3px;
+  transition:border-color .5s var(--ease), transform .5s var(--ease);
+}
+.exp-card:hover{ border-color:var(--terra); transform:translateY(-6px); }
+.exp-card .exp-no{
+  font-family:var(--serif); font-style:italic; font-size:2rem; color:var(--terra);
+  line-height:1; margin-bottom:1.4rem;
+}
+.exp-card h4{
+  font-family:var(--sans); font-weight:500; font-size:.82rem;
+  letter-spacing:.2em; text-transform:uppercase; margin-bottom:.9rem;
+}
+.exp-card p{ color:rgba(246,241,235,.65); font-size:.96rem; line-height:1.6; }
+
+/* ============================================================
+   EXPLORE
+   ============================================================ */
+.explore-head{ margin-bottom:3.4rem; }
+.explore-head h2{ font-size:clamp(2.6rem,6vw,5.6rem); max-width:14ch; margin:1.2rem 0 .8rem; }
+.explore-head p{ color:var(--ink-soft); max-width:44ch; font-size:1.04rem; }
+
+.explore-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; }
+.poi{
+  position:relative; overflow:hidden; border-radius:3px;
+  aspect-ratio:3/4; background:var(--cream-deep); cursor:pointer;
+}
+.poi .ph{ position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1.04); transition:transform 1.4s var(--ease); }
+.poi:hover .ph{ transform:scale(1.14); }
+.poi::after{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.65) 100%);
+}
+.poi-body{
+  position:absolute; bottom:0; left:0; right:0; z-index:2;
+  padding:1.6rem; color:#fff;
+}
+.poi-body .dist{
+  font-size:.58rem; letter-spacing:.28em; text-transform:uppercase; opacity:.8;
+  margin-bottom:.4rem;
+}
+.poi-body h4{ font-family:var(--serif); font-size:1.4rem; font-weight:500; line-height:1.1; margin-bottom:.3rem; }
+.poi-body p{ font-size:.82rem; opacity:0; transform:translateY(8px); transition:opacity .4s var(--ease), transform .4s var(--ease); }
+.poi:hover .poi-body p{ opacity:.85; transform:none; }
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.reviews{ background:var(--paper); }
+.reviews-head{ margin-bottom:3.6rem; }
+.reviews-head h2{ font-size:clamp(2.4rem,5.5vw,5.2rem); max-width:14ch; margin:1.2rem 0 .8rem; }
+.reviews-head p{ color:var(--ink-soft); max-width:40ch; font-size:1.04rem; }
+
+.reviews-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+.review{
+  padding:2.4rem; border:1px solid var(--line); border-radius:3px;
+  background:var(--cream);
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.review:hover{ transform:translateY(-5px); box-shadow:0 20px 50px -24px rgba(45,43,40,.2); }
+.review .stars{ color:var(--terra); font-size:1rem; letter-spacing:.1em; margin-bottom:1.2rem; }
+.review blockquote{
+  font-family:var(--serif); font-style:italic; font-size:1.1rem;
+  line-height:1.55; color:var(--ink); margin-bottom:1.5rem;
+}
+.review .reviewer{
+  font-size:.76rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); font-weight:500;
+}
+
+/* ============================================================
+   CTA BANNER
+   ============================================================ */
+.cta-banner{
+  position:relative; overflow:hidden;
+  min-height:480px;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; color:#fff;
+  padding:clamp(4rem,10vh,8rem) var(--pad);
+}
+.cta-banner .bg{
+  position:absolute; inset:0; z-index:-1;
+  background-size:cover; background-position:center 60%;
+  background-image:linear-gradient(180deg, rgba(45,43,40,.55), rgba(45,43,40,.65)),
+                   url("https://lh3.googleusercontent.com/gps-cs-s/APNQkAG0EFOzDTqZUuP3_ZC0ZQg6vVsJ0A4r0xipS8LoZYIgyy8IK8esaRuieoAq83S7nsLLckh3y_LLWyZUFKT4UfVc96St8NDk3XFMdWHCDF1XkZYTc6SKRLjh3cZd4_pgpG8fxUw=w2000-h762-k-no");
+}
+.cta-inner h2{ font-size:clamp(2.6rem,7vw,6.4rem); max-width:15ch; margin:0 auto 1rem; }
+.cta-inner p{
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(1.1rem,2.2vw,1.6rem); line-height:1.5;
+  max-width:36ch; margin:0 auto 2.2rem;
+  color:rgba(255,255,255,.85);
+}
+.cta-inner .cta-actions{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.btn-white{ background:#fff; color:var(--ink); border-color:#fff; }
+.btn-white:hover{ background:var(--terra); color:#fff; border-color:var(--terra); transform:translateY(-3px); box-shadow:0 14px 30px -12px rgba(192,123,74,.6); }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact{ display:grid; grid-template-columns:1fr 1fr; }
+.contact-media{
+  position:relative; min-height:520px;
+  background-size:cover; background-position:center;
+  background-image:linear-gradient(135deg, rgba(35,30,24,.3), rgba(35,30,24,.08)),
+                   url("https://lh3.googleusercontent.com/gps-cs-s/APNQkAG0EFOzDTqZUuP3_ZC0ZQg6vVsJ0A4r0xipS8LoZYIgyy8IK8esaRuieoAq83S7nsLLckh3y_LLWyZUFKT4UfVc96St8NDk3XFMdWHCDF1XkZYTc6SKRLjh3cZd4_pgpG8fxUw=w1600-h1067-k-no");
+}
+.contact-media .stamp{
+  position:absolute; left:clamp(1.5rem,4vw,3rem); bottom:clamp(1.5rem,4vw,3rem);
+  background:rgba(246,241,235,.92); backdrop-filter:blur(6px);
+  padding:1.1rem 1.5rem; border-radius:3px; color:var(--ink);
+}
+.contact-media .stamp .k{ font-size:.58rem; letter-spacing:.3em; text-transform:uppercase; color:var(--terra); }
+.contact-media .stamp .v{ font-family:var(--serif); font-size:1.4rem; line-height:1.15; margin-top:.2rem; }
+.contact-copy{ padding:clamp(3rem,7vw,6.5rem) var(--pad); display:flex; flex-direction:column; justify-content:center; }
+.contact-copy h2{ font-size:clamp(2.2rem,4.5vw,4.2rem); margin:1.2rem 0 1.4rem; max-width:13ch; }
+.contact-copy > p{ color:var(--ink-soft); font-size:1.05rem; max-width:40ch; margin-bottom:2.4rem; }
+.info-rows{ display:flex; flex-direction:column; gap:0; margin-bottom:2.4rem; }
+.info{ display:flex; justify-content:space-between; gap:1rem; padding:1rem 0; border-top:1px solid var(--line); }
+.info:last-child{ border-bottom:1px solid var(--line); }
+.info .lbl{ font-size:.64rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); }
+.info .val{ font-family:var(--serif); font-size:1.14rem; text-align:right; }
+.info .val a{ border-bottom:1px solid var(--terra); transition:color .3s; }
+.info .val a:hover{ color:var(--terra-deep); }
+.contact-actions{ display:flex; gap:1rem; flex-wrap:wrap; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ background:var(--ink); color:var(--cream); padding:clamp(4rem,8vh,7rem) var(--pad) 2.5rem; }
+.foot-top{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:3rem; padding-bottom:3.5rem; border-bottom:1px solid rgba(246,241,235,.1); }
+.foot-brand .brand{ color:var(--cream); }
+.foot-brand .brand .b-sub{ color:rgba(246,241,235,.5); }
+.foot-brand p{ color:rgba(246,241,235,.6); max-width:34ch; margin-top:1.4rem; font-size:.96rem; }
+.foot-col h5{ font-size:.64rem; letter-spacing:.28em; text-transform:uppercase; color:var(--terra); margin-bottom:1.3rem; }
+.foot-col a, .foot-col p{ display:block; color:rgba(246,241,235,.7); font-size:.93rem; margin-bottom:.7rem; transition:color .3s; }
+.foot-col a:hover{ color:#fff; }
+.foot-bottom{ display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; padding-top:2rem; font-size:.73rem; color:rgba(246,241,235,.45); letter-spacing:.04em; }
+.foot-bottom .credit b{ color:var(--terra); font-weight:500; }
+.foot-bottom a{ color:rgba(246,241,235,.65); }
+.foot-bottom a:hover{ color:#fff; }
+
+
+/* ---------- SKIP LINK & FOCUS ---------- */
+.skip-link{position:absolute;top:-40px;left:0;background:var(--ink);color:#fff;padding:8px 16px;z-index:10001;transition:top .3s;font:600 .78rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;}.skip-link:focus{top:0;outline:none;}
+a:focus-visible,button:focus-visible,.btn:focus-visible,.nav-toggle:focus-visible{outline:2px solid var(--terra);outline-offset:2px;}
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:980px){
+  .nav-links{
+    position:fixed; inset:0 0 0 auto; width:min(82vw,340px);
+    background:var(--cream); flex-direction:column; justify-content:center; align-items:flex-start;
+    gap:1.8rem; padding:0 2.4rem; transform:translateX(100%); transition:transform .5s var(--ease);
+    box-shadow:-30px 0 60px -40px rgba(0,0,0,.35); font-size:1rem;
+  }
+  .nav-links.open{ transform:none; }
+  .nav-links.open ~ .nav-toggle span{ background:var(--ink); }
+  .nav-links a{ color:var(--ink-soft); text-shadow:none; }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links .nav-cta{ border-color:var(--ink); color:var(--ink); text-shadow:none; }
+  .nav-links .nav-cta:hover{ background:var(--ink); color:var(--cream) !important; }
+  .nav-toggle{ display:flex; z-index:1001; }
+  .story{ grid-template-columns:1fr; gap:3.5rem; }
+  .contact{ grid-template-columns:1fr; }
+  .contact-media{ min-height:360px; }
+  .foot-top{ grid-template-columns:1fr 1fr; gap:2.5rem; }
+  .foot-brand{ grid-column:1/-1; }
+  .exp-grid{ grid-template-columns:1fr; }
+  .explore-grid{ grid-template-columns:repeat(2,1fr); }
+  .reviews-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:760px){
+  .s-wide,.s-tall,.s-full{ grid-column:span 12; aspect-ratio:4/3.2; }
+  .explore-grid{ grid-template-columns:1fr; }
+  .features-strip{ gap:1.2rem; padding:1rem var(--pad); }
+  .feat{ font-size:.68rem; }
+  .hero{ align-items:flex-end; }
+  .story-figure .badge{ width:115px; height:115px; font-size:.88rem; left:-10px; }
+  .scroll-hint{ display:none; }
+  .info .val{ font-size:1.02rem; }
+  .foot-top{ grid-template-columns:1fr; }
+  .suites-head{ margin-bottom:2.4rem; }
+  .cta-banner{ min-height:400px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  .reveal,.reveal-pop{ opacity:1 !important; transform:none !important; }
+  .split .w > i{ transform:none !important; }
+  .hero-media{ animation:none; }
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Almasi Luxury Suites home">
+    Almasi
+    <span class="b-sub">Luxury Suites &middot; Alexandroupoli</span>
+  </a>
+  <nav class="nav-links" id="navLinks" aria-label="Primary">
+    <a href="#story">Our Story</a>
+    <a href="#suites">Suites</a>
+    <a href="#experience">Experience</a>
+    <a href="#explore">Explore</a>
+    <a href="#contact" class="nav-cta">Book Now</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main id="main">
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-media" aria-hidden="true"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Boutique Guesthouse &middot; Alexandroupoli, Greece</p>
+    <h1 class="display">
+      <span class="line"><span>A hidden gem</span></span>
+      <span class="line"><span>by the Thracian</span></span>
+      <span class="line"><span><em>Sea.</em></span></span>
+    </h1>
+    <p class="hero-tag">Where personal hospitality meets seaside elegance &mdash; your intimate retreat in the heart of Alexandroupoli.</p>
+    <div class="hero-actions">
+      <a href="#suites" class="btn btn-terra">Discover Our Suites <span class="arrow">&rarr;</span></a>
+      <a href="#story" class="btn btn-ghost-light">Our Story</a>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span class="bar"></span> Scroll</div>
+</section>
+
+<!-- ================= FEATURE STRIP ================= -->
+<div class="features-strip" aria-label="Key features">
+  <div class="feat reveal"><span class="feat-icon" aria-hidden="true">&#9733;</span> 4.9 Google Rating</div>
+  <div class="feat reveal" data-delay="1"><span class="feat-icon" aria-hidden="true">&#9826;</span> Boutique Guesthouse</div>
+  <div class="feat reveal" data-delay="2"><span class="feat-icon" aria-hidden="true">&#9737;</span> Steps from the Sea</div>
+  <div class="feat reveal" data-delay="3"><span class="feat-icon" aria-hidden="true">&#9825;</span> Personal Hospitality</div>
+</div>
+
+<!-- ================= STORY ================= -->
+<section class="wrap" id="story">
+  <div class="story">
+    <div class="story-copy">
+      <p class="eyebrow reveal">The Almasi Story</p>
+      <h2 class="display split">
+        <span class="w"><i><em>Almasi</em></i></span> <span class="w"><i>means</i></span> <span class="w"><i>diamond.</i></span>
+      </h2>
+      <p class="reveal" data-delay="1">Nestled on the vibrant Eleftheriou Venizelou street, Almasi Luxury Suites is a boutique guesthouse built on a simple idea: that the best travel memories come from places that feel personal, not polished to anonymity.</p>
+      <p class="reveal" data-delay="2">Every suite is designed with quiet luxury in mind &mdash; warm textures, considered details, and the kind of comfort that makes you forget you're not home. The Thracian Sea breeze, the golden light of northeastern Greece, and a host who genuinely cares complete the picture.</p>
+      <a href="#suites" class="btn btn-ghost reveal" data-delay="3">See the suites <span class="arrow">&rarr;</span></a>
+    </div>
+    <figure class="story-figure reveal" data-delay="1">
+      <div class="frame">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG0EFOzDTqZUuP3_ZC0ZQg6vVsJ0A4r0xipS8LoZYIgyy8IK8esaRuieoAq83S7nsLLckh3y_LLWyZUFKT4UfVc96St8NDk3XFMdWHCDF1XkZYTc6SKRLjh3cZd4_pgpG8fxUw=w1100-h1375-k-no"
+             alt="Balcony at Almasi Luxury Suites with a bistro table set with wine glasses and charcuterie, surrounded by lush garden foliage" loading="lazy" />
+      </div>
+      <div class="badge"><b>Est. &middot; Greece</b>Quiet<br>luxury</div>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= SUITES ================= -->
+<section class="wrap suites" id="suites">
+  <div class="suites-head">
+    <h2 class="display split">
+      <span class="w"><i>Your</i></span> <span class="w"><i>private</i></span> <span class="w"><i><em>retreat.</em></i></span>
+    </h2>
+    <p class="reveal" data-delay="1">Thoughtfully designed suites where warmth meets refinement &mdash; each one a small world of its own.</p>
+  </div>
+
+  <div class="suite-grid">
+    <!-- Comfort Suite -->
+    <article class="suite s-wide reveal-pop">
+      <div class="ph" style="background-color:var(--cream-deep);background-image:url('https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1400&q=80')"></div>
+      <span class="corner">&rarr;</span>
+      <div class="suite-body">
+        <span class="k">Warm &middot; Inviting &middot; 25m&sup2;</span>
+        <h3>Comfort Suite</h3>
+        <p class="d">Natural materials, soft linens, and a cocoon of warmth. Everything you need, nothing you don't.</p>
+      </div>
+    </article>
+
+    <!-- Deluxe Suite -->
+    <article class="suite s-tall reveal-pop" data-delay="1">
+      <div class="ph" style="background-color:var(--cream-deep);background-image:url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=80')"></div>
+      <span class="corner">&rarr;</span>
+      <div class="suite-body">
+        <span class="k">Spacious &middot; Elegant &middot; 35m&sup2;</span>
+        <h3>Deluxe Suite</h3>
+        <p class="d">Extra space, premium touches, and a sitting area bathed in Aegean light.</p>
+      </div>
+    </article>
+
+    <!-- Premium Sea View -->
+    <article class="suite s-full reveal-pop" data-delay="2">
+      <div class="ph" style="background-color:var(--cream-deep);background-image:url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2000&q=80')"></div>
+      <span class="corner">&rarr;</span>
+      <div class="suite-body">
+        <span class="k">Panoramic &middot; Private Balcony &middot; 42m&sup2;</span>
+        <h3>Premium Suite &mdash; Sea View</h3>
+        <p class="d">Wake up to the Thracian Sea. A private balcony, king bed, and the kind of view that stops you mid-sentence.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="wrap experience" id="experience">
+  <p class="eyebrow reveal">The Almasi Experience</p>
+  <h2 class="display split">
+    <span class="w"><i>More</i></span> <span class="w"><i>than</i></span> <span class="w"><i>a</i></span> <span class="w"><i><em>stay.</em></i></span>
+  </h2>
+  <p class="lead reveal" data-delay="1">Small things, done with intention. This is what sets a guesthouse apart from a hotel.</p>
+
+  <div class="exp-grid">
+    <div class="exp-card reveal-pop">
+      <span class="exp-no">01</span>
+      <h4>Homemade Breakfast</h4>
+      <p>Fresh pastries, local Thracian honey, seasonal fruit, and strong Greek coffee &mdash; served each morning in the dining room or on the terrace.</p>
+    </div>
+    <div class="exp-card reveal-pop" data-delay="1">
+      <span class="exp-no">02</span>
+      <h4>Personal Concierge</h4>
+      <p>Restaurant bookings, hidden beaches, the best sunset spot &mdash; your host knows Alexandroupoli like a local because they are one.</p>
+    </div>
+    <div class="exp-card reveal-pop" data-delay="2">
+      <span class="exp-no">03</span>
+      <h4>Evening Wine Hour</h4>
+      <p>A complimentary glass of Thracian wine on the terrace as the sun dips behind the harbour. The perfect end to a day by the sea.</p>
+    </div>
+    <div class="exp-card reveal-pop" data-delay="3">
+      <span class="exp-no">04</span>
+      <h4>Curated City Guides</h4>
+      <p>Hand-drawn maps and honest recommendations &mdash; the taverna the tourists miss, the morning market route, the quietest beach.</p>
+    </div>
+    <div class="exp-card reveal-pop" data-delay="4">
+      <span class="exp-no">05</span>
+      <h4>Premium Amenities</h4>
+      <p>High-speed WiFi, premium toiletries, luxury linens, climate control, and soundproofed rooms for an undisturbed rest.</p>
+    </div>
+    <div class="exp-card reveal-pop" data-delay="5">
+      <span class="exp-no">06</span>
+      <h4>Flexible Check-in</h4>
+      <p>Early arrivals, late departures &mdash; we work around your schedule, not ours. Travel should feel effortless.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPLORE ================= -->
+<section class="wrap" id="explore">
+  <div class="explore-head">
+    <p class="eyebrow reveal">Discover Alexandroupoli</p>
+    <h2 class="display split">
+      <span class="w"><i>A</i></span> <span class="w"><i>city</i></span> <span class="w"><i>that</i></span> <span class="w"><i><em>surprises.</em></i></span>
+    </h2>
+    <p class="reveal" data-delay="1">The gateway to Thrace &mdash; where the Aegean meets wild river deltas, Byzantine history, and some of the best seafood in Greece.</p>
+  </div>
+
+  <div class="explore-grid">
+    <figure class="poi reveal-pop">
+      <div class="ph" style="background-color:var(--cream-deep);background-image:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80')" role="img" aria-label="Alexandroupoli lighthouse at sunset"></div>
+      <div class="poi-body">
+        <span class="dist">8 min walk</span>
+        <h4>The Lighthouse</h4>
+        <p>The city's beloved symbol &mdash; perfect at sunset.</p>
+      </div>
+    </figure>
+    <figure class="poi reveal-pop" data-delay="1">
+      <div class="ph" style="background-color:var(--cream-deep);background-image:url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80')" role="img" aria-label="Sandy beach with crystal blue water"></div>
+      <div class="poi-body">
+        <span class="dist">5 min walk</span>
+        <h4>City Beach</h4>
+        <p>Sandy shores and calm waters, right at your doorstep.</p>
+      </div>
+    </figure>
+    <figure class="poi reveal-pop" data-delay="2">
+      <div class="ph" style="background-color:var(--cream-deep);background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80')" role="img" aria-label="Traditional Greek seafood dish"></div>
+      <div class="poi-body">
+        <span class="dist">Throughout the city</span>
+        <h4>Thracian Cuisine</h4>
+        <p>Fresh seafood, local wine, and flavours found nowhere else in Greece.</p>
+      </div>
+    </figure>
+    <figure class="poi reveal-pop" data-delay="3">
+      <div class="ph" style="background-color:var(--cream-deep);background-image:url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80')" role="img" aria-label="Wetland river delta with birds"></div>
+      <div class="poi-body">
+        <span class="dist">25 min drive</span>
+        <h4>Evros Delta</h4>
+        <p>One of Europe's great wetlands &mdash; flamingos, eagles, and absolute stillness.</p>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section class="wrap reviews" id="reviews">
+  <div class="reviews-head">
+    <p class="eyebrow reveal">Guest Voices</p>
+    <h2 class="display split">
+      <span class="w"><i>What</i></span> <span class="w"><i>they</i></span> <span class="w"><i><em>say.</em></i></span>
+    </h2>
+    <p class="reveal" data-delay="1">Rated 4.9 out of 5 on Google &mdash; because some things speak for themselves.</p>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review reveal-pop">
+      <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <blockquote>&ldquo;Absolutely spotless, beautifully decorated, and the host made us feel like family. The breakfast alone is worth the stay. We'll be back every summer.&rdquo;</blockquote>
+      <span class="reviewer">Maria K. &middot; Athens</span>
+    </div>
+    <div class="review reveal-pop" data-delay="1">
+      <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <blockquote>&ldquo;A real hidden gem. The location is perfect &mdash; walking distance to the sea, the lighthouse, and the best tavernas. Quiet, elegant, and genuinely personal.&rdquo;</blockquote>
+      <span class="reviewer">Dimitris P. &middot; Thessaloniki</span>
+    </div>
+    <div class="review reveal-pop" data-delay="2">
+      <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <blockquote>&ldquo;We've stayed in luxury hotels all over Greece, but nothing matches the warmth and attention here. It's like staying at a friend's beautiful home.&rdquo;</blockquote>
+      <span class="reviewer">Anna &amp; George T. &middot; Istanbul</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA BANNER ================= -->
+<section class="cta-banner">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="cta-inner">
+    <p class="eyebrow reveal" style="color:var(--terra);">Your Escape Awaits</p>
+    <h2 class="display split">
+      <span class="w"><i>Ready</i></span> <span class="w"><i>to</i></span> <span class="w"><i><em>discover?</em></i></span>
+    </h2>
+    <p class="reveal" data-delay="1">Book your stay at Almasi and experience Alexandroupoli the way it was meant to be &mdash; slow, warm, and unforgettable.</p>
+    <div class="cta-actions reveal" data-delay="2">
+      <a href="tel:+306980999751" class="btn btn-white">Call to Book <span class="arrow">&rarr;</span></a>
+      <a href="#contact" class="btn btn-ghost-light">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="contact-media reveal" aria-hidden="true">
+    <div class="stamp"><span class="k">Find Us</span><span class="v">Ελ. Βενιζέλου 40</span></div>
+  </div>
+  <div class="contact-copy">
+    <p class="eyebrow reveal">Get in Touch</p>
+    <h2 class="display split">
+      <span class="w"><i>We'd</i></span> <span class="w"><i>love</i></span> <span class="w"><i>to</i></span> <span class="w"><i><em>hear</em></i></span> <span class="w"><i><em>from</em></i></span> <span class="w"><i><em>you.</em></i></span>
+    </h2>
+    <p class="reveal" data-delay="1">Whether you have a question, want to plan your trip, or simply need a recommendation &mdash; we're here.</p>
+    <div class="info-rows">
+      <div class="info reveal" data-delay="1"><span class="lbl">Address</span><span class="val"><a href="https://maps.google.com/?q=Ελ.+Βενιζέλου+40,+Αλεξανδρούπολη" target="_blank" rel="noopener">Ελ. Βενιζέλου 40<br>Αλεξανδρούπολη, Greece</a></span></div>
+      <div class="info reveal" data-delay="2"><span class="lbl">Phone</span><span class="val"><a href="tel:+306980999751">+30 698 099 9751</a></span></div>
+      <div class="info reveal" data-delay="3"><span class="lbl">Rating</span><span class="val">4.9 &#9733; on Google</span></div>
+    </div>
+    <div class="contact-actions">
+      <a href="tel:+306980999751" class="btn btn-terra reveal" data-delay="2">Call Us <span class="arrow">&rarr;</span></a>
+      <a href="https://maps.google.com/?q=Ελ.+Βενιζέλου+40,+Αλεξανδρούπολη" target="_blank" rel="noopener" class="btn btn-ghost reveal" data-delay="3">Open in Maps</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <span class="brand">Almasi<span class="b-sub">Luxury Suites &middot; Alexandroupoli</span></span>
+      <p>A boutique guesthouse where personal hospitality meets seaside elegance. Your hidden gem in Alexandroupoli, Greece.</p>
+      <p style="margin-top:.8rem"><a href="https://maps.google.com/?q=Ελ.+Βενιζέλου+40,+Αλεξανδρούπολη" target="_blank" rel="noopener">Ελ. Βενιζέλου 40, Αλεξανδρούπολη</a></p>
+    </div>
+    <div class="foot-col">
+      <h5>Stay</h5>
+      <a href="#suites">Comfort Suite</a>
+      <a href="#suites">Deluxe Suite</a>
+      <a href="#suites">Premium Sea View</a>
+      <a href="#experience">The Experience</a>
+    </div>
+    <div class="foot-col">
+      <h5>Discover</h5>
+      <a href="#story">Our Story</a>
+      <a href="#explore">Explore the City</a>
+      <a href="#reviews">Guest Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; <span id="yr"></span> Almasi Luxury Suites &middot; Alexandroupoli, Greece.</span>
+    <span class="credit">Concept &amp; design preview by <b>SAOS&nbsp;Studio</b></span>
+  </div>
+</footer>
+
+<script>
+/* ---------- year ---------- */
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---------- nav scrolled state ---------- */
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+onScroll();
+window.addEventListener('scroll', onScroll, { passive:true });
+
+/* ---------- mobile menu ---------- */
+const toggle = document.getElementById('navToggle');
+const links  = document.getElementById('navLinks');
+toggle.addEventListener('click', () => {
+  const open = links.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  links.classList.remove('open');
+  toggle.setAttribute('aria-expanded', false);
+}));
+
+/* ---------- hero load ---------- */
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => document.querySelector('.hero').classList.add('in'));
+});
+if (document.readyState === 'complete') document.querySelector('.hero').classList.add('in');
+
+/* ---------- scroll reveal (IntersectionObserver) ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+  });
+}, { threshold:0.14, rootMargin:'0px 0px -8% 0px' });
+
+document.querySelectorAll('.reveal, .reveal-pop, .split').forEach(el => io.observe(el));
+
+/* ---------- hero parallax ---------- */
+const heroInner = document.querySelector('.hero-inner');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (heroInner && !reduce){
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking){
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < window.innerHeight){
+          heroInner.style.transform = 'translateY(' + (y * 0.15) + 'px)';
+          heroInner.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.85)));
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive:true });
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){const links=document.getElementById('navLinks');const btn=document.getElementById('navToggle');if(links&&btn){links.classList.remove('open');btn.setAttribute('aria-expanded','false');}}});
+</script>
+</body>
+</html>

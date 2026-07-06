@@ -1,0 +1,22 @@
+{
+  "name": "saos-sales-agent",
+  "version": "1.0.0",
+  "description": "SAOS Studio sales workflow: find leads, generate AI drafts, send cold emails",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "search": "node src/app.js search",
+    "add": "node src/app.js add",
+    "analyze": "node src/app.js analyze",
+    "draft": "node src/app.js draft",
+    "email": "node src/app.js email",
+    "list": "node src/app.js list",
+    "stats": "node src/app.js stats"
+  },
+  "dependencies": {
+    "resend": "^3.0.0",
+    "puppeteer": "^22.0.0"
+  },
+  "engines": { "node": ">=18.0.0" }
+}

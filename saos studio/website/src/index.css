@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: #ffffff;
+    color: #0a0a0a;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: #0a0a0a;
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  /* Big, bold, mixed-case Greek display type. Heavy Manrope, tight tracking. */
+  .text-headline {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: #0a0a0a;
+  }
+  /* Emphasis segment — monochrome two-tone echo of the reference's colored words. */
+  .text-headline em,
+  .text-headline strong {
+    font-style: normal;
+    font-weight: 800;
+    color: #9ca3af;
+  }
+
+  /* Solid black pill/CTA button. */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #0a0a0a;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 9999px;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-primary:hover {
+    background: #262626;
+    gap: 0.9rem;
+  }
+
+  /* Outline button on light bg. */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: transparent;
+    color: #0a0a0a;
+    font-weight: 700;
+    border: 1.5px solid #0a0a0a;
+    border-radius: 9999px;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-outline:hover {
+    background: #0a0a0a;
+    color: #ffffff;
+    gap: 0.9rem;
+  }
+
+  /* White pill button used inside black CTA cards. */
+  .btn-on-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #ffffff;
+    color: #0a0a0a;
+    font-weight: 700;
+    border-radius: 9999px;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-on-dark:hover {
+    background: #e5e5e5;
+    gap: 0.9rem;
+  }
+}

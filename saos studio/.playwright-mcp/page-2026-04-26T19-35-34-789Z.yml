@@ -1,0 +1,250 @@
+- generic [ref=e2]:
+  - img "SAOS Studio" [ref=e4]
+  - navigation [ref=e5]:
+    - link "Home" [ref=e6]:
+      - /url: "#"
+      - generic [ref=e8]: saos.studio
+    - list [ref=e9]:
+      - listitem [ref=e10]:
+        - link "Μανιφέστο" [ref=e11]:
+          - /url: "#manifesto"
+          - text: Μανιφέστο
+      - listitem [ref=e12]:
+        - link "Υπηρεσίες" [ref=e13]:
+          - /url: "#services"
+          - text: Υπηρεσίες
+      - listitem [ref=e14]:
+        - link "Προσέγγιση" [ref=e15]:
+          - /url: "#approach"
+          - text: Προσέγγιση
+      - listitem [ref=e16]:
+        - link "Τιμές" [ref=e17]:
+          - /url: "#pricing"
+          - text: Τιμές
+      - listitem [ref=e18]:
+        - link "Επικοινωνία" [ref=e19]:
+          - /url: "#contact"
+          - text: Επικοινωνία
+    - link "hello@saos.studio" [ref=e21]:
+      - /url: mailto:hello@saos.studio
+  - main [ref=e22]:
+    - generic [ref=e23]:
+      - generic: SAOS
+      - generic [ref=e28]:
+        - img "SAOS Studio" [ref=e29]
+        - generic [ref=e32]: Thessaloniki, Greece — Web Studio
+        - heading "Ιστοσελίδες που μοιάζουν με τέχνη ." [level=1] [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]: Ιστοσελίδες
+            - generic [ref=e37]: που
+            - generic [ref=e38]: μοιάζουν
+            - generic [ref=e39]: με
+            - generic [ref=e40]: τέχνη
+            - generic [ref=e41]: .
+        - paragraph [ref=e42]: Όμορφος σχεδιασμός ιστοσελίδων με επίκεντρο την απόδοση, για φιλόδοξες επιχειρήσεις — παραδίδεται σε μέρες, όχι μήνες. Από €500.
+        - generic [ref=e43]:
+          - link "Ξεκινήστε το Project →" [ref=e44]:
+            - /url: "#contact"
+            - text: Ξεκινήστε το Project
+            - generic [ref=e45]: →
+          - link "Μάθετε Περισσότερα" [ref=e46]:
+            - /url: "#manifesto"
+      - generic [ref=e48]: Scroll
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - generic [ref=e57]: Το Μανιφέστο μας
+        - heading "Ένας σπουδαίος σχεδιασμός δεν πρέπει να κοστίζει μια περιουσία." [level=2] [ref=e62]:
+          - text: Ένας σπουδαίος σχεδιασμός δεν πρέπει να κοστίζει μια
+          - emphasis [ref=e63]: περιουσία
+          - text: .
+      - generic [ref=e64]:
+        - paragraph [ref=e66]:
+          - text: Πιστεύουμε ότι κάθε επιχείρηση αξίζει μια ιστοσελίδα που να δείχνει σαν να κόστισε €10.000 — ακόμα κι αν δεν κόστισε. Το
+          - strong [ref=e67]: SAOS Studio
+          - text: συνδυάζει την ταχύτητα και τη νοημοσύνη της σύγχρονης τεχνητής νοημοσύνης με την εκλεπτυσμένη αισθητική ανθρώπινων σχεδιαστών. Εντυπωσιακές, επαγγελματικές ιστοσελίδες σε λιγότερο από μία εβδομάδα, σε κλάσμα της τιμής ενός agency.
+        - paragraph [ref=e69]: Χωρίς φουσκωμένες διαδικασίες. Χωρίς junior σχεδιαστές που μαθαίνουν με δικά σας έξοδα. Μόνο καθαρός κώδικας, έξυπνη τυπογραφία και στρατηγικές διατάξεις που μετατρέπουν τους επισκέπτες σε πελάτες.
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - heading "€500" [level=3] [ref=e73]
+            - paragraph [ref=e74]: Μέγιστη τιμή για το κυρίως πακέτο. Χωρίς κρυφές χρεώσεις.
+          - generic [ref=e75]:
+            - heading "7" [level=3] [ref=e76]
+            - paragraph [ref=e77]: Μέρες μέχρι το launch. Όχι εβδομάδες, όχι μήνες.
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e84]: Τι Φτιάχνουμε
+        - heading "Τρεις τρόποι να ανεβάσετε την εταιρεία σας." [level=2] [ref=e87]:
+          - text: Τρεις τρόποι να ανεβάσετε την
+          - emphasis [ref=e88]: εταιρεία
+          - text: σας.
+      - generic [ref=e89]:
+        - generic [ref=e91]:
+          - generic [ref=e92]:
+            - generic [ref=e93]: "01"
+            - generic [ref=e94]: Εκκίνηση
+          - heading "Landing Page" [level=3] [ref=e95]
+          - generic [ref=e96]: €299
+          - paragraph [ref=e97]: εφάπαξ, χωρίς κρυφές χρεώσεις
+          - list [ref=e99]:
+            - listitem [ref=e100]: Μία σελίδα υψηλών μετατροπών
+            - listitem [ref=e102]: Σχεδιασμός mobile-first
+            - listitem [ref=e104]: Φόρμα επικοινωνίας
+            - listitem [ref=e106]: Βασική ρύθμιση SEO
+            - listitem [ref=e108]: 2 γύροι αναθεώρησης
+            - listitem [ref=e110]: Παράδοση σε 48 ώρες
+        - generic [ref=e113]:
+          - generic [ref=e115]:
+            - generic [ref=e116]: "02"
+            - generic [ref=e117]: Δημοφιλέστερο
+          - heading "Business Site" [level=3] [ref=e118]
+          - generic [ref=e119]: €499
+          - paragraph [ref=e120]: εφάπαξ, χωρίς κρυφές χρεώσεις
+          - list [ref=e122]:
+            - listitem [ref=e123]: Έως 5 σελίδες
+            - listitem [ref=e125]: Custom assets από AI
+            - listitem [ref=e127]: Προχωρημένο SEO & ταχύτητα
+            - listitem [ref=e129]: Φόρμες + χάρτης
+            - listitem [ref=e131]: Σύνδεση social media
+            - listitem [ref=e133]: 3 γύροι αναθεώρησης
+            - listitem [ref=e135]: Παράδοση σε 5 μέρες
+        - generic [ref=e138]:
+          - generic [ref=e139]:
+            - generic [ref=e140]: "03"
+            - generic [ref=e141]: Ανάπτυξη
+          - heading "Growth Suite" [level=3] [ref=e142]
+          - generic [ref=e143]: €799
+          - paragraph [ref=e144]: εφάπαξ, χωρίς κρυφές χρεώσεις
+          - list [ref=e146]:
+            - listitem [ref=e147]: Έως 10 σελίδες + blog
+            - listitem [ref=e149]: Πλήρης ρύθμιση analytics
+            - listitem [ref=e151]: Σύνδεση newsletter
+            - listitem [ref=e153]: Προτεραιότητα υποστήριξης (30 μέρες)
+            - listitem [ref=e155]: Απεριόριστες αναθεωρήσεις
+            - listitem [ref=e157]: Έγγραφο οδηγιών brand
+            - listitem [ref=e159]: Παράδοση σε 7 μέρες
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - generic [ref=e167]: Πώς Δουλεύουμε
+        - heading "Από την ιδέα στο live σε μία εβδομάδα." [level=2] [ref=e170]:
+          - text: Από την ιδέα στο
+          - emphasis [ref=e171]: live
+          - text: σε μία εβδομάδα.
+      - generic [ref=e172]:
+        - generic [ref=e174]:
+          - generic [ref=e175]: "01"
+          - generic [ref=e176]:
+            - heading "Ανακάλυψη" [level=4] [ref=e177]
+            - paragraph [ref=e178]: Μοιράζεστε το όραμα, το περιεχόμενο και το brand σας. Κάνουμε τις σωστές ερωτήσεις σε ένα σύντομο briefing 15 λεπτών.
+        - generic [ref=e181]:
+          - generic [ref=e182]: "02"
+          - generic [ref=e183]:
+            - heading "Πρόχειρο" [level=4] [ref=e184]
+            - paragraph [ref=e185]: Η τεχνητή νοημοσύνη δημιουργεί ένα πλήρες οπτικό πρόχειρο σε ώρες. Ελέγχετε τη δομή, την τυπογραφία και τη ροή.
+        - generic [ref=e188]:
+          - generic [ref=e189]: "03"
+          - generic [ref=e190]:
+            - heading "Εκλέπτυνση" [level=4] [ref=e191]
+            - paragraph [ref=e192]: Άνθρωποι σχεδιαστές γυαλίζουν κάθε pixel. Animation, αποστάσεις και σχεδιασμός αλληλεπιδράσεων σε τελειότητα.
+        - generic [ref=e195]:
+          - generic [ref=e196]: "04"
+          - generic [ref=e197]:
+            - heading "Launch" [level=4] [ref=e198]
+            - paragraph [ref=e199]: Ανεβάζουμε, συνδέουμε το domain σας, ρυθμίζουμε το SEO και σας παραδίδουμε μια ιστοσελίδα έτοιμη να μετατρέψει.
+    - generic [ref=e202]:
+      - generic [ref=e203]:
+        - generic [ref=e207]: Τι Περιλαμβάνεται
+        - heading "Ποιότητα agency. Ταχύτητα startup. Τιμή freelancer." [level=2] [ref=e210]:
+          - text: Ποιότητα agency. Ταχύτητα
+          - emphasis [ref=e211]: startup
+          - text: .
+          - text: Τιμή freelancer.
+      - generic [ref=e212]:
+        - generic [ref=e214]:
+          - heading "Κάθε Πακέτο Περιλαμβάνει" [level=3] [ref=e215]
+          - list [ref=e216]:
+            - listitem [ref=e217]:
+              - img [ref=e218]
+              - text: Custom design προσαρμοσμένο στον κλάδο σας
+            - listitem [ref=e220]:
+              - img [ref=e221]
+              - text: Responsive σε όλες τις συσκευές
+            - listitem [ref=e223]:
+              - img [ref=e224]
+              - text: Βελτιστοποίηση Google PageSpeed
+            - listitem [ref=e226]:
+              - img [ref=e227]
+              - text: Βασική ρύθμιση on-page SEO
+            - listitem [ref=e229]:
+              - img [ref=e230]
+              - text: Φόρμες επικοινωνίας & χάρτης
+            - listitem [ref=e232]:
+              - img [ref=e233]
+              - text: Social links & meta tags
+            - listitem [ref=e235]:
+              - img [ref=e236]
+              - text: Βοήθεια σύνδεσης domain
+            - listitem [ref=e238]:
+              - img [ref=e239]
+              - text: Υποστήριξη 30 ημερών μετά το launch
+        - generic [ref=e242]:
+          - generic [ref=e243]:
+            - paragraph [ref=e244]: Τα παραδοσιακά agencies χρεώνουν €3.000–€10.000 για ό,τι παραδίδουμε σε μία εβδομάδα. Κόβουμε τα περιττά έξοδα — χωρίς fancy γραφεία, χωρίς account managers, χωρίς φουσκωμένα meetings. Μόνο σχεδιαστές, κώδικας και καφές.
+            - paragraph [ref=e245]: Κάθε site είναι χειροποίητα φινιρισμένο. Η AI μας πάει στο 80% σε χρόνο ρεκόρ. Το τελικό 20% — οι αποστάσεις, ο ρυθμός, η ψυχή — είναι όλα ανθρώπινα.
+          - link "Δωρεάν Εκτίμηση →" [ref=e247]:
+            - /url: "#contact"
+            - text: Δωρεάν Εκτίμηση
+            - generic [ref=e248]: →
+    - generic [ref=e250]:
+      - generic [ref=e251]:
+        - generic [ref=e255]: Συχνές Ερωτήσεις
+        - heading "Ερωτήσεις; Απαντήσεις." [level=2] [ref=e258]:
+          - text: Ερωτήσεις;
+          - emphasis [ref=e259]: Απαντήσεις.
+      - generic [ref=e260]:
+        - button "01 Πώς είναι τόσο χαμηλή η τιμή σε σύγκριση με τα agencies;" [ref=e263]:
+          - generic [ref=e264]:
+            - generic [ref=e265]: "01"
+            - generic [ref=e266]: Πώς είναι τόσο χαμηλή η τιμή σε σύγκριση με τα agencies;
+        - button "02 Θα δείχνει η ιστοσελίδα μου γενική ή σαν template;" [ref=e272]:
+          - generic [ref=e273]:
+            - generic [ref=e274]: "02"
+            - generic [ref=e275]: Θα δείχνει η ιστοσελίδα μου γενική ή σαν template;
+        - button "03 Τι χρειάζεται να μας δώσετε για να ξεκινήσουμε;" [ref=e281]:
+          - generic [ref=e282]:
+            - generic [ref=e283]: "03"
+            - generic [ref=e284]: Τι χρειάζεται να μας δώσετε για να ξεκινήσουμε;
+        - button "04 Μπορώ να ζητήσω αλλαγές αφού ανέβει το site;" [ref=e290]:
+          - generic [ref=e291]:
+            - generic [ref=e292]: "04"
+            - generic [ref=e293]: Μπορώ να ζητήσω αλλαγές αφού ανέβει το site;
+        - button "05 Αναλαμβάνετε hosting και domains;" [ref=e299]:
+          - generic [ref=e300]:
+            - generic [ref=e301]: "05"
+            - generic [ref=e302]: Αναλαμβάνετε hosting και domains;
+    - generic [ref=e307]:
+      - generic [ref=e311]: Ξεκινήστε Σήμερα
+      - heading "Ας φτιάξουμε κάτι όμορφο." [level=2] [ref=e314]:
+        - text: Ας φτιάξουμε κάτι
+        - emphasis [ref=e315]: όμορφο
+        - text: .
+      - paragraph [ref=e317]: Απάντηση εντός 24 ωρών. Χωρίς δέσμευση.
+      - link "hello@saos.studio" [ref=e319]:
+        - /url: mailto:hello@saos.studio
+        - text: hello@saos.studio
+      - generic [ref=e321]:
+        - generic [ref=e322]: ή
+        - 'link "WhatsApp: +30 000 000 0000" [ref=e325]':
+          - /url: https://wa.me/30000000000
+  - contentinfo [ref=e326]:
+    - generic [ref=e327]:
+      - generic [ref=e330]: SAOS Studio — Thessaloniki
+      - generic [ref=e331]:
+        - link "Μανιφέστο" [ref=e332]:
+          - /url: "#manifesto"
+        - link "Υπηρεσίες" [ref=e333]:
+          - /url: "#services"
+        - link "Προσέγγιση" [ref=e334]:
+          - /url: "#approach"
+        - link "Επικοινωνία" [ref=e335]:
+          - /url: "#contact"
+      - generic [ref=e336]: © 2026 SAOS Studio

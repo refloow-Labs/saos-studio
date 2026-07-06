@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Salento Wood Fired Street Food — Αυθεντικό Ιταλικό Street Food στην Καρδιά της Θεσσαλονίκης. Pizza, Sandwiches, Lasagna, Vegan. Ελ. Βενιζέλου 76.">
+<meta name="theme-color" content="#1C1C1C">
+<title>Salento — Wood Fired Street Food · Θεσσαλονίκη</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================
+   RESET & BASE
+   ============================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --color-cream: #FAF7F2;
+  --color-charcoal: #1C1C1C;
+  --color-red: #C63D2F;
+  --color-red-dark: #A33225;
+  --color-olive: #6B7F5E;
+  --color-gold: #D4A843;
+  --color-warm-gray: #E8E2D9;
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ============================
+   SCROLL ANIMATIONS
+   ============================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+.reveal.from-left {
+  transform: translateX(-60px);
+}
+
+.reveal.from-right {
+  transform: translateX(60px);
+}
+
+.reveal.scale-in {
+  transform: scale(0.9);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero__bg {
+    animation: none !important;
+  }
+  .marquee__track {
+    animation: none !important;
+  }
+}
+
+/* ============================
+   TYPOGRAPHY
+   ============================ */
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.heading-section {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+}
+
+/* ============================
+   NAVBAR
+   ============================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(250, 247, 242, 0.85);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  backdrop-filter: blur(16px) saturate(1.6);
+  box-shadow: 0 1px 0 rgba(28, 28, 28, 0.06);
+}
+
+.navbar__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navbar__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-charcoal);
+  line-height: 1;
+}
+
+.navbar.at-top .navbar__logo {
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+}
+
+.navbar__sub {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-charcoal);
+  opacity: 0.5;
+}
+
+.navbar.at-top .navbar__sub {
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  list-style: none;
+}
+
+.navbar__links a {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-charcoal);
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar.at-top .navbar__links a {
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+}
+
+.navbar__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-red);
+  transition: width 0.3s var(--ease-out);
+}
+
+.navbar__links a:hover::after,
+.navbar__links a:focus::after {
+  width: 100%;
+}
+
+.navbar__cta {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--color-red);
+  color: #fff;
+  padding: 0.6rem 1.4rem;
+  border-radius: 4px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.navbar__cta:hover {
+  background: var(--color-red-dark);
+  transform: translateY(-1px);
+}
+
+/* Hamburger */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+  padding: 4px 0;
+  z-index: 1001;
+}
+
+.navbar__hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--color-charcoal);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar.at-top .navbar__hamburger span {
+  background: #fff;
+}
+
+.navbar__hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar__hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar__hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile nav */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 360px;
+  height: 100dvh;
+  background: var(--color-cream);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 2.5rem;
+  transition: right 0.5s var(--ease-out);
+  box-shadow: -8px 0 40px rgba(0,0,0,0.1);
+}
+
+.mobile-nav.open {
+  right: 0;
+}
+
+.mobile-nav__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28,28,28,0.4);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-nav__overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-nav a {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 0;
+  color: var(--color-charcoal);
+  transition: color 0.2s ease;
+}
+
+.mobile-nav a:hover {
+  color: var(--color-red);
+}
+
+.mobile-nav__cta {
+  margin-top: 2rem;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--color-red);
+  color: #fff;
+  padding: 0.9rem 2rem;
+  border-radius: 4px;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.mobile-nav__cta:hover {
+  background: var(--color-red-dark);
+}
+
+@media (max-width: 860px) {
+  .navbar__links { display: none; }
+  .navbar__hamburger { display: flex; }
+}
+
+/* ============================
+   HERO
+   ============================ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(28,28,28,0.25) 0%, rgba(28,28,28,0.55) 60%, rgba(28,28,28,0.8) 100%),
+    url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  animation: kenBurns 25s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1.5rem;
+  max-width: 860px;
+}
+
+.hero__label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroStagger 0.8s var(--ease-out) 0.3s forwards;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 10vw, 7rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroStagger 0.9s var(--ease-out) 0.5s forwards;
+}
+
+.hero__title span {
+  display: block;
+  color: var(--color-red);
+  font-size: 0.55em;
+  letter-spacing: 0.02em;
+  margin-top: 0.2em;
+}
+
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  max-width: 540px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroStagger 0.8s var(--ease-out) 0.75s forwards;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroStagger 0.8s var(--ease-out) 1s forwards;
+}
+
+@keyframes heroStagger {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.85rem 2rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn--primary {
+  background: var(--color-red);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--color-red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(198, 61, 47, 0.3);
+}
+
+.btn--outline {
+  border: 1.5px solid rgba(255,255,255,0.4);
+  color: #fff;
+}
+
+.btn--outline:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.hero__scroll svg {
+  width: 20px;
+  height: 20px;
+  stroke: rgba(255,255,255,0.5);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ============================
+   MARQUEE
+   ============================ */
+.marquee {
+  background: var(--color-charcoal);
+  padding: 1rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee__track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: marqueeScroll 35s linear infinite;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee__item {
+  font-family: var(--font-display);
+  font-size: clamp(0.75rem, 1.4vw, 0.9rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  white-space: nowrap;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.marquee__item::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-red);
+  flex-shrink: 0;
+}
+
+/* ============================
+   SECTION UTILITY
+   ============================ */
+.section {
+  padding: clamp(4rem, 10vw, 8rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.section--dark {
+  background: var(--color-charcoal);
+  color: #fff;
+}
+
+.section__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section__header {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section__label {
+  margin-bottom: 0.75rem;
+  color: var(--color-red);
+}
+
+.section__desc {
+  max-width: 560px;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.7;
+  opacity: 0.75;
+  margin-top: 1rem;
+}
+
+.section--dark .section__desc {
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================
+   STORY
+   ============================ */
+.story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.story__image {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+
+.story__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.story__image:hover img {
+  transform: scale(1.03);
+}
+
+.story__image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(28,28,28,0.3), transparent);
+  pointer-events: none;
+}
+
+.story__badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 2;
+  background: var(--color-red);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+}
+
+.story__body {
+  max-width: 520px;
+}
+
+.story__body .section__label {
+  color: var(--color-olive);
+}
+
+.story__text {
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  line-height: 1.8;
+  color: rgba(28, 28, 28, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.story__stat-row {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(28,28,28,0.08);
+}
+
+.story__stat {
+  text-align: left;
+}
+
+.story__stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--color-charcoal);
+  line-height: 1;
+}
+
+.story__stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(28,28,28,0.6);
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .story {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .story__image {
+    aspect-ratio: 16/10;
+  }
+}
+
+/* ============================
+   MENU HIGHLIGHTS
+   ============================ */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.menu-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s ease;
+  position: relative;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(28,28,28,0.1);
+}
+
+.menu-card__image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--color-warm-gray);
+}
+
+.menu-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.menu-card:hover .menu-card__image img {
+  transform: scale(1.06);
+}
+
+.menu-card__tag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: var(--color-charcoal);
+  color: #fff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 3px;
+}
+
+.menu-card__body {
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.menu-card__name {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.menu-card__desc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(28,28,28,0.55);
+}
+
+@media (max-width: 960px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================
+   PROCESS
+   ============================ */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  counter-reset: process;
+}
+
+.process-step {
+  counter-increment: process;
+  position: relative;
+}
+
+.process-step__image {
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  background: var(--color-warm-gray);
+}
+
+.process-step__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.process-step:hover .process-step__image img {
+  transform: scale(1.04);
+}
+
+.process-step__number {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.process-step__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(28,28,28,0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.process-step__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.process-step__text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(28,28,28,0.6);
+}
+
+@media (max-width: 768px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  .process-step__image {
+    aspect-ratio: 16/10;
+  }
+}
+
+/* ============================
+   GALLERY
+   ============================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(220px, auto);
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--color-warm-gray);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-item--tall {
+  grid-row: span 2;
+}
+
+.gallery-item--wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+  }
+  .gallery-item--tall { grid-row: span 1; }
+  .gallery-item--wide { grid-column: span 1; }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 220px;
+  }
+}
+
+/* ============================
+   VISIT
+   ============================ */
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.visit__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.visit__block-title {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-red);
+  margin-bottom: 0.4rem;
+}
+
+.visit__block-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(28,28,28,0.7);
+}
+
+.visit__block-text a {
+  color: var(--color-charcoal);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.visit__block-text a:hover {
+  color: var(--color-red);
+}
+
+.visit__image {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--color-warm-gray);
+}
+
+.visit__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visit__map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-red);
+  margin-top: 0.25rem;
+  transition: gap 0.3s ease;
+}
+
+.visit__map-link:hover {
+  gap: 0.8rem;
+}
+
+.visit__map-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 768px) {
+  .visit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================
+   CTA BANNER
+   ============================ */
+.cta-banner {
+  position: relative;
+  padding: clamp(5rem, 12vw, 10rem) clamp(1.25rem, 4vw, 3rem);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.cta-banner__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(28,28,28,0.8), rgba(28,28,28,0.6)),
+    url('https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+
+.cta-banner__content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.cta-banner__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.cta-banner__sub {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+.footer {
+  background: var(--color-charcoal);
+  color: rgba(255,255,255,0.5);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem) 2rem;
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.footer__brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.footer__brand-sub {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.footer__brand-text {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+.footer__col-title {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 1rem;
+}
+
+.footer__col a,
+.footer__col p {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 2;
+  transition: color 0.2s;
+}
+
+.footer__col a:hover {
+  color: #fff;
+}
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 2rem;
+  font-size: 0.75rem;
+}
+
+.footer__credit {
+  opacity: 0.4;
+}
+
+.footer__credit a {
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.footer__credit a:hover {
+  color: var(--color-gold);
+}
+
+.footer__social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer__social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.footer__social a:hover {
+  border-color: var(--color-red);
+  background: rgba(198,61,47,0.15);
+}
+
+.footer__social svg {
+  width: 16px;
+  height: 16px;
+  fill: rgba(255,255,255,0.5);
+}
+
+@media (max-width: 768px) {
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================
+   DIVIDER
+   ============================ */
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--color-red);
+  border-radius: 2px;
+  margin: 1rem 0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar at-top" role="navigation" aria-label="Main navigation">
+  <a href="#" class="navbar__brand" aria-label="Salento - Home">
+    <span class="navbar__logo">Salento</span>
+    <span class="navbar__sub">Wood Fired Street Food &middot; Θεσσαλονίκη</span>
+  </a>
+
+  <ul class="navbar__links">
+    <li><a href="#story">Η Ιστορία</a></li>
+    <li><a href="#menu">Μενού</a></li>
+    <li><a href="#process">Η Διαδικασία</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#visit">Επίσκεψη</a></li>
+    <li><a href="#visit" class="navbar__cta">Βρες μας</a></li>
+  </ul>
+
+  <button class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav__overlay" aria-hidden="true"></div>
+<div class="mobile-nav" role="dialog" aria-label="Mobile navigation">
+  <a href="#story">Η Ιστορία</a>
+  <a href="#menu">Μενού</a>
+  <a href="#process">Η Διαδικασία</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#visit">Επίσκεψη</a>
+  <a href="#visit" class="mobile-nav__cta">Βρες μας</a>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero" role="banner">
+  <div class="hero__bg" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <p class="hero__label">Wood Fired Street Food &middot; Thessaloniki</p>
+    <h1 class="hero__title">
+      Φωτιά, Ζύμη,<br>Αλήθεια.
+      <span>Fire, Dough, Truth.</span>
+    </h1>
+    <p class="hero__subtitle">Αυθεντικό Ιταλικό Street Food στην Καρδιά της Θεσσαλονίκης. Ξυλόφουρνος, πάθος και γεύση χωρίς συμβιβασμούς.</p>
+    <div class="hero__actions">
+      <a href="#menu" class="btn btn--primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        Δες το Μενού
+      </a>
+      <a href="#visit" class="btn btn--outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Βρες μας
+      </a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</header>
+
+<!-- ==================== MARQUEE ==================== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__item">Pizza</span>
+    <span class="marquee__item">Wood Fired</span>
+    <span class="marquee__item">Salentina</span>
+    <span class="marquee__item">Prosciutto</span>
+    <span class="marquee__item">Truffle</span>
+    <span class="marquee__item">Vegan</span>
+    <span class="marquee__item">Sandwiches</span>
+    <span class="marquee__item">Lasagna</span>
+    <span class="marquee__item">Mozzarella</span>
+    <span class="marquee__item">Ξυλόφουρνος</span>
+    <span class="marquee__item">Θεσσαλονίκη</span>
+    <span class="marquee__item">Street Food</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee__item">Pizza</span>
+    <span class="marquee__item">Wood Fired</span>
+    <span class="marquee__item">Salentina</span>
+    <span class="marquee__item">Prosciutto</span>
+    <span class="marquee__item">Truffle</span>
+    <span class="marquee__item">Vegan</span>
+    <span class="marquee__item">Sandwiches</span>
+    <span class="marquee__item">Lasagna</span>
+    <span class="marquee__item">Mozzarella</span>
+    <span class="marquee__item">Ξυλόφουρνος</span>
+    <span class="marquee__item">Θεσσαλονίκη</span>
+    <span class="marquee__item">Street Food</span>
+  </div>
+</div>
+
+<!-- ==================== OUR STORY ==================== -->
+<section id="story" class="section" aria-labelledby="story-heading">
+  <div class="section__container">
+    <div class="story">
+      <div class="story__image reveal from-left">
+        <img
+          src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=800&q=80"
+          alt="Φλόγες σε ξυλόφουρνο — η καρδιά της κουζίνας του Salento"
+          loading="lazy"
+          width="800"
+          height="1000"
+        >
+        <span class="story__badge">Dal 2018</span>
+      </div>
+
+      <div class="story__body reveal from-right">
+        <div class="section__header">
+          <p class="label section__label">Η Ιστορία μας</p>
+          <h2 class="heading-section" id="story-heading">Η Τέχνη<br>της Φωτιάς</h2>
+          <div class="divider"></div>
+        </div>
+
+        <p class="story__text">
+          Στην Ελ. Βενιζέλου 76, εκεί που η Θεσσαλονίκη συναντά τη Νότια Ιταλία, ο ξυλόφουρνος μιλάει τη δική του γλώσσα. Αυθεντική Salentina pizza, σάντουιτς με χαρακτήρα, σαλάτες και vegan επιλογές — όλα ψημένα με φωτιά και πάθος.
+        </p>
+        <p class="story__text">
+          "Το πιο ιταλικό σημείο της Βενιζέλου" — εκεί που αυτοί που σερβίρουν τις πίτσες θα μπορούσαν κάλλιστα να αποκαλούνται τενόροι. Χωρίς κρατήσεις, χωρίς φιλοσοφίες. Απλά φωτιά, ζύμη και αλήθεια.
+        </p>
+
+        <div class="story__stat-row">
+          <div class="story__stat">
+            <div class="story__stat-number">8+</div>
+            <div class="story__stat-label">Πίτσες</div>
+          </div>
+          <div class="story__stat">
+            <div class="story__stat-number">450°</div>
+            <div class="story__stat-label">Ξυλόφουρνος</div>
+          </div>
+          <div class="story__stat">
+            <div class="story__stat-number">100%</div>
+            <div class="story__stat-label">Αυθεντικό</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MENU HIGHLIGHTS ==================== -->
+<section id="menu" class="section" style="background: var(--color-warm-gray);" aria-labelledby="menu-heading">
+  <div class="section__container">
+    <div class="section__header reveal">
+      <p class="label section__label">Αγαπημένα</p>
+      <h2 class="heading-section" id="menu-heading">Το Μενού</h2>
+      <p class="section__desc">Αυθεντικές Ιταλικές γεύσεις από τον ξυλόφουρνο μας. Κάθε πιάτο αφηγείται μια ιστορία φωτιάς και παράδοσης.</p>
+    </div>
+
+    <div class="menu-grid">
+      <article class="menu-card reveal" style="transition-delay: 0.05s;" aria-label="Pizza Di Salento">
+        <div class="menu-card__image">
+          <img
+            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80"
+            alt="Pizza Di Salento — ντομάτα, μοτσαρέλα, ρόκα, προσούτο κρούντο, παρμεζάνα, τρούφα"
+            loading="lazy"
+            width="600"
+            height="600"
+          >
+          <span class="menu-card__tag">Signature</span>
+        </div>
+        <div class="menu-card__body">
+          <h3 class="menu-card__name">Pizza Di Salento</h3>
+          <p class="menu-card__desc">Ντομάτα, μοτσαρέλα, ρόκα, προσούτο κρούντο, παρμεζάνα, λάδι τρούφας</p>
+        </div>
+      </article>
+
+      <article class="menu-card reveal" style="transition-delay: 0.15s;" aria-label="Lasagna Bolognese">
+        <div class="menu-card__image">
+          <img
+            src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=600&q=80"
+            alt="Λαζάνια Bolognese — σάλτσα ντομάτας, μαριναρισμένος κιμάς"
+            loading="lazy"
+            width="600"
+            height="600"
+          >
+          <span class="menu-card__tag">Classic</span>
+        </div>
+        <div class="menu-card__body">
+          <h3 class="menu-card__name">Lasagna Bolognese</h3>
+          <p class="menu-card__desc">Σάλτσα ντομάτας, μαριναρισμένος κιμάς, η signature μας συνταγή</p>
+        </div>
+      </article>
+
+      <article class="menu-card reveal" style="transition-delay: 0.25s;" aria-label="Sandwich Pueblo">
+        <div class="menu-card__image">
+          <img
+            src="https://images.unsplash.com/photo-1521390188846-e2a3a97f14be?auto=format&fit=crop&w=600&q=80"
+            alt="Sandwich Pueblo — μικτό χωριάτικο λουκάνικο, κρεμμύδι, μανιτάρι, ανθότυρο"
+            loading="lazy"
+            width="600"
+            height="600"
+          >
+          <span class="menu-card__tag">Street</span>
+        </div>
+        <div class="menu-card__body">
+          <h3 class="menu-card__name">Sandwich Pueblo</h3>
+          <p class="menu-card__desc">Μικτό χωριάτικο λουκάνικο, κρεμμύδι, μανιτάρι, ανθότυρο, πικάντικο ragout</p>
+        </div>
+      </article>
+
+      <article class="menu-card reveal" style="transition-delay: 0.35s;" aria-label="Vegan Options">
+        <div class="menu-card__image">
+          <img
+            src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+            alt="Vegan επιλογές — πουρές κολοκύθας, μελιτζάνα, ρόκα, πατέ τρούφας"
+            loading="lazy"
+            width="600"
+            height="600"
+          >
+          <span class="menu-card__tag">Vegan</span>
+        </div>
+        <div class="menu-card__body">
+          <h3 class="menu-card__name">Vegan Options</h3>
+          <p class="menu-card__desc">Πουρές κολοκύθας, μελιτζάνα, ρόκα, πατέ τρούφας, βινεγκρέτ</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE PROCESS ==================== -->
+<section id="process" class="section" aria-labelledby="process-heading">
+  <div class="section__container">
+    <div class="section__header reveal">
+      <p class="label section__label">Η Τέχνη</p>
+      <h2 class="heading-section" id="process-heading">Από τη Ζύμη<br>στο Πιάτο</h2>
+      <p class="section__desc">Τρία βήματα. Μια φιλοσοφία. Κανένας συμβιβασμός.</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step reveal" style="transition-delay: 0.05s;">
+        <div class="process-step__image">
+          <img
+            src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=600&q=80"
+            alt="Χέρια που ζυμώνουν ζύμη πίτσας"
+            loading="lazy"
+            width="600"
+            height="800"
+          >
+          <span class="process-step__number">01</span>
+        </div>
+        <h3 class="process-step__title">Η Ζύμη</h3>
+        <p class="process-step__text">Μακρά ωρίμανση, αλεύρι τύπου 00, ιταλική παράδοση. Η ζύμη μας αναπνέει πριν συναντήσει τη φωτιά — ελαφριά, αέρινη, με χαρακτήρα.</p>
+      </div>
+
+      <div class="process-step reveal" style="transition-delay: 0.2s;">
+        <div class="process-step__image">
+          <img
+            src="https://images.unsplash.com/photo-1548365328-8c6db3220e4c?auto=format&fit=crop&w=600&q=80"
+            alt="Φωτιά μέσα στον ξυλόφουρνο"
+            loading="lazy"
+            width="600"
+            height="800"
+          >
+          <span class="process-step__number">02</span>
+        </div>
+        <h3 class="process-step__title">Η Φωτιά</h3>
+        <p class="process-step__text">Ξυλόφουρνος στους 450°C. Η φλόγα χτυπά, η ζύμη φουσκώνει, τα υλικά γίνονται ένα. 90 δευτερόλεπτα αρκούν για τελειότητα.</p>
+      </div>
+
+      <div class="process-step reveal" style="transition-delay: 0.35s;">
+        <div class="process-step__image">
+          <img
+            src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=600&q=80"
+            alt="Σερβίρισμα φρέσκιας πίτσας"
+            loading="lazy"
+            width="600"
+            height="800"
+          >
+          <span class="process-step__number">03</span>
+        </div>
+        <h3 class="process-step__title">Το Σερβίρισμα</h3>
+        <p class="process-step__text">Από τον φούρνο στα χέρια σου. Χωρίς αναμονή, χωρίς τυπικότητες. Street food στην πιο αυθεντική του μορφή — casual, ζεστό, αληθινό.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<section id="gallery" class="section" style="background: var(--color-warm-gray);" aria-labelledby="gallery-heading">
+  <div class="section__container">
+    <div class="section__header reveal">
+      <p class="label section__label">Στιγμές</p>
+      <h2 class="heading-section" id="gallery-heading">Η Ατμόσφαιρα</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item gallery-item--tall reveal scale-in" style="transition-delay: 0.05s;">
+        <img
+          src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80"
+          alt="Κοντινό πλάνο πίτσας από τον ξυλόφουρνο"
+          loading="lazy"
+          width="600"
+          height="800"
+        >
+      </div>
+      <div class="gallery-item reveal scale-in" style="transition-delay: 0.12s;">
+        <img
+          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
+          alt="Εσωτερικό χώρου — casual ατμόσφαιρα"
+          loading="lazy"
+          width="600"
+          height="400"
+        >
+      </div>
+      <div class="gallery-item reveal scale-in" style="transition-delay: 0.19s;">
+        <img
+          src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&q=80"
+          alt="Φρέσκα υλικά — μοτσαρέλα, βασιλικός, ντομάτα"
+          loading="lazy"
+          width="600"
+          height="400"
+        >
+      </div>
+      <div class="gallery-item reveal scale-in" style="transition-delay: 0.26s;">
+        <img
+          src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=80"
+          alt="Μαργαρίτα πίτσα με φρέσκο βασιλικό"
+          loading="lazy"
+          width="600"
+          height="400"
+        >
+      </div>
+      <div class="gallery-item gallery-item--wide reveal scale-in" style="transition-delay: 0.33s;">
+        <img
+          src="https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?auto=format&fit=crop&w=900&q=80"
+          alt="Street food ατμόσφαιρα — κόσμος και ενέργεια"
+          loading="lazy"
+          width="900"
+          height="400"
+        >
+      </div>
+      <div class="gallery-item reveal scale-in" style="transition-delay: 0.4s;">
+        <img
+          src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80"
+          alt="Ιταλικό γλυκό — το γλυκό φινάλε"
+          loading="lazy"
+          width="600"
+          height="400"
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VISIT US ==================== -->
+<section id="visit" class="section" aria-labelledby="visit-heading">
+  <div class="section__container">
+    <div class="visit-grid">
+      <div class="visit__info reveal from-left">
+        <div class="section__header">
+          <p class="label section__label">Επίσκεψη</p>
+          <h2 class="heading-section" id="visit-heading">Βρες μας</h2>
+          <div class="divider"></div>
+        </div>
+
+        <div>
+          <p class="visit__block-title">Διεύθυνση</p>
+          <p class="visit__block-text">
+            Ελ. Βενιζέλου 76<br>
+            Θεσσαλονίκη, Ελλάδα
+          </p>
+          <a href="https://www.google.com/maps/search/Ελ.+Βενιζέλου+76+Θεσσαλονίκη" target="_blank" rel="noopener noreferrer" class="visit__map-link" aria-label="Άνοιγμα χάρτη Google Maps">
+            Άνοιξε στο Google Maps
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div>
+          <p class="visit__block-title">Τηλέφωνο</p>
+          <p class="visit__block-text">
+            <a href="tel:+302310230861">2310 230861</a>
+          </p>
+        </div>
+
+        <div>
+          <p class="visit__block-title">Ωράριο</p>
+          <p class="visit__block-text">Καθημερινά</p>
+        </div>
+
+        <div>
+          <p class="visit__block-title">Instagram</p>
+          <p class="visit__block-text">
+            <a href="https://instagram.com/salento_skg_streetfood" target="_blank" rel="noopener noreferrer">@salento_skg_streetfood</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="visit__image reveal from-right">
+        <img
+          src="https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=800&q=80"
+          alt="Δρόμος στη Θεσσαλονίκη — η γειτονιά του Salento"
+          loading="lazy"
+          width="800"
+          height="600"
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA BANNER ==================== -->
+<section class="cta-banner" aria-labelledby="cta-heading">
+  <div class="cta-banner__bg" aria-hidden="true"></div>
+  <div class="cta-banner__content reveal scale-in">
+    <h2 class="cta-banner__title" id="cta-heading">Η Πίτσα σε<br>Περιμένει</h2>
+    <p class="cta-banner__sub">Φρέσκια ζύμη, ξυλόφουρνος, αυθεντικές Ιταλικές γεύσεις. Κανένα ραντεβού — απλά έλα.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="tel:+302310230861" class="btn btn--primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Κάλεσέ μας
+      </a>
+      <a href="https://www.google.com/maps/search/Ελ.+Βενιζέλου+76+Θεσσαλονίκη" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Οδηγίες
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__container">
+    <div class="footer__top">
+      <div>
+        <div class="footer__brand-name">Salento</div>
+        <div class="footer__brand-sub">Wood Fired Street Food</div>
+        <p class="footer__brand-text">Αυθεντικό Ιταλικό street food στην καρδιά της Θεσσαλονίκης. Ξυλόφουρνος, πάθος και γεύση χωρίς συμβιβασμούς.</p>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Πλοήγηση</p>
+        <a href="#story">Η Ιστορία</a>
+        <a href="#menu">Μενού</a>
+        <a href="#process">Η Διαδικασία</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Επικοινωνία</p>
+        <p>Ελ. Βενιζέλου 76</p>
+        <p>Θεσσαλονίκη</p>
+        <a href="tel:+302310230861">2310 230861</a>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Social</p>
+        <a href="https://instagram.com/salento_skg_streetfood" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__credit">
+        Designed by <a href="https://saos.studio" target="_blank" rel="noopener noreferrer">SAOS Studio</a>
+      </p>
+
+      <div class="footer__social">
+        <a href="https://instagram.com/salento_skg_streetfood" target="_blank" rel="noopener noreferrer" aria-label="Salento στο Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="tel:+302310230861" aria-label="Κάλεσε το Salento">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+(function() {
+  'use strict';
+
+  // ---- Navbar scroll behavior ----
+  const navbar = document.querySelector('.navbar');
+  const hero = document.querySelector('.hero');
+  let lastScroll = 0;
+
+  function handleNavbar() {
+    const scrollY = window.scrollY;
+    const heroBottom = hero.offsetHeight - 100;
+
+    if (scrollY > 40) {
+      navbar.classList.add('scrolled');
+      navbar.classList.remove('at-top');
+    } else {
+      navbar.classList.remove('scrolled');
+      navbar.classList.add('at-top');
+    }
+
+    lastScroll = scrollY;
+  }
+
+  window.addEventListener('scroll', handleNavbar, { passive: true });
+
+  // ---- Hero parallax ----
+  const heroBg = document.querySelector('.hero__bg');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    window.addEventListener('scroll', function() {
+      const scrollY = window.scrollY;
+      if (scrollY < window.innerHeight) {
+        heroBg.style.transform = 'scale(' + (1 + scrollY * 0.0001) + ') translateY(' + (scrollY * 0.3) + 'px)';
+      }
+    }, { passive: true });
+  }
+
+  // ---- Scroll reveal (IntersectionObserver) ----
+  const reveals = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window && !prefersReducedMotion) {
+    const revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          // Respect the transition-delay already set in inline style
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    reveals.forEach(function(el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    // Fallback: show everything immediately
+    reveals.forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+
+  // ---- Mobile menu ----
+  const hamburger = document.querySelector('.navbar__hamburger');
+  const mobileNav = document.querySelector('.mobile-nav');
+  const mobileOverlay = document.querySelector('.mobile-nav__overlay');
+  const mobileLinks = mobileNav.querySelectorAll('a');
+
+  function toggleMobile() {
+    const isOpen = hamburger.classList.contains('open');
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    mobileOverlay.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', !isOpen);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  }
+
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    mobileOverlay.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', toggleMobile);
+  mobileOverlay.addEventListener('click', closeMobile);
+
+  mobileLinks.forEach(function(link) {
+    link.addEventListener('click', closeMobile);
+  });
+
+  // ---- Smooth scroll for anchor links ----
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        const offset = navbar.offsetHeight + 16;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ---- Escape key closes mobile menu ----
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+      closeMobile();
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>

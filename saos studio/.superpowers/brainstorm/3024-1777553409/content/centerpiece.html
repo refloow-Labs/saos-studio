@@ -1,0 +1,292 @@
+<style>
+  body { background: #050505; }
+  .ctr-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+  @media (min-width: 900px) { .ctr-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .ctr-card {
+    position: relative;
+    border: 1px solid rgba(158,192,216,0.18);
+    background: linear-gradient(180deg, rgba(255,255,255,0.012) 0%, rgba(0,0,0,0.4) 100%);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all .5s cubic-bezier(.22,1,.36,1);
+    font-family: 'Syne', system-ui, sans-serif;
+    color: #e8e6e1;
+  }
+  .ctr-card:hover {
+    border-color: rgba(158,192,216,0.55);
+    transform: translateY(-4px);
+  }
+  .ctr-card.selected { border-color: #9ec0d8; box-shadow: 0 0 0 1px #9ec0d8; }
+  .ctr-card.recommended::before {
+    content: 'RECOMMENDED';
+    position: absolute; top: 14px; right: 14px;
+    z-index: 5;
+    font-size: 9px; letter-spacing: 0.2em;
+    color: #9ec0d8;
+    border: 1px solid rgba(158,192,216,0.4);
+    padding: 4px 8px;
+    background: rgba(5,5,5,0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .ctr-preview {
+    height: 340px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(158,192,216,0.08);
+  }
+
+  /* shared shader bg */
+  .ctr-preview::before {
+    content: '';
+    position: absolute; inset: -20px;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(158,192,216,0.32) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 80%, rgba(200,220,232,0.2) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(80,120,160,0.18) 0%, transparent 60%),
+      #050505;
+    filter: blur(2px);
+    animation: shaderBg 14s ease-in-out infinite alternate;
+  }
+  @keyframes shaderBg {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(2%, -3%) scale(1.05); }
+  }
+
+  /* === A: SAOS wordmark extruded === */
+  .prev-wm {}
+  .prev-wm .stage {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    perspective: 800px;
+    z-index: 2;
+  }
+  .prev-wm .word {
+    transform-style: preserve-3d;
+    animation: wmRotate 14s ease-in-out infinite alternate;
+  }
+  @keyframes wmRotate {
+    0% { transform: rotateY(-12deg) rotateX(8deg); }
+    100% { transform: rotateY(15deg) rotateX(-6deg); }
+  }
+  .prev-wm .letters {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 110px;
+    letter-spacing: -0.04em;
+    color: rgba(232,230,225,0.92);
+    line-height: 1;
+    /* fake extrude with text-shadow stack */
+    text-shadow:
+      1px 1px 0 rgba(232,230,225,0.85),
+      2px 2px 0 rgba(220,225,230,0.78),
+      3px 3px 0 rgba(200,215,225,0.7),
+      4px 4px 0 rgba(180,205,222,0.6),
+      5px 5px 0 rgba(160,195,218,0.5),
+      6px 6px 0 rgba(140,180,210,0.4),
+      7px 7px 0 rgba(120,165,200,0.32),
+      8px 8px 0 rgba(100,150,190,0.24),
+      9px 9px 0 rgba(80,135,180,0.18),
+      10px 10px 0 rgba(60,120,170,0.14),
+      11px 11px 0 rgba(40,105,160,0.1),
+      12px 12px 25px rgba(0,0,0,0.5),
+      0 0 60px rgba(158,192,216,0.5);
+    filter: drop-shadow(0 0 30px rgba(158,192,216,0.3));
+  }
+  .prev-wm .script {
+    display: block;
+    margin-top: 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 22px;
+    color: rgba(232,230,225,0.5);
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 20px rgba(158,192,216,0.3);
+  }
+
+  /* === B: Glass monolith === */
+  .prev-mono {}
+  .prev-mono .stage {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    perspective: 800px;
+    z-index: 2;
+  }
+  .prev-mono .slab {
+    width: 90px; height: 220px;
+    background:
+      linear-gradient(135deg,
+        rgba(255,255,255,0.95) 0%,
+        rgba(220,235,245,0.6) 20%,
+        rgba(158,192,216,0.4) 50%,
+        rgba(80,120,160,0.7) 80%,
+        rgba(40,80,120,0.9) 100%
+      );
+    box-shadow:
+      inset 0 0 50px rgba(255,255,255,0.4),
+      inset 25px 0 80px rgba(0,0,0,0.5),
+      inset -10px 0 30px rgba(255,255,255,0.3),
+      0 40px 100px rgba(0,0,0,0.7),
+      0 0 80px rgba(158,192,216,0.4);
+    border-radius: 2px;
+    transform: rotateY(-15deg) rotateX(2deg);
+    animation: slabRotate 18s ease-in-out infinite alternate;
+    position: relative;
+  }
+  @keyframes slabRotate {
+    0% { transform: rotateY(-25deg) rotateX(5deg); }
+    100% { transform: rotateY(20deg) rotateX(-3deg); }
+  }
+  .prev-mono .slab::after {
+    content: '';
+    position: absolute;
+    left: -25%; right: -25%; top: 30%; height: 30%;
+    background: linear-gradient(180deg, transparent 0%, rgba(158,192,216,0.4) 50%, transparent 100%);
+    filter: blur(35px);
+    z-index: -1;
+  }
+
+  /* === C: Liquid orb / metaball === */
+  .prev-orb {}
+  .prev-orb .stage {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+  }
+  .prev-orb .orb {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 28% 28%,
+        rgba(255,255,255,0.95) 0%,
+        rgba(220,235,245,0.7) 8%,
+        rgba(158,192,216,0.5) 25%,
+        rgba(80,120,160,0.6) 55%,
+        rgba(20,40,70,0.95) 90%
+      );
+    box-shadow:
+      inset 0 0 60px rgba(255,255,255,0.2),
+      inset -25px -25px 80px rgba(0,0,0,0.5),
+      0 30px 100px rgba(0,0,0,0.6),
+      0 0 120px rgba(158,192,216,0.45);
+    filter: contrast(1.05);
+    animation: orbMorph 8s ease-in-out infinite;
+    position: relative;
+  }
+  @keyframes orbMorph {
+    0%,100% { border-radius: 48% 52% 53% 47% / 51% 48% 52% 49%; transform: rotate(0deg) scale(1); }
+    33%     { border-radius: 56% 44% 42% 58% / 44% 56% 44% 56%; transform: rotate(8deg) scale(1.04); }
+    66%     { border-radius: 41% 59% 56% 44% / 58% 42% 58% 42%; transform: rotate(-6deg) scale(0.98); }
+  }
+  .prev-orb .orb::after {
+    content: '';
+    position: absolute; left: 18%; top: 14%;
+    width: 32%; height: 22%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, transparent 70%);
+    filter: blur(2px);
+  }
+  .prev-orb .orb::before {
+    content: '';
+    position: absolute; inset: -15%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(158,192,216,0.25) 0%, transparent 60%);
+    filter: blur(20px);
+    z-index: -1;
+  }
+
+  /* card body */
+  .ctr-body { padding: 22px 24px 26px; }
+  .ctr-letter {
+    display: inline-block;
+    width: 22px; height: 22px;
+    border: 1px solid rgba(158,192,216,0.4);
+    color: #9ec0d8;
+    text-align: center; line-height: 22px;
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  .ctr-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0 0 8px;
+  }
+  .ctr-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(232,230,225,0.55);
+    margin: 0 0 14px;
+  }
+  .ctr-tag {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(158,192,216,0.55);
+    border-top: 1px solid rgba(158,192,216,0.15);
+    padding-top: 12px;
+    line-height: 1.7;
+  }
+  .ctr-tag strong { color: rgba(232,230,225,0.7); font-weight: 500; letter-spacing: 0.18em; }
+</style>
+
+<h2 style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:36px; letter-spacing:-0.01em;">What is the centerpiece?</h2>
+<p class="subtitle" style="color:rgba(232,230,225,0.55);">The single 3D object that lives at the heart of your shader universe. The thing the camera orbits, the thing that morphs as you scroll, the thing people will screenshot.</p>
+
+<div class="ctr-grid">
+
+  <div class="ctr-card recommended" data-choice="wordmark" onclick="toggleSelect(this)">
+    <div class="ctr-preview prev-wm">
+      <div class="stage">
+        <div class="word">
+          <span class="letters">saos</span>
+          <span class="script">studio.</span>
+        </div>
+      </div>
+    </div>
+    <div class="ctr-body">
+      <span class="ctr-letter">A</span>
+      <h3 class="ctr-name">The Wordmark, sculpted</h3>
+      <p class="ctr-desc">Your serif "saos" extruded into a 3D glass/marble sculpture. Liquid material with subtle refraction and chromatic aberration. The word IS the art. Each scroll section, the letters morph state — crystalline, liquid, dissolving into particles, reforming. The script "studio." floats below as a delicate signature.</p>
+      <div class="ctr-tag"><strong>Why —</strong> Most on-brand. Most distinctive. Your name becomes the art piece.<br>Tech: extrude SVG path → MeshTransmissionMaterial in R3F.</div>
+    </div>
+  </div>
+
+  <div class="ctr-card" data-choice="monolith" onclick="toggleSelect(this)">
+    <div class="ctr-preview prev-mono">
+      <div class="stage">
+        <div class="slab"></div>
+      </div>
+    </div>
+    <div class="ctr-body">
+      <span class="ctr-letter">B</span>
+      <h3 class="ctr-name">Glass Monolith</h3>
+      <p class="ctr-desc">A vertical refractive slab — like a polished standing stone made of crystal. Light bends through it; the shader universe behind warps and shifts. As you scroll, the slab rotates, fractures into pieces and reassembles, then dissolves. Kubrick / Brancusi.</p>
+      <div class="ctr-tag"><strong>Why —</strong> Most cinematic. Pure abstraction. No copy. Lets the brand voice breathe.</div>
+    </div>
+  </div>
+
+  <div class="ctr-card" data-choice="orb" onclick="toggleSelect(this)">
+    <div class="ctr-preview prev-orb">
+      <div class="stage">
+        <div class="orb"></div>
+      </div>
+    </div>
+    <div class="ctr-body">
+      <span class="ctr-letter">C</span>
+      <h3 class="ctr-name">Liquid Orb</h3>
+      <p class="ctr-desc">An organic liquid sphere — a single living metaball. Always breathing, never static. As you scroll it deforms (stretches, splits into satellites, reforms), changes material (mercury → glass → ink → smoke), and pulls light through itself. Most "alive."</p>
+      <div class="ctr-tag"><strong>Why —</strong> Most organic. Most "alive." Closer to motion-design / fluid simulation territory.</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:32px; padding:18px 22px; border-left:1px solid rgba(158,192,216,0.25); background:rgba(158,192,216,0.025);">
+  <p style="font-family:'Syne',sans-serif; font-size:12px; color:rgba(232,230,225,0.6); margin:0; line-height:1.7;">
+    <strong style="color:#9ec0d8; letter-spacing:0.1em; text-transform:uppercase; font-size:10px;">My read —</strong> Option A is the answer for "websites that look like art" because the work IS the brand. Option B has the strongest pure cinema. Option C is the most playful/alive. We can also do a hybrid: A in the hero, then it transforms into an orb (C) mid-scroll, then back to letters at the end.
+  </p>
+</div>

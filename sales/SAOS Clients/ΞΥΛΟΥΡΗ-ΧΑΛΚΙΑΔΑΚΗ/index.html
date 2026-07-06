@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ΝΕΩΡΙΑ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#050505;--surface:#0a0a0a;--surface-2:#0f0f0f;--surface-3:#141414;--surface-4:#1a1a1a;--text:#e8e6e1;--muted:#6e6e6e;--accent:#93cd37;--accent-dim:#75a42c;--border:rgba(255,255,255,0.04);--border-hover:rgba(255,255,255,0.08)}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+.serif{font-family:'Cormorant Garamond',serif}
+.mesh-bg{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 40%,rgba(147,205,55,0.03) 0%,transparent 70%),radial-gradient(ellipse 60% 80% at 80% 60%,rgba(147,205,55,0.02) 0%,transparent 70%);animation:meshDrift 20s ease-in-out infinite alternate}
+@keyframes meshDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-20px,10px) scale(1.02)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.fade-up{animation:fadeUp 1s cubic-bezier(0.16,1,0.3,1) both}
+.delay-1{animation-delay:.15s}.delay-2{animation-delay:.3s}.delay-3{animation-delay:.45s}.delay-4{animation-delay:.6s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(5,5,5,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+nav .logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;letter-spacing:.02em;color:var(--text)}
+nav .nav-links{display:flex;gap:2rem;list-style:none}
+nav .nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:color .3s}
+nav .nav-links a:hover{color:var(--accent)}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 4rem}
+.hero .overline{font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,6rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;max-width:800px}
+.hero .subtitle{font-size:1.1rem;color:var(--muted);max-width:500px;margin-bottom:3rem;line-height:1.7}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2.5rem;background:var(--accent);color:#fff;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .3s}
+.btn-primary:hover{background:var(--accent-dim);transform:translateY(-2px)}
+.scroll-indicator{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);width:1px;height:60px;background:linear-gradient(to bottom,var(--accent),transparent);animation:float 6s ease-in-out infinite}
+section{position:relative;z-index:1;padding:6rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:2rem}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-top:3rem}
+.service-card{background:var(--surface);padding:2.5rem 2rem;transition:all .4s}
+.service-card:hover{background:var(--surface-2)}
+.service-card .number{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--accent);margin-bottom:1rem;opacity:.5}
+.service-card h3{font-size:1.1rem;font-weight:600;margin-bottom:.75rem}
+.service-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
+.about-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-text p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:1.5rem}
+.stat-row{display:flex;gap:3rem;margin-top:2rem}
+.stat .value{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--accent)}
+.stat .label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.about-visual{position:relative;height:400px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.about-visual .visual-accent{font-size:8rem;color:var(--accent);opacity:.12}
+.contact-section{text-align:center}
+.contact-details{display:flex;justify-content:center;gap:4rem;margin-top:3rem;flex-wrap:wrap}
+.contact-item{text-align:center}
+.contact-item .detail-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:.25rem}
+.contact-item .detail-value{font-size:1rem;color:var(--text)}
+.contact-item a{color:var(--accent);text-decoration:none}
+footer{position:relative;z-index:1;padding:2rem;border-top:1px solid var(--border);text-align:center}
+footer p{font-size:.75rem;color:var(--muted)}
+footer .credit{margin-top:.5rem;font-size:.65rem;color:rgba(255,255,255,.15)}
+@media(max-width:768px){nav .nav-links{display:none}.about-grid{grid-template-columns:1fr;gap:2rem}.about-visual{height:250px}.stat-row{gap:2rem}.contact-details{flex-direction:column;gap:2rem}section{padding:4rem 1.5rem}}
+</style>
+</head>
+<body>
+<div class="mesh-bg"></div>
+<nav>
+<div class="logo serif">ΝΕΩΡΙΑ</div>
+<ul class="nav-links">
+<li><a href="#services">Μενού</a></li>
+<li><a href="#about">Σχετικά</a></li>
+<li><a href="#contact">Επικοινωνία</a></li>
+</ul>
+</nav>
+<section class="hero">
+<div class="overline fade-up">Χανιά</div>
+<h1 class="fade-up delay-1">Γεύσεις που μένουν αξέχαστες</h1>
+<p class="subtitle fade-up delay-2">Αυθεντική γαστρονομία με τοπικά υλικά</p>
+<a href="#contact" class="btn-primary fade-up delay-3">Κάντε Κράτηση &rarr;</a>
+<div class="scroll-indicator"></div>
+</section>
+<section id="services">
+<div class="container">
+<div class="section-label">Μενού</div>
+<h2 class="section-title serif">Οι γεύσεις μας</h2>
+<div class="services-grid">
+<div class="service-card"><div class="number">01</div><h3>Grill & Σχάρα</h3><p>Κρέατα ψημένα σε κάρβουνο — μπιφτέκια, σουβλάκια, παϊδάκια και λαχανικά σχάρας με μυρωδικά κήπου.</p></div>
+<div class="service-card"><div class="number">02</div><h3>Θαλασσινά</h3><p>Φρέσκα ψάρια ημέρας, καλαμάρι, χταπόδι σχάρας και θαλασσινές σαλάτες από τοπικούς ψαράδες.</p></div>
+<div class="service-card"><div class="number">03</div><h3>Ορεκτικά & Μεζέδες</h3><p>Παραδοσιακοί μεζέδες, σπιτικές πίτες, ντιπ και σαλάτες — ιδανικά για παρέα και κρασί.</p></div>
+<div class="service-card"><div class="number">04</div><h3>Γλυκά & Επιδόρπια</h3><p>Σπιτικά γλυκά, παραδοσιακά σιροπιαστά και εποχιακά επιδόρπια από φρέσκα τοπικά φρούτα.</p></div>
+</div>
+</div>
+</section>
+<section id="about" class="about-section">
+<div class="container">
+<div class="about-grid">
+<div class="about-text">
+<div class="section-label">Σχετικά με εμάς</div>
+<h2 class="section-title serif">Γνωρίστε τη ΝΕΩΡΙΑ</h2>
+<p>Με έδρα Χανιά, η ΝΕΩΡΙΑ δραστηριοποιείται στον χώρο της εστίασης και της γαστρονομίας με πάθος για αριστεία και αφοσίωση στον πελάτη. Εκμετάλλευση εστιατορίου.</p>
+<p>Η εμπειρία και η τεχνογνωσία μας εγγυώνται ποιότητα σε κάθε λεπτομέρεια — γιατί κάθε επισκέπτης αξίζει τα καλύτερα.</p>
+<div class="stat-row">
+<div class="stat"><div class="value serif">1.1M  €</div><div class="label">Ετήσιος κύκλος εργασιών</div></div>
+<div class="stat"><div class="value serif">10+</div><div class="label">Μέλη ομάδας</div></div>
+</div>
+</div>
+<div class="about-visual"><span class="visual-accent">✦</span></div>
+</div>
+</div>
+</section>
+<section id="contact" class="contact-section">
+<div class="container">
+<div class="section-label">Επικοινωνία</div>
+<h2 class="section-title serif">Ελάτε σε επαφή μαζί μας</h2>
+<div class="contact-details">
+<div class="contact-item"><div class="detail-label">Τηλέφωνο</div><div class="detail-value">2821052255</div></div>
+<div class="contact-item"><div class="detail-label">Email</div><div class="detail-value"><a href="mailto:ermis59@otenet.gr">ermis59@otenet.gr</a></div></div>
+<div class="contact-item"><div class="detail-label">Τοποθεσία</div><div class="detail-value">Χανιά, Ελλάδα</div></div>
+
+
+</div>
+</div>
+</section>
+<footer>
+<p>&copy; 2026 ΝΕΩΡΙΑ. All rights reserved.</p>
+<p class="credit">Website preview by SAOS Studio — saos.studio</p>
+</footer>
+</body>
+</html>

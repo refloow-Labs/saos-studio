@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dental Home | Ηρακλής Αδάκτυλος – Αλεξανδρούπολη</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0B1F3A;
+      --navy-mid: #162D52;
+      --teal: #0F7EA0;
+      --teal-light: #19A8D6;
+      --accent: #17C5E8;
+      --white: #FFFFFF;
+      --off-white: #F5F8FB;
+      --gray-100: #EEF2F7;
+      --gray-400: #667994;
+      --gray-600: #4A5E78;
+      --text: #0D1B2E;
+      --radius: 14px;
+      --shadow: 0 8px 40px rgba(11,31,58,0.10);
+      --shadow-lg: 0 20px 60px rgba(11,31,58,0.16);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6vw;
+      height: 72px;
+      background: transparent;
+      backdrop-filter: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(11,31,58,0.07);
+      box-shadow: 0 2px 24px rgba(11,31,58,0.10);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 22px; height: 22px; fill: white; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; color: #FFFFFF; line-height: 1.1; transition: color 0.3s; }
+    .logo-sub { font-size: 0.68rem; font-weight: 400; color: rgba(255,255,255,0.75); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.3s; }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: #FFFFFF; }
+
+    /* Scrolled: light bar → revert to dark ink for contrast */
+    nav.scrolled .logo-text { color: var(--navy); }
+    nav.scrolled .logo-sub { color: var(--teal); }
+    nav.scrolled .nav-links a { color: var(--gray-600); }
+    nav.scrolled .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      color: white !important;
+      padding: 9px 22px;
+      border-radius: 30px;
+      font-weight: 600 !important;
+      font-size: 0.88rem !important;
+      transition: opacity 0.2s, transform 0.2s !important;
+      box-shadow: 0 4px 14px rgba(15,126,160,0.35);
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 6vw 80px;
+      background: linear-gradient(145deg, #0B1F3A 0%, #0F2D4A 40%, #0D4B6E 75%, #0F7EA0 100%);
+    }
+
+    /* Animated background circles */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      animation: float 12s ease-in-out infinite;
+    }
+    .hero-orb-1 { width: 600px; height: 600px; background: var(--teal-light); top: -150px; right: -100px; animation-delay: 0s; }
+    .hero-orb-2 { width: 400px; height: 400px; background: var(--accent); bottom: -100px; left: 20%; animation-delay: -4s; }
+    .hero-orb-3 { width: 300px; height: 300px; background: #FFFFFF; top: 40%; left: -80px; animation-delay: -8s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.04); }
+    }
+
+    /* Grid lines overlay */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+    }
+    .star-row { color: #FFD54F; letter-spacing: 2px; font-size: 0.85rem; }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(90deg, #19A8D6, #17C5E8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 520px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--teal-light), var(--accent));
+      color: white;
+      padding: 15px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(23,197,232,0.40);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(23,197,232,0.50); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      padding: 15px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.16); }
+
+    .hero-stats {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+    }
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+    /* Hero image card — floating */
+    .hero-visual {
+      position: absolute;
+      right: 6vw;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: min(440px, 38vw);
+    }
+    .hero-img-card {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+      animation: card-float 8s ease-in-out infinite;
+    }
+    .hero-img-card img { width: 100%; display: block; }
+    @keyframes card-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+    }
+
+    .hero-review-bubble {
+      position: absolute;
+      bottom: -20px;
+      left: -24px;
+      background: white;
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+    .bubble-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .bubble-text { font-size: 0.8rem; color: var(--navy); font-weight: 600; line-height: 1.4; }
+    .bubble-stars { color: #FFD54F; font-size: 0.75rem; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 100px 6vw; }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--off-white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      display: block;
+    }
+    .about-badge {
+      position: absolute;
+      top: -16px; right: -16px;
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      color: white;
+      border-radius: 16px;
+      padding: 16px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .about-badge-num { font-size: 2rem; font-weight: 800; line-height: 1; }
+    .about-badge-text { font-size: 0.72rem; font-weight: 500; opacity: 0.85; margin-top: 2px; }
+
+    .about-credentials { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+    .credential {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .cred-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: rgba(15,126,160,0.08);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal);
+      font-size: 1.1rem;
+    }
+    .cred-title { font-size: 0.92rem; font-weight: 600; color: var(--navy); }
+    .cred-sub { font-size: 0.82rem; color: var(--gray-400); margin-top: 2px; }
+
+    /* ── SERVICES ── */
+    #services { background: white; }
+
+    .services-intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--off-white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      background: white;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, rgba(15,126,160,0.10), rgba(23,197,232,0.08));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .service-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--gray-600);
+      line-height: 1.65;
+    }
+
+    /* ── WHY CHOOSE US ── */
+    #why {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 55%, #0F4A6E 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    #why::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(23,197,232,0.08) 0%, transparent 70%);
+      top: -200px; right: -200px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+    }
+
+    .why-left .section-title { color: white; }
+    .why-left .section-lead { color: rgba(255,255,255,0.65); }
+
+    .rating-showcase {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .rating-num {
+      font-size: 4rem;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+    .rating-stars { font-size: 1.4rem; color: #FFD54F; margin-bottom: 4px; }
+    .rating-count { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+
+    .why-features { display: flex; flex-direction: column; gap: 24px; }
+
+    .why-feature {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    .why-feature-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .why-feature-title { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 5px; }
+    .why-feature-desc { font-size: 0.87rem; color: rgba(255,255,255,0.60); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--off-white); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .t-stars { color: #FFD54F; font-size: 0.9rem; margin-bottom: 16px; }
+    .t-text { font-size: 0.92rem; color: var(--gray-600); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+    .t-author { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+
+    /* ── CONTACT / CTA ── */
+    #contact {
+      background: white;
+    }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .contact-item-icon {
+      width: 48px; height: 48px;
+      background: rgba(15,126,160,0.08);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-item-label { font-size: 0.76rem; color: var(--gray-400); font-weight: 500; margin-bottom: 3px; }
+    .contact-item-value { font-size: 0.98rem; color: var(--navy); font-weight: 600; }
+    a.contact-item-value { color: var(--teal); text-decoration: none; }
+    a.contact-item-value:hover { text-decoration: underline; }
+
+    .cta-box {
+      background: linear-gradient(145deg, var(--navy), var(--teal));
+      border-radius: 24px;
+      padding: 48px 40px;
+      color: white;
+    }
+    .cta-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .cta-box p { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 32px; }
+    .cta-box .btn-primary {
+      background: white;
+      color: var(--navy);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .cta-box .btn-primary:hover { box-shadow: 0 14px 36px rgba(0,0,0,0.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.65);
+      padding: 32px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    footer a { color: rgba(255,255,255,0.65); text-decoration: none; }
+    footer strong { color: rgba(255,255,255,0.85); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .hero-visual { display: none; }
+      .about-grid, .why-grid, .contact-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 32px; }
+      nav .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 72px 5vw; }
+      .services-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="logo" href="#">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C9.5 2 7 4 7 6.5c0 1.2.4 2.3 1 3.2L6 20c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2l-2-10.3c.6-.9 1-2 1-3.2C17 4 14.5 2 12 2zm0 2c1.9 0 3 1.5 3 2.5 0 1-.4 1.8-1 2.4L13.6 18h-3.2L9 8.9C8.4 8.3 8 7.5 8 6.5 8 5.5 9.1 4 12 4z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">Dental Home</div>
+      <div class="logo-sub">Αλεξανδρούπολη</div>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <a href="#about">Ο Γιατρός</a>
+    <a href="#services">Υπηρεσίες</a>
+    <a href="#why">Γιατί εμάς</a>
+    <a href="#testimonials">Κριτικές</a>
+    <a href="#contact" class="nav-cta">Ραντεβού →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="star-row">★★★★★</span>
+      <span>320 κριτικές στο Google</span>
+    </div>
+
+    <h1 class="hero-title">
+      Το χαμόγελό σας<br>
+      είναι η <em>αποστολή μας</em>
+    </h1>
+
+    <p class="hero-subtitle">
+      Σύγχρονη οδοντιατρική περίθαλψη στην Αλεξανδρούπολη. Ο Δρ. Ηρακλής Αδάκτυλος σας προσφέρει εξατομικευμένη φροντίδα σε ένα ζεστό, φιλικό περιβάλλον.
+    </p>
+
+    <div class="hero-actions">
+      <a href="tel:+302551000000" class="btn-primary">
+        📞 Κλείστε Ραντεβού
+      </a>
+      <a href="#services" class="btn-ghost">
+        Οι υπηρεσίες μας ↓
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">320+</div>
+        <div class="stat-label">Κριτικές Google</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Μέση βαθμολογία</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">#1</div>
+        <div class="stat-label">Αλεξανδρούπολη</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-img-card">
+      <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80" alt="Dental clinic" />
+    </div>
+    <div class="hero-review-bubble">
+      <div class="bubble-avatar">Μ.Κ</div>
+      <div>
+        <div class="bubble-text">"Εξαιρετικός επαγγελματίας!"</div>
+        <div class="bubble-stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80" alt="Dentist at work" />
+      <div class="about-badge">
+        <div class="about-badge-num">★5.0</div>
+        <div class="about-badge-text">Google Rating</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label reveal">Ο Γιατρός</div>
+      <h2 class="section-title reveal reveal-delay-1">Δρ. Ηρακλής<br>Αδάκτυλος</h2>
+      <p class="section-lead reveal reveal-delay-2">
+        Με εκτεταμένη εμπειρία στην οδοντιατρική, ο Δρ. Αδάκτυλος έχει κερδίσει την εμπιστοσύνη εκατοντάδων ασθενών στην Αλεξανδρούπολη. Συνδυάζει σύγχρονες τεχνικές με ζεστή, ανθρωποκεντρική προσέγγιση για να εξασφαλίσει την άνεση και υγεία των ασθενών του.
+      </p>
+
+      <div class="about-credentials">
+        <div class="credential reveal reveal-delay-2">
+          <div class="cred-icon">🎓</div>
+          <div>
+            <div class="cred-title">Οδοντιατρική Σχολή ΑΠΘ</div>
+            <div class="cred-sub">Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης</div>
+          </div>
+        </div>
+        <div class="credential reveal reveal-delay-3">
+          <div class="cred-icon">🏆</div>
+          <div>
+            <div class="cred-title">Κορυφαία βαθμολογία στην Αλεξανδρούπολη</div>
+            <div class="cred-sub">320+ κριτικές με 5 αστέρια στο Google Maps</div>
+          </div>
+        </div>
+        <div class="credential reveal reveal-delay-4">
+          <div class="cred-icon">❤️</div>
+          <div>
+            <div class="cred-title">Ασθενοκεντρική φιλοσοφία</div>
+            <div class="cred-sub">Φροντίδα για όλη την οικογένεια, παιδιά και ενήλικες</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <div>
+      <div class="section-label reveal">Υπηρεσίες</div>
+      <h2 class="section-title reveal reveal-delay-1">Πλήρης οδοντιατρική<br>φροντίδα</h2>
+    </div>
+    <p class="section-lead reveal reveal-delay-2" style="max-width:380px">
+      Από προληπτικές εξετάσεις έως αισθητική αποκατάσταση — όλα κάτω από μία στέγη.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🦷</div>
+      <div class="service-name">Γενική Οδοντιατρική</div>
+      <p class="service-desc">Προληπτικές εξετάσεις, καθαρισμός, σφραγίσματα και αποκαταστάσεις για υγιή δόντια σε κάθε ηλικία.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">✨</div>
+      <div class="service-name">Αισθητική Οδοντιατρική</div>
+      <p class="service-desc">Λεύκανση δοντιών, όψεις πορσελάνης, σύνθετες ρητίνες και ψηφιακό σχεδιασμό χαμόγελου.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">📐</div>
+      <div class="service-name">Ορθοδοντική</div>
+      <p class="service-desc">Σιδεράκια, διαφανείς νάρθηκες και ορθοδοντικές θεραπείες για τέλεια ευθυγράμμιση.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">🔩</div>
+      <div class="service-name">Εμφυτεύματα</div>
+      <p class="service-desc">Οδοντικά εμφυτεύματα για μόνιμη αποκατάσταση χαμένων δοντιών με φυσική εμφάνιση και λειτουργία.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">🦠</div>
+      <div class="service-name">Περιοδοντολογία</div>
+      <p class="service-desc">Θεραπεία ούλων, αντιμετώπιση περιοδοντίτιδας και προληπτική φροντίδα για υγιή ούλα.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-icon">👶</div>
+      <div class="service-name">Παιδοδοντιατρική</div>
+      <p class="service-desc">Ειδική φροντίδα για τα μικρά μας ασθενή. Φιλικό περιβάλλον χωρίς άγχος για τα παιδιά.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div class="why-grid">
+    <div class="why-left">
+      <div class="section-label reveal" style="color: rgba(23,197,232,0.9)">Γιατί εμάς</div>
+      <h2 class="section-title reveal reveal-delay-1">Η εμπιστοσύνη<br>μιλά από μόνη της</h2>
+      <p class="section-lead reveal reveal-delay-2">
+        Με 320 κριτικές και βαθμολογία 5 αστέρων στο Google, το Dental Home είναι η πρώτη επιλογή των κατοίκων της Αλεξανδρούπολης για την οδοντιατρική τους φροντίδα.
+      </p>
+
+      <div class="rating-showcase reveal reveal-delay-3">
+        <div class="rating-num">5.0</div>
+        <div>
+          <div class="rating-stars">★★★★★</div>
+          <div style="font-size:0.95rem;font-weight:700;color:white">Βαθμολογία Google</div>
+          <div class="rating-count">Βάσει 320 κριτικών</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-features">
+      <div class="why-feature reveal">
+        <div class="why-feature-icon">🏥</div>
+        <div>
+          <div class="why-feature-title">Σύγχρονος Εξοπλισμός</div>
+          <div class="why-feature-desc">Ψηφιακή ακτινογραφία, ψηφιακές αποτυπώσεις και τεχνολογία αιχμής για ακριβή διάγνωση.</div>
+        </div>
+      </div>
+      <div class="why-feature reveal reveal-delay-1">
+        <div class="why-feature-icon">😌</div>
+        <div>
+          <div class="why-feature-title">Άνεση & Ασφάλεια</div>
+          <div class="why-feature-desc">Αναίμακτες τεχνικές, τοπική αναισθησία και ήπια προσέγγιση για ανώδυνες θεραπείες.</div>
+        </div>
+      </div>
+      <div class="why-feature reveal reveal-delay-2">
+        <div class="why-feature-icon">📅</div>
+        <div>
+          <div class="why-feature-title">Ευέλικτα Ραντεβού</div>
+          <div class="why-feature-desc">Ωράρια που εξυπηρετούν τη δική σας ρουτίνα — πρωί, μεσημέρι και απόγευμα.</div>
+        </div>
+      </div>
+      <div class="why-feature reveal reveal-delay-3">
+        <div class="why-feature-icon">👨‍👩‍👧</div>
+        <div>
+          <div class="why-feature-title">Οικογενειακή Πρακτική</div>
+          <div class="why-feature-desc">Εξυπηρέτηση ολόκληρης της οικογένειας — από τα πρώτα δοντάκια έως την τρίτη ηλικία.</div>
+        </div>
+      </div>
+      <div class="why-feature reveal reveal-delay-4">
+        <div class="why-feature-icon">💰</div>
+        <div>
+          <div class="why-feature-title">Προσιτές Τιμές</div>
+          <div class="why-feature-desc">Σαφής τιμολόγηση, σχέδια πληρωμής και αποδοχή ασφαλιστικών ταμείων.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label reveal" style="text-align:center">Κριτικές Ασθενών</div>
+  <h2 class="section-title reveal reveal-delay-1" style="text-align:center;margin:0 auto 8px">Τι λένε οι ασθενείς μας</h2>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Εξαιρετικός γιατρός! Με έκανε να νιώσω άνετα από την πρώτη στιγμή. Πολύ επαγγελματικός και φιλικός. Θερμά τον συστήνω σε όλους!"</p>
+      <div class="t-author">Μαρία Κ. – Αλεξανδρούπολη</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Έκανα εμφύτευμα και το αποτέλεσμα ήταν απίστευτο. Χωρίς πόνο, με τέλεια φροντίδα σε κάθε βήμα. Το καλύτερο ιατρείο στην πόλη!"</p>
+      <div class="t-author">Γιώργης Π. – Αλεξανδρούπολη</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Πηγαίνω με τα παιδιά μου εδώ εδώ και χρόνια. Ο Δρ. Αδάκτυλος είναι υπέροχος με τα μικρά. Πάντα χαρούμενα στο ιατρείο!"</p>
+      <div class="t-author">Ελένη Σ. – Αλεξανδρούπολη</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div>
+      <div class="section-label reveal">Επικοινωνία</div>
+      <h2 class="section-title reveal reveal-delay-1">Κλείστε το<br>ραντεβού σας</h2>
+      <p class="section-lead reveal reveal-delay-2">
+        Επικοινωνήστε μαζί μας σήμερα κι ας ξεκινήσουμε μαζί το ταξίδι προς ένα υγιές, λαμπερό χαμόγελο.
+      </p>
+
+      <div class="contact-info">
+        <div class="contact-item reveal reveal-delay-2">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Διεύθυνση</div>
+            <div class="contact-item-value">Αλεξανδρούπολη, Έβρος</div>
+          </div>
+        </div>
+        <div class="contact-item reveal reveal-delay-3">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Τηλέφωνο</div>
+            <a href="tel:+302551000000" class="contact-item-value">Καλέστε για ραντεβού</a>
+          </div>
+        </div>
+        <div class="contact-item reveal reveal-delay-4">
+          <div class="contact-item-icon">⏰</div>
+          <div>
+            <div class="contact-item-label">Ώρες Λειτουργίας</div>
+            <div class="contact-item-value">Δευ–Παρ: 9:00–21:00 | Σαβ: 9:00–14:00</div>
+          </div>
+        </div>
+        <div class="contact-item reveal reveal-delay-5">
+          <div class="contact-item-icon">⭐</div>
+          <div>
+            <div class="contact-item-label">Google Reviews</div>
+            <div class="contact-item-value">320 κριτικές · Βαθμολογία 5/5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box reveal reveal-delay-2">
+      <h3>Κλείστε Ραντεβού Σήμερα</h3>
+      <p>Ο Δρ. Αδάκτυλος και η ομάδα του σας περιμένουν. Ένα τηλεφώνημα αρκεί για να ξεκινήσετε.</p>
+      <a href="tel:+302551000000" class="btn-primary" style="display:inline-flex;align-items:center;gap:10px;font-size:1.05rem">
+        📞 Καλέστε τώρα
+      </a>
+
+      <div style="margin-top:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.15)">
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase">Γιατί να επιλέξετε εμάς</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:rgba(255,255,255,0.8)">✅ Άμεση εξυπηρέτηση χωρίς αναμονή</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:rgba(255,255,255,0.8)">✅ 320+ ασθενείς μας εμπιστεύτηκαν</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:rgba(255,255,255,0.8)">✅ Σύγχρονος εξοπλισμός & τεχνικές</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:rgba(255,255,255,0.8)">✅ Φιλική αντιμετώπιση παιδιών & ενηλίκων</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <strong>Dental Home – Δρ. Ηρακλής Αδάκτυλος</strong><br>
+    Οδοντιατρείο · Αλεξανδρούπολη, Έβρος
+  </div>
+  <div style="text-align:right">
+    ⭐ 5.0 · 320 κριτικές Google<br>
+    © 2026 Dental Home. Όλα τα δικαιώματα διατηρούνται.
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal via Intersection Observer
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // Hero elements animate in on load
+  window.addEventListener('DOMContentLoaded', () => {
+    const heroEls = document.querySelectorAll('.hero-content > *');
+    heroEls.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`;
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 100 + i * 120);
+    });
+  });
+</script>
+</body>
+</html>

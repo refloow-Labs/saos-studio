@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAOS Studio — Business Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --muted: #555555;
+  --light: #f7f7f7;
+  --accent: #c9a96e;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 10.5pt;
+  line-height: 1.65;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.page {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 22mm 24mm;
+  min-height: 297mm;
+  page-break-after: always;
+  position: relative;
+}
+.page:last-child { page-break-after: auto; }
+
+/* Header */
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+.doc-header img { height: 36px; }
+.doc-header-meta { text-align: right; font-size: 8.5pt; color: var(--muted); }
+
+/* Typography */
+h1 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; margin-bottom: 8px; line-height: 1.2; }
+h2 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; margin: 28px 0 12px; color: var(--text); border-bottom: 1px solid #e0e0e0; padding-bottom: 6px; }
+h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; margin: 20px 0 8px; }
+p { margin-bottom: 10px; color: var(--muted); }
+ul, ol { margin: 10px 0 10px 20px; color: var(--muted); }
+li { margin-bottom: 4px; }
+strong { color: var(--text); font-weight: 500; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 9.5pt; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e8e8e8; }
+th { background: var(--light); font-weight: 500; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+tr:hover td { background: #fafafa; }
+
+/* Boxes */
+.info-box {
+  background: var(--light);
+  border-left: 3px solid var(--accent);
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 9.5pt;
+}
+.info-box p { margin: 0; color: var(--muted); }
+
+/* Cover */
+.cover { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 40mm; }
+.cover img { width: 180px; margin-bottom: 40px; }
+.cover h1 { font-size: 2.8rem; margin-bottom: 12px; }
+.cover h1 em { font-style: italic; color: var(--accent); }
+.cover p { font-size: 11pt; max-width: 380px; margin-bottom: 60px; }
+.cover-details { font-size: 9pt; color: var(--muted); line-height: 2; }
+
+/* Footer note */
+.footer-note {
+  position: absolute;
+  bottom: 16mm; left: 24mm; right: 24mm;
+  font-size: 7.5pt;
+  color: #999;
+  border-top: 1px solid #e8e8e8;
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media print {
+  .page { padding: 18mm 22mm; }
+}
+@media (max-width: 700px) {
+  .page { padding: 24px; }
+  .doc-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page cover">
+  <img src="../logos/dark-logo.png" alt="SAOS Studio">
+  <h1>Business Plan<br><em>2025–2026</em></h1>
+  <p>AI-accelerated web design for small businesses. Agency quality. Freelancer price. Delivered in days.</p>
+  <div class="cover-details">
+    <strong>SAOS Studio</strong><br>
+    hello@saos.studio · saos.studio<br>
+    Prepared: April 2025 · Confidential
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="page">
+  <div class="doc-header">
+    <img src="../logos/dark-logo.png" alt="SAOS Studio">
+    <div class="doc-header-meta">Business Plan 2025–2026<br>Confidential</div>
+  </div>
+  
+  <h1>Executive Summary</h1>
+  
+  <div class="info-box">
+    <p><strong>Mission:</strong> To democratize beautiful web design by combining artificial intelligence with human creative direction — delivering professional websites in under a week from €350.</p>
+  </div>
+  
+  <h2>The Opportunity</h2>
+  <p>Millions of small businesses operate with outdated, broken, or nonexistent websites. Traditional agencies charge €3,000–€10,000 and require 6–8 week timelines. DIY builders produce generic results that fail to build trust. There is a massive gap for fast, affordable, high-quality web design.</p>
+  
+  <h2>The Solution</h2>
+  <p>SAOS Studio uses AI to accelerate the design and coding process by 80%, then applies senior human designers to refine the final 20% — spacing, typography, animation, and brand voice. The result is a website that looks and performs like a €10,000 agency build, delivered in 2–7 days.</p>
+  
+  <h2>Financial Snapshot</h2>
+  <table>
+    <tr><th>Metric</th><th>Year 1 Target</th><th>Year 2 Target</th></tr>
+    <tr><td>Revenue</td><td>€30,000</td><td>€75,000</td></tr>
+    <tr><td>Projects Delivered</td><td>72</td><td>165</td></tr>
+    <tr><td>Average Project Value</td><td>€420</td><td>€455</td></tr>
+    <tr><td>Operating Margin</td><td>~75%</td><td>~80%</td></tr>
+  </table>
+
+  <h2>Funding & Capital</h2>
+  <p>This is a bootstrapped operation. Initial costs are under €500 (domain, hosting, tools, branding). All growth is funded by revenue. No external capital required.</p>
+</div>
+
+<!-- BUSINESS MODEL -->
+<div class="page">
+  <div class="doc-header">
+    <img src="../logos/dark-logo.png" alt="SAOS Studio">
+    <div class="doc-header-meta">Business Plan 2025–2026<br>Confidential</div>
+  </div>
+  
+  <h1>Business Model</h1>
+  
+  <h2>Revenue Streams</h2>
+  <table>
+    <tr><th>Package</th><th>Price</th><th>Description</th><th>Margin</th></tr>
+    <tr><td>Static</td><td>€350</td><td>Single-page custom design, build, and deployment</td><td>~85%</td></tr>
+    <tr><td>Premium</td><td>€500</td><td>Static + Google Analytics integration + 2 additional pages</td><td>~80%</td></tr>
+    <tr><td>Maintenance</td><td>€99/mo</td><td>Hosting, updates, small changes</td><td>~90%</td></tr>
+  </table>
+  
+  <h2>Cost Structure</h2>
+  <ul>
+    <li><strong>AI APIs (OpenAI):</strong> ~€30–€60/month depending on volume</li>
+    <li><strong>Email infrastructure (Resend):</strong> ~€10–€20/month</li>
+    <li><strong>Domain & hosting:</strong> ~€20/month</li>
+    <li><strong>Lead data (SerpAPI / tools):</strong> ~€50/month</li>
+    <li><strong>Design tools (Canva Pro, etc.):</strong> ~€15/month</li>
+    <li><strong>Miscellaneous:</strong> ~€25/month</li>
+  </ul>
+  <p><strong>Total monthly overhead:</strong> ~€150–€200. Break-even at <strong>1 project per month</strong>.</p>
+  
+  <h2>Competitive Advantage</h2>
+  <ol>
+    <li><strong>Speed:</strong> 48 hours to 7 days vs. industry standard 4–8 weeks</li>
+    <li><strong>Price:</strong> From €350 vs. €3,000–€10,000 agency average</li>
+    <li><strong>Quality:</strong> Hand-finished by designers; no templates</li>
+    <li><strong>Process:</strong> One 15-minute brief call. No bloated meetings</li>
+    <li><strong>Tech:</strong> Clean, fast code. No WordPress bloat or plugin dependencies</li>
+  </ol>
+</div>
+
+<!-- MARKET ANALYSIS -->
+<div class="page">
+  <div class="doc-header">
+    <img src="../logos/dark-logo.png" alt="SAOS Studio">
+    <div class="doc-header-meta">Business Plan 2025–2026<br>Confidential</div>
+  </div>
+  
+  <h1>Market Analysis</h1>
+  
+  <h2>Target Market Size</h2>
+  <p>In Europe alone, there are approximately <strong>25 million small businesses</strong>. Estimates suggest 40–50% either have no website or operate with a severely outdated one. This represents a serviceable market of <strong>10–12 million businesses</strong>.</p>
+  
+  <h2>Customer Segments</h2>
+  <table>
+    <tr><th>Segment</th><th>Needs</th><th>Willingness to Pay</th><th>Acquisition</th></tr>
+    <tr><td>Local Service (restaurant, salon, clinic)</td><td>Credibility, bookings, contact</td><td>€300–€600</td><td>Google Maps outreach</td></tr>
+    <tr><td>Solo Professionals (lawyer, architect)</td><td>Trust, portfolio, authority</td><td>€400–€800</td><td>LinkedIn, referrals</td></tr>
+    <tr><td>Early Startups</td><td>Validation, landing pages</td><td>€200–€500</td><td>Online communities</td></tr>
+    <tr><td>Trades (plumber, builder)</td><td>Local SEO, leads</td><td>€300–€500</td><td>Local directories</td></tr>
+  </table>
+  
+  <h2>Competitive Landscape</h2>
+  <table>
+    <tr><th>Competitor Type</th><th>Strengths</th><th>Weaknesses</th><th>Our Edge</th></tr>
+    <tr><td>Traditional Agencies</td><td>Full service, strategy</td><td>Expensive, slow</td><td>10x cheaper, 5x faster</td></tr>
+    <tr><td>Freelancers (Upwork/Fiverr)</td><td>Cheap</td><td>Inconsistent, slow</td><td>Reliable process, premium quality</td></tr>
+    <tr><td>DIY Builders (Wix, Squarespace)</td><td>Low cost, easy</td><td>Generic, time-consuming</td><td>Done-for-you, custom design</td></tr>
+    <tr><td>AI-only tools</td><td>Instant, cheap</td><td>No human touch, off-brand</td><td>Human refinement, brand alignment</td></tr>
+  </table>
+</div>
+
+<!-- MARKETING & SALES -->
+<div class="page">
+  <div class="doc-header">
+    <img src="../logos/dark-logo.png" alt="SAOS Studio">
+    <div class="doc-header-meta">Business Plan 2025–2026<br>Confidential</div>
+  </div>
+  
+  <h1>Marketing & Sales Strategy</h1>
+  
+  <h2>Primary Channel: Direct Outreach</h2>
+  <p>Our "Draft First, Sell Second" system identifies businesses with poor/no websites via Google Maps, generates a custom AI homepage preview for their brand, and sends a personalized email with a live preview link. This turns cold outreach into a warm demonstration.</p>
+  
+  <div class="info-box">
+    <p><strong>Target:</strong> 50 emails/day → 2–5% reply rate → 10–20% meeting conversion → 50% close rate = <strong>1–2 deals/week</strong> from outbound alone.</p>
+  </div>
+  
+  <h2>Secondary Channels</h2>
+  <ul>
+    <li><strong>Local SEO:</strong> Google Business Profile, local keywords, reviews</li>
+    <li><strong>Social Proof Flywheel:</strong> Instagram/LinkedIn before/after posts</li>
+    <li><strong>Referral Program:</strong> €100 credit per successful referral</li>
+    <li><strong>Partnerships:</strong> Accountants, coaches, business consultants (15% commission)</li>
+    <li><strong>Content:</strong> Blog posts comparing agency vs. AI design costs</li>
+  </ul>
+  
+  <h2>Sales Process</h2>
+  <ol>
+    <li><strong>Discovery Call (15 min):</strong> Understand goals, content, timeline</li>
+    <li><strong>Proposal:</strong> One-page scope + price confirmation via email</li>
+    <li><strong>Deposit:</strong> 50% upfront to begin</li>
+    <li><strong>Draft Delivery:</strong> AI-generated draft within 24–48 hours</li>
+    <li><strong>Revision Round:</strong> Client feedback, designer refinement</li>
+    <li><strong>Final Payment:</strong> 50% on approval</li>
+    <li><strong>Launch:</strong> Deploy, connect domain, handover</li>
+  </ol>
+</div>
+
+<!-- OPERATIONS -->
+<div class="page">
+  <div class="doc-header">
+    <img src="../logos/dark-logo.png" alt="SAOS Studio">
+    <div class="doc-header-meta">Business Plan 2025–2026<br>Confidential</div>
+  </div>
+  
+  <h1>Operations & Technology</h1>
+  
+  <h2>Workflow</h2>
+  <p>Each project follows a 4-step process: <strong>Discover → Draft → Refine → Launch</strong>. AI handles the heavy lifting of layout generation and initial code. A senior designer reviews every pixel before delivery.</p>
+  
+  <h2>Technology Stack</h2>
+  <table>
+    <tr><th>Layer</th><th>Tools</th></tr>
+    <tr><td>Design Generation</td><td>OpenAI GPT-4, custom prompt engineering</td></tr>
+    <tr><td>Frontend</td><td>HTML5, CSS3, vanilla JS (no frameworks for speed)</td></tr>
+    <tr><td>Hosting</td><td>Netlify, Vercel, Cloudflare Pages</td></tr>
+    <tr><td>Domains</td><td>Namecheap, Cloudflare</td></tr>
+    <tr><td>CRM</td><td>Notion, custom JSON database</td></tr>
+    <tr><td>Email</td><td>Resend, Google Workspace</td></tr>
+    <tr><td>Analytics</td><td>Google Analytics, Plausible</td></tr>
+  </table>
+  
+  <h2>Quality Assurance</h2>
+  <ul>
+    <li>Every site tested on mobile, tablet, and desktop</li>
+    <li>Google PageSpeed score target: 90+</li>
+    <li>Accessibility baseline: semantic HTML, alt tags, contrast ratios</li>
+    <li>Cross-browser compatibility: Chrome, Safari, Firefox, Edge</li>
+  </ul>
+  
+  <h2>Capacity Planning</h2>
+  <p>With current workflow, one operator can manage <strong>8–10 projects per month</strong>. At scale, we hire contract designers for refinement work while the founder manages discovery, AI prompting, and client relationships.</p>
+</div>
+
+<!-- FINANCIAL PLAN -->
+<div class="page">
+  <div class="doc-header">
+    <img src="../logos/dark-logo.png" alt="SAOS Studio">
+    <div class="doc-header-meta">Business Plan 2025–2026<br>Confidential</div>
+  </div>
+  
+  <h1>Financial Plan</h1>
+  
+  <h2>Revenue Projections (Year 1)</h2>
+  <table>
+    <tr><th>Month</th><th>Projects</th><th>Avg Value</th><th>Revenue</th><th>Costs</th><th>Net</th></tr>
+    <tr><td>1–3</td><td>4</td><td>€380</td><td>€1,520</td><td>€600</td><td>€920</td></tr>
+    <tr><td>4–6</td><td>12</td><td>€400</td><td>€4,800</td><td>€600</td><td>€4,200</td></tr>
+    <tr><td>7–9</td><td>24</td><td>€425</td><td>€10,200</td><td>€800</td><td>€9,400</td></tr>
+    <tr><td>10–12</td><td>32</td><td>€450</td><td>€14,400</td><td>€1,000</td><td>€13,400</td></tr>
+    <tr style="background:#f7f7f7;font-weight:500;"><td><strong>Total Y1</strong></td><td><strong>72</strong></td><td><strong>€430</strong></td><td><strong>€30,920</strong></td><td><strong>€3,000</strong></td><td><strong>€27,920</strong></td></tr>
+  </table>
+  
+  <h2>Risk Factors & Mitigation</h2>
+  <table>
+    <tr><th>Risk</th><th>Likelihood</th><th>Mitigation</th></tr>
+    <tr><td>Low reply rates on cold email</td><td>Medium</td><td>A/B test subjects, improve preview quality, add LinkedIn touch</td></tr>
+    <tr><td>AI output quality inconsistency</td><td>Medium</td><td>Refine prompts, add manual review gate, client sees draft before build</td></tr>
+    <tr><td>Scope creep</td><td>High</td><td>Fixed packages, clear SOW, paid revisions beyond scope</td></tr>
+    <tr><td>Competitor price undercutting</td><td>Low</td><td>Emphasize quality and speed; avoid competing purely on price</td></tr>
+    <tr><td>Client non-payment</td><td>Low</td><td>50% deposit required; final delivery after final payment</td></tr>
+  </table>
+</div>
+
+<!-- TEAM & MILESTONES -->
+<div class="page">
+  <div class="doc-header">
+    <img src="../logos/dark-logo.png" alt="SAOS Studio">
+    <div class="doc-header-meta">Business Plan 2025–2026<br>Confidential</div>
+  </div>
+  
+  <h1>Team & Milestones</h1>
+  
+  <h2>Current Team</h2>
+  <table>
+    <tr><th>Role</th><th>Responsibilities</th></tr>
+    <tr><td>Founder / Designer</td><td>Strategy, client discovery, design refinement, brand direction</td></tr>
+    <tr><td>AI Systems (automated)</td><td>Draft generation, code scaffolding, asset creation</td></tr>
+  </table>
+  
+  <h2>Hiring Roadmap</h2>
+  <ul>
+    <li><strong>Month 6:</strong> Contract designer (refinement + overflow)</li>
+    <li><strong>Month 9:</strong> Part-time sales assistant (outreach + scheduling)</li>
+    <li><strong>Month 12:</strong> Full-time junior designer or developer</li>
+  </ul>
+  
+  <h2>12-Month Milestones</h2>
+  <table>
+    <tr><th>Month</th><th>Milestone</th></tr>
+    <tr><td>1</td><td>First 4 clients closed. Systems operational.</td></tr>
+    <tr><td>3</td><td>Recurring revenue stream launched (maintenance €99/mo).</td></tr>
+    <tr><td>6</td><td>First hire. Portfolio of 20+ projects. Inbound leads begin.</td></tr>
+    <tr><td>9</td><td>€5,000/month consistent revenue. Referral program driving 20% of leads.</td></tr>
+    <tr><td>12</td><td>€7,500+/month. 2 team members. Recognized local brand.</td></tr>
+  </table>
+  
+  <h2>Exit & Scale Options</h2>
+  <ul>
+    <li><strong>Productize:</strong> Launch a templated "SAOS Kit" for DIYers at €99</li>
+    <li><strong>Agency Model:</strong> Expand into SEO, branding, and paid ads</li>
+    <li><strong>Acquisition:</strong> Attractive to marketing agencies seeking AI workflows</li>
+  </ul>
+  
+  <div class="info-box">
+    <p><strong>Closing Statement:</strong> SAOS Studio is not a cheap web design shop. It is a precision tool for small business owners who want to look like they spent €10,000 without actually doing so. Our moat is speed, taste, and relentless execution. The market is enormous. The time is now.</p>
+  </div>
+  
+  <div class="footer-note">
+    <span>SAOS Studio · hello@saos.studio</span>
+    <span>Confidential · Do not distribute</span>
+  </div>
+</div>
+
+</body>
+</html>

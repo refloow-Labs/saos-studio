@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κτήμα 28 — Ο Γάμος των Ονείρων σας | Αφίδνες, Αττική</title>
+<meta name="description" content="Κτήμα 28 - Πολυχώρος Νικολέλη. Κτήμα γάμου και βάπτισης στο 28ο χλμ. Ε.Ο. Αθηνών-Λαμίας. Εκκλησάκι, κλειστή αίθουσα 400 ατόμων, πισίνα, κουζίνα εντός.">
+<meta name="keywords" content="κτήμα γάμου, γάμος, βάπτιση, δεξίωση, Αττική, Αφίδνες, Κτήμα 28, wedding venue Athens">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   KTIMA 28 — Golden Hour
+   Design Concept: Romantic sunset warmth,
+   dreamy garden ceremony aesthetics,
+   fairy-light sparkle and floral softness
+   ======================================== */
+
+/* --- CSS Variables --- */
+:root {
+  --blush: #f0ddd5;
+  --blush-deep: #e4ccc0;
+  --blush-pale: #f7ece7;
+  --champagne: #c5a55a;
+  --champagne-light: #d4bc7e;
+  --champagne-pale: #e8dbb8;
+  --sage: #4a6741;
+  --sage-light: #6b8a5e;
+  --sage-pale: #dce8d5;
+  --ivory: #faf8f2;
+  --ivory-warm: #f5f0e6;
+  --charcoal: #2c2c2c;
+  --charcoal-soft: #4a4a4a;
+  --rose: #c9908a;
+  --rose-soft: #d4a8a2;
+  --white: #ffffff;
+  --shadow-warm: rgba(197, 165, 90, 0.08);
+  --shadow-deep: rgba(44, 44, 44, 0.12);
+
+  --font-script: 'Great Vibes', cursive;
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-serif: 'Lora', 'Georgia', serif;
+  --font-body: 'Outfit', 'Helvetica Neue', sans-serif;
+
+  --ease-romantic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-float: cubic-bezier(0.37, 0, 0.63, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--champagne) var(--ivory);
+}
+
+html::-webkit-scrollbar { width: 5px; }
+html::-webkit-scrollbar-track { background: var(--ivory); }
+html::-webkit-scrollbar-thumb { background: var(--champagne); border-radius: 3px; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--champagne);
+  color: var(--white);
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* --- Subtle Linen Texture Overlay --- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5a55a' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes drawLine {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes petalsFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(197, 165, 90, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(197, 165, 90, 0.4); }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s var(--ease-romantic), transform 1s var(--ease-romantic);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-scroll.delay-1 { transition-delay: 0.12s; }
+.animate-on-scroll.delay-2 { transition-delay: 0.24s; }
+.animate-on-scroll.delay-3 { transition-delay: 0.36s; }
+.animate-on-scroll.delay-4 { transition-delay: 0.48s; }
+.animate-on-scroll.delay-5 { transition-delay: 0.6s; }
+.animate-on-scroll.delay-6 { transition-delay: 0.72s; }
+.animate-on-scroll.delay-7 { transition-delay: 0.84s; }
+.animate-on-scroll.delay-8 { transition-delay: 0.96s; }
+
+/* --- Header / Navigation --- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.5s var(--ease-romantic);
+}
+
+.header.scrolled {
+  background: rgba(250, 248, 242, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 14px 40px;
+  box-shadow: 0 2px 30px rgba(44, 44, 44, 0.06);
+}
+
+.logo {
+  font-family: var(--font-script);
+  font-size: 32px;
+  color: var(--champagne);
+  transition: color 0.3s;
+  letter-spacing: 1px;
+}
+
+.header.scrolled .logo {
+  color: var(--champagne);
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav a {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  position: relative;
+  transition: color 0.3s;
+}
+
+.header.scrolled .nav a {
+  color: var(--charcoal);
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--champagne);
+  transition: width 0.4s var(--ease-romantic);
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+.nav a:hover {
+  color: var(--champagne);
+}
+
+.nav-cta {
+  font-family: var(--font-body) !important;
+  font-size: 12px !important;
+  letter-spacing: 2px !important;
+  padding: 10px 24px;
+  border: 1px solid var(--champagne);
+  color: var(--champagne) !important;
+  transition: all 0.4s var(--ease-romantic) !important;
+}
+
+.nav-cta:hover {
+  background: var(--champagne);
+  color: var(--white) !important;
+}
+
+.nav-cta::after { display: none !important; }
+
+/* Mobile menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 1.5px;
+  background: var(--white);
+  transition: all 0.4s var(--ease-romantic);
+  transform-origin: center;
+}
+
+.header.scrolled .hamburger span {
+  background: var(--charcoal);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 4px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -4px);
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(250, 248, 242, 0.97);
+  backdrop-filter: blur(30px);
+  z-index: 999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.mobile-nav.active {
+  display: flex;
+}
+
+.mobile-nav a {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--charcoal);
+  letter-spacing: 2px;
+  transition: color 0.3s;
+}
+
+.mobile-nav a:hover {
+  color: var(--champagne);
+}
+
+/* --- Hero Section --- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(
+    175deg,
+    #2c2c2c 0%,
+    #3d2f28 20%,
+    #5a3f30 35%,
+    #7d5a3a 50%,
+    #c5a55a 65%,
+    #e4ccc0 80%,
+    #f0ddd5 95%
+  );
+}
+
+/* Animated gradient overlay for sunset feel */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 120%, rgba(197, 165, 90, 0.3) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 20%, rgba(74, 103, 65, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 30%, rgba(201, 144, 138, 0.2) 0%, transparent 40%);
+  z-index: 1;
+}
+
+/* Floating petal particles */
+.hero-petals {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50% 0 50% 50%;
+  opacity: 0;
+  animation: petalsFloat linear infinite;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  padding: 0 30px;
+  animation: fadeIn 1.5s var(--ease-romantic) forwards;
+}
+
+.hero-ornament {
+  font-size: 40px;
+  color: var(--champagne-light);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeIn 1s var(--ease-romantic) 0.3s forwards;
+  letter-spacing: 12px;
+}
+
+.hero-script {
+  font-family: var(--font-script);
+  font-size: clamp(48px, 8vw, 96px);
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInUp 1.2s var(--ease-out-soft) 0.5s forwards;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.2);
+}
+
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ivory);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeInUp 1s var(--ease-out-soft) 0.8s forwards;
+}
+
+.hero-tagline {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--champagne-pale);
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeInUp 1s var(--ease-out-soft) 1s forwards;
+}
+
+.hero-line {
+  width: 60px;
+  height: 1px;
+  background: var(--champagne);
+  margin: 0 auto 32px;
+  opacity: 0;
+  animation: fadeIn 1s var(--ease-romantic) 1.2s forwards;
+}
+
+.hero-cta {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 16px 40px;
+  transition: all 0.5s var(--ease-romantic);
+  opacity: 0;
+  animation: fadeInUp 1s var(--ease-out-soft) 1.4s forwards;
+}
+
+.hero-cta:hover {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--white);
+  letter-spacing: 5px;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s var(--ease-romantic) 2s forwards;
+}
+
+.scroll-indicator span {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--champagne-pale);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--champagne), transparent);
+  animation: floatGentle 2s var(--ease-float) infinite;
+}
+
+/* --- Section Shared Styles --- */
+.section {
+  padding: 120px 40px;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  color: var(--charcoal);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.section-script {
+  font-family: var(--font-script);
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: var(--champagne);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.section-divider {
+  width: 50px;
+  height: 1px;
+  background: var(--champagne);
+  margin: 0 auto;
+}
+
+.section-subtitle {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--charcoal-soft);
+  max-width: 600px;
+  margin: 20px auto 0;
+  line-height: 1.8;
+}
+
+/* --- About Section --- */
+.about {
+  background: var(--ivory);
+  overflow: hidden;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.about-image {
+  position: relative;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, var(--blush) 0%, var(--blush-deep) 50%, var(--rose-soft) 100%);
+  border-radius: 200px 200px 20px 20px;
+  overflow: hidden;
+}
+
+.about-image::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--champagne);
+  border-radius: 192px 192px 14px 14px;
+  opacity: 0.5;
+}
+
+.about-image-label {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-script);
+  font-size: 28px;
+  color: var(--white);
+  text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+
+.about-text h3 {
+  font-family: var(--font-script);
+  font-size: 40px;
+  color: var(--champagne);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+.about-text p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--charcoal-soft);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.about-text p:last-of-type {
+  margin-bottom: 32px;
+}
+
+.about-stats {
+  display: flex;
+  gap: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--blush-deep);
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--champagne);
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--charcoal-soft);
+  margin-top: 6px;
+  display: block;
+}
+
+/* --- Parallax Quote Section --- */
+.parallax-quote {
+  position: relative;
+  padding: 140px 40px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--sage) 0%, #3a5532 50%, #2d4227 100%);
+  overflow: hidden;
+}
+
+.parallax-quote::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(197, 165, 90, 0.15) 0%, transparent 70%);
+}
+
+.parallax-quote::after {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 200px;
+  color: rgba(255,255,255,0.05);
+  line-height: 1;
+}
+
+.quote-text {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ivory);
+  max-width: 800px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.quote-author {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-script);
+  font-size: 24px;
+  color: var(--champagne-light);
+}
+
+/* --- Wedding Services Section --- */
+.services {
+  background: var(--ivory-warm);
+  overflow: hidden;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 48px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-romantic);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--champagne), var(--blush), var(--champagne));
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-romantic);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(197, 165, 90, 0.12);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  background: linear-gradient(135deg, var(--blush-pale), var(--blush));
+  transition: all 0.5s var(--ease-romantic);
+}
+
+.service-card:hover .service-icon {
+  background: linear-gradient(135deg, var(--champagne), var(--champagne-light));
+  transform: scale(1.1);
+}
+
+.service-card h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 14px;
+}
+
+.service-card p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--charcoal-soft);
+  line-height: 1.8;
+}
+
+/* --- Baptism Section --- */
+.baptism {
+  background: var(--ivory);
+  overflow: hidden;
+}
+
+.baptism-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.baptism-visual {
+  position: relative;
+}
+
+.baptism-card-stack {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.baptism-card {
+  aspect-ratio: 1;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  transition: transform 0.5s var(--ease-romantic);
+}
+
+.baptism-card:hover {
+  transform: translateY(-6px);
+}
+
+.baptism-card:nth-child(1) {
+  background: linear-gradient(135deg, var(--blush-pale), var(--blush));
+  border-radius: 16px 16px 16px 60px;
+}
+.baptism-card:nth-child(2) {
+  background: linear-gradient(135deg, var(--sage-pale), #c8d9be);
+  border-radius: 16px 16px 60px 16px;
+  transform: translateY(20px);
+}
+.baptism-card:nth-child(3) {
+  background: linear-gradient(135deg, var(--champagne-pale), #ddd0a8);
+  border-radius: 16px 60px 16px 16px;
+}
+.baptism-card:nth-child(4) {
+  background: linear-gradient(135deg, #e8dff5, #d4c8e8);
+  border-radius: 60px 16px 16px 16px;
+  transform: translateY(20px);
+}
+
+.baptism-card-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.baptism-card-text {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.baptism-info h3 {
+  font-family: var(--font-script);
+  font-size: 38px;
+  color: var(--champagne);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.baptism-info p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--charcoal-soft);
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+.baptism-features {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.baptism-features li {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--charcoal-soft);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--blush-deep);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 300;
+}
+
+.baptism-features li::before {
+  content: '✦';
+  color: var(--champagne);
+  font-size: 10px;
+}
+
+/* --- Chapel Section --- */
+.chapel {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.chapel-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.chapel-image {
+  background: linear-gradient(135deg, #d4c8a8 0%, var(--champagne) 40%, #b89940 60%, var(--sage) 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chapel-image-inner {
+  text-align: center;
+  color: var(--white);
+}
+
+.chapel-cross {
+  font-size: 60px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.chapel-image-text {
+  font-family: var(--font-script);
+  font-size: 36px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+
+.chapel-content {
+  padding: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--white);
+}
+
+.chapel-content .section-label {
+  text-align: left;
+}
+
+.chapel-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.chapel-content .section-script {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.chapel-content p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--charcoal-soft);
+  font-weight: 300;
+  margin-bottom: 16px;
+  max-width: 500px;
+}
+
+.chapel-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--charcoal-soft);
+  font-weight: 300;
+}
+
+.chapel-detail-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--blush-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* --- Amenities Section --- */
+.amenities {
+  background: var(--ivory-warm);
+  overflow: hidden;
+}
+
+.amenities-showcase {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.amenity-item {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--white);
+  border-radius: 20px;
+  transition: all 0.5s var(--ease-romantic);
+  position: relative;
+  overflow: hidden;
+}
+
+.amenity-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--champagne);
+  transition: width 0.5s var(--ease-romantic);
+}
+
+.amenity-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 50px rgba(197, 165, 90, 0.1);
+}
+
+.amenity-item:hover::after {
+  width: 60%;
+}
+
+.amenity-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.amenity-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.amenity-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--charcoal-soft);
+  line-height: 1.6;
+}
+
+/* --- Extra Services Horizontal Scroll --- */
+.extras {
+  background: linear-gradient(135deg, var(--charcoal) 0%, #3a3a3a 100%);
+  padding: 80px 40px;
+  overflow: hidden;
+}
+
+.extras-label {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 40px;
+}
+
+.extras-track {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.extra-item {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--ivory);
+  font-style: italic;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.extra-item::after {
+  content: '✦';
+  position: absolute;
+  right: -34px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8px;
+  color: var(--champagne);
+  font-style: normal;
+}
+
+.extra-item:last-child::after {
+  display: none;
+}
+
+.extra-item:hover {
+  color: var(--champagne);
+}
+
+/* --- Casa28 Section --- */
+.casa28 {
+  background: var(--ivory);
+  overflow: hidden;
+}
+
+.casa28-banner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
+  background: var(--white);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+}
+
+.casa28-visual {
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, var(--blush-pale) 0%, #e8e2d8 50%, var(--champagne-pale) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.casa28-visual-text {
+  text-align: center;
+}
+
+.casa28-visual-text span {
+  font-family: var(--font-script);
+  font-size: 48px;
+  color: var(--charcoal);
+  display: block;
+}
+
+.casa28-visual-text small {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--charcoal-soft);
+  margin-top: 8px;
+  display: block;
+}
+
+.casa28-info {
+  padding: 48px 48px 48px 0;
+}
+
+.casa28-info h3 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 16px;
+}
+
+.casa28-info p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--charcoal-soft);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.casa28-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  border: 1px solid var(--champagne);
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: all 0.4s var(--ease-romantic);
+}
+
+.casa28-tag:hover {
+  background: var(--champagne);
+  color: var(--white);
+}
+
+/* --- Contact Section --- */
+.contact {
+  background: var(--blush-pale);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.contact-info h3 {
+  font-family: var(--font-script);
+  font-size: 36px;
+  color: var(--champagne);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.contact-info > p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--charcoal-soft);
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.contact-detail-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.contact-detail-text {
+  padding-top: 2px;
+}
+
+.contact-detail-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 4px;
+}
+
+.contact-detail-value {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+.contact-detail-value a {
+  transition: color 0.3s;
+}
+
+.contact-detail-value a:hover {
+  color: var(--champagne);
+}
+
+.contact-map {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+  filter: saturate(0.8) contrast(1.05);
+  transition: filter 0.5s;
+}
+
+.contact-map:hover iframe {
+  filter: saturate(1) contrast(1);
+}
+
+/* --- CTA Banner --- */
+.cta-banner {
+  background: linear-gradient(135deg, var(--champagne) 0%, #b89540 50%, var(--champagne) 100%);
+  padding: 80px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-banner h2 {
+  font-family: var(--font-script);
+  font-size: clamp(32px, 5vw, 56px);
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.cta-banner p {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 32px;
+}
+
+.cta-button {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  background: var(--white);
+  padding: 18px 48px;
+  border-radius: 0;
+  transition: all 0.5s var(--ease-romantic);
+}
+
+.cta-button:hover {
+  background: var(--charcoal);
+  color: var(--champagne-light);
+  letter-spacing: 5px;
+}
+
+/* --- Footer --- */
+.footer {
+  background: var(--charcoal);
+  padding: 60px 40px 30px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: var(--font-script);
+  font-size: 36px;
+  color: var(--champagne);
+  margin-bottom: 20px;
+}
+
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ivory);
+  opacity: 0.6;
+  margin-bottom: 24px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(250, 248, 242, 0.5);
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--champagne);
+}
+
+.footer-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--champagne);
+  margin: 0 auto 24px;
+  opacity: 0.4;
+}
+
+.footer-company {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(250, 248, 242, 0.3);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(250, 248, 242, 0.25);
+  letter-spacing: 1px;
+}
+
+.footer-saos {
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(250, 248, 242, 0.2);
+  letter-spacing: 1px;
+}
+
+.footer-saos a {
+  color: rgba(197, 165, 90, 0.4);
+  transition: color 0.3s;
+}
+
+.footer-saos a:hover {
+  color: var(--champagne);
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .amenities-showcase {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid {
+    gap: 50px;
+  }
+
+  .chapel-content {
+    padding: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 24px;
+  }
+
+  .header.scrolled {
+    padding: 12px 24px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .section {
+    padding: 80px 24px;
+  }
+
+  .hero-content {
+    padding: 0 20px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-image {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .about-stats {
+    justify-content: center;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+
+  .baptism-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .baptism-card-stack {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .chapel-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .chapel-image {
+    min-height: 300px;
+  }
+
+  .chapel-content {
+    padding: 50px 24px;
+  }
+
+  .amenities-showcase {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .extras-track {
+    gap: 30px;
+  }
+
+  .extra-item {
+    font-size: 17px;
+  }
+
+  .casa28-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .casa28-info {
+    padding: 32px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .parallax-quote {
+    padding: 80px 24px;
+  }
+
+  .cta-banner {
+    padding: 60px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 26px;
+  }
+
+  .section {
+    padding: 60px 16px;
+  }
+
+  .about-stats {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .amenities-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .extras-track {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .extra-item::after {
+    display: none;
+  }
+
+  .baptism-card-stack {
+    grid-template-columns: 1fr;
+    max-width: 240px;
+  }
+
+  .baptism-card:nth-child(2),
+  .baptism-card:nth-child(4) {
+    transform: none;
+  }
+
+  .contact-map iframe {
+    height: 280px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* --- Print --- */
+@media print {
+  .header, .scroll-indicator, .hero-petals, .hamburger, .mobile-nav { display: none; }
+  body::before { display: none; }
+  .hero { min-height: auto; padding: 60px 40px; background: var(--blush) !important; }
+  .section { padding: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <a href="#" class="logo">Κτήμα 28</a>
+  <nav class="nav">
+    <a href="#about">Το Κτήμα</a>
+    <a href="#wedding">Γάμος</a>
+    <a href="#baptism">Βάπτιση</a>
+    <a href="#chapel">Εκκλησάκι</a>
+    <a href="#amenities">Χώροι</a>
+    <a href="#contact" class="nav-cta">Κράτηση</a>
+  </nav>
+  <div class="hamburger" id="hamburger" aria-label="Μενού" role="button" tabindex="0">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about">Το Κτήμα</a>
+  <a href="#wedding">Γάμος</a>
+  <a href="#baptism">Βάπτιση</a>
+  <a href="#chapel">Εκκλησάκι</a>
+  <a href="#amenities">Χώροι</a>
+  <a href="#contact">Επικοινωνία</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-petals" id="heroPetals"></div>
+  <div class="hero-content">
+    <div class="hero-ornament">&#10053; &nbsp; &#10053; &nbsp; &#10053;</div>
+    <h1 class="hero-script">Ο γάμος των ονείρων σας</h1>
+    <p class="hero-subtitle">Κτήμα 28 &mdash; Πολυχώρος Νικολέλη</p>
+    <p class="hero-tagline">Αφίδνες, Αττική</p>
+    <div class="hero-line"></div>
+    <a href="#contact" class="hero-cta">Κλείστε Ραντεβού</a>
+  </div>
+  <div class="scroll-indicator">
+    <span>Ανακαλύψτε</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section about" id="about">
+  <div class="section-header animate-on-scroll">
+    <span class="section-label">Το Κτήμα</span>
+    <h2 class="section-title">Ένας χώρος που<br>αγκαλιάζει τα όνειρα</h2>
+    <span class="section-script">Κτήμα 28</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-image animate-on-scroll">
+      <span class="about-image-label">Πολυχώρος Νικολέλη</span>
+    </div>
+    <div class="about-text">
+      <h3 class="animate-on-scroll delay-1">Η ιστορία μας</h3>
+      <p class="animate-on-scroll delay-2">
+        Στο 28ο χιλιόμετρο της Εθνικής Οδού Αθηνών-Λαμίας, ο Πολυχώρος Νικολέλη φιλοξενεί το Κτήμα 28 &mdash; έναν παραμυθένιο χώρο δεξιώσεων που συνδυάζει τη φύση με την κομψότητα.
+      </p>
+      <p class="animate-on-scroll delay-3">
+        Από τα πλέον αξιόπιστα κτήματα για έναν ονειρεμένο γάμο στην Αττική, το Κτήμα 28 προσφέρει ολοκληρωμένες λύσεις για γάμους και βαπτίσεις, με ιδιαίτερη προσοχή σε κάθε λεπτομέρεια.
+      </p>
+      <p class="animate-on-scroll delay-4">
+        Ελάτε να δημιουργήσουμε μαζί το σενάριο της δικής σας γαμήλιας δεξίωσης &mdash; μια εμπειρία που θα θυμάστε για πάντα.
+      </p>
+      <div class="about-stats animate-on-scroll delay-5">
+        <div class="stat">
+          <span class="stat-number">400</span>
+          <span class="stat-label">Καλεσμένοι</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">28</span>
+          <span class="stat-label">χλμ. Αττικής</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">365</span>
+          <span class="stat-label">Ημέρες / Χρόνο</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARALLAX QUOTE ===== -->
+<section class="parallax-quote">
+  <p class="quote-text animate-on-scroll">
+    &laquo;Ελάτε να δημιουργήσουμε μαζί το σενάριο<br>
+    της δικής σας Γαμήλιας δεξίωσης&raquo;
+  </p>
+  <span class="quote-author animate-on-scroll delay-1">Κτήμα 28</span>
+</section>
+
+<!-- ===== WEDDING SERVICES ===== -->
+<section class="section services" id="wedding">
+  <div class="section-header animate-on-scroll">
+    <span class="section-label">Υπηρεσίες Γάμου</span>
+    <h2 class="section-title">Ο γάμος σας,<br>η δική μας υπόσχεση</h2>
+    <span class="section-script">Γαμήλια Δεξίωση</span>
+    <div class="section-divider"></div>
+    <p class="section-subtitle">Κάθε γάμος είναι μοναδικός. Σχεδιάζουμε μαζί σας κάθε λεπτομέρεια, από τη διακόσμηση μέχρι το μενού.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card animate-on-scroll">
+      <div class="service-icon">🎶</div>
+      <h3>DJ & Μουσική</h3>
+      <p>Επαγγελματικός εξοπλισμός DJ, ηχοσύστημα υψηλών προδιαγραφών και φωτισμοί που δημιουργούν την τέλεια ατμόσφαιρα.</p>
+    </div>
+    <div class="service-card animate-on-scroll delay-1">
+      <div class="service-icon">🍽️</div>
+      <h3>Κουζίνα Εντός</h3>
+      <p>Κουζίνα εντός του χώρου. Φρέσκα, ποιοτικά πιάτα ετοιμασμένα επιτόπου από έμπειρους σεφ για τους καλεσμένους σας.</p>
+    </div>
+    <div class="service-card animate-on-scroll delay-2">
+      <div class="service-icon">🎆</div>
+      <h3>Βεγγαλικά & Εφέ</h3>
+      <p>Εντυπωσιακά πυροτεχνήματα, φωτιστικά εφέ, wedding letters και projector για μαγικές στιγμές.</p>
+    </div>
+    <div class="service-card animate-on-scroll delay-3">
+      <div class="service-icon">🌸</div>
+      <h3>Διακόσμηση</h3>
+      <p>Ανθοστολισμοί, ατμοσφαιρικός φωτισμός, vintage camper vans και κάθε διακοσμητική λεπτομέρεια που ονειρεύεστε.</p>
+    </div>
+    <div class="service-card animate-on-scroll delay-4">
+      <div class="service-icon">🎪</div>
+      <h3>Παιδική Ψυχαγωγία</h3>
+      <p>Ειδικός χώρος και δραστηριότητες για τους μικρούς καλεσμένους, ώστε οι γονείς να απολαύσουν τη γιορτή.</p>
+    </div>
+    <div class="service-card animate-on-scroll delay-5">
+      <div class="service-icon">💑</div>
+      <h3>Δωμάτιο Ζευγαριού</h3>
+      <p>Ιδιωτικό δωμάτιο ετοιμασίας για το ζευγάρι &mdash; ο χώρος σας για τις τελευταίες ετοιμασίες πριν τη μεγάλη στιγμή.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BAPTISM ===== -->
+<section class="section baptism" id="baptism">
+  <div class="section-header animate-on-scroll">
+    <span class="section-label">Βάπτιση</span>
+    <h2 class="section-title">Η τελετή που αξίζει<br>στο παιδί σας</h2>
+    <span class="section-script">Βαπτίσια</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="baptism-content">
+    <div class="baptism-visual animate-on-scroll">
+      <div class="baptism-card-stack">
+        <div class="baptism-card">
+          <span class="baptism-card-icon">⛪</span>
+          <span class="baptism-card-text">Εκκλησάκι</span>
+        </div>
+        <div class="baptism-card">
+          <span class="baptism-card-icon">🌿</span>
+          <span class="baptism-card-text">Κήπος</span>
+        </div>
+        <div class="baptism-card">
+          <span class="baptism-card-icon">🎂</span>
+          <span class="baptism-card-text">Δεξίωση</span>
+        </div>
+        <div class="baptism-card">
+          <span class="baptism-card-icon">📸</span>
+          <span class="baptism-card-text">Αναμνήσεις</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="baptism-info">
+      <h3 class="animate-on-scroll delay-1">Αξέχαστες στιγμές</h3>
+      <p class="animate-on-scroll delay-2">
+        Το Κτήμα 28 προσφέρει τον ιδανικό χώρο για τη βάπτιση του παιδιού σας. Με το εκκλησάκι του Αγίου Γεωργίου, τους καταπράσινους κήπους και την κλειστή αίθουσα, κάθε λεπτομέρεια φροντίζεται με αγάπη.
+      </p>
+      <p class="animate-on-scroll delay-3">
+        Αναλαμβάνουμε ολοκληρωμένα τη διοργάνωση, από τη διακόσμηση μέχρι τη δεξίωση, δημιουργώντας μια τελετή ζεστή, γεμάτη χαρά και νόημα.
+      </p>
+      <ul class="baptism-features animate-on-scroll delay-4">
+        <li>Τελετή στο Εκκλησάκι Αγίου Γεωργίου</li>
+        <li>Δεξίωση σε εσωτερικό ή εξωτερικό χώρο</li>
+        <li>Παιδική ψυχαγωγία & δραστηριότητες</li>
+        <li>Θεματική διακόσμηση κατ' επιλογή</li>
+        <li>Φρέσκο μενού από κουζίνα εντός</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHAPEL ===== -->
+<section class="chapel" id="chapel">
+  <div class="chapel-wrapper">
+    <div class="chapel-image animate-on-scroll">
+      <div class="chapel-image-inner">
+        <div class="chapel-cross">☦</div>
+        <span class="chapel-image-text">Άγιος Γεώργιος</span>
+      </div>
+    </div>
+    <div class="chapel-content">
+      <span class="section-label animate-on-scroll">Εκκλησάκι</span>
+      <h2 class="animate-on-scroll delay-1">Εκκλησάκι<br>Αγίου Γεωργίου</h2>
+      <span class="section-script animate-on-scroll delay-2">Ιερός Ναός</span>
+      <p class="animate-on-scroll delay-3">
+        Στην καρδιά του κτήματος, το γραφικό εκκλησάκι του Αγίου Γεωργίου προσφέρει τον ιδανικό χώρο για τη θρησκευτική τελετή του γάμου ή της βάπτισής σας.
+      </p>
+      <p class="animate-on-scroll delay-4">
+        Περιτριγυρισμένο από πράσινο και λουλούδια, δημιουργεί μια κατανυκτική ατμόσφαιρα που κάνει τη στιγμή ακόμα πιο συγκινητική και αξέχαστη.
+      </p>
+      <div class="chapel-detail animate-on-scroll delay-5">
+        <span class="chapel-detail-icon">🕊️</span>
+        <span>Θρησκευτικός γάμος & βάπτιση εντός του κτήματος</span>
+      </div>
+      <div class="chapel-detail animate-on-scroll delay-6">
+        <span class="chapel-detail-icon">🌺</span>
+        <span>Ανθοστολισμός εκκλησίας κατ' επιλογή</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AMENITIES ===== -->
+<section class="section amenities" id="amenities">
+  <div class="section-header animate-on-scroll">
+    <span class="section-label">Χώροι & Παροχές</span>
+    <h2 class="section-title">Όλα όσα χρειάζεστε<br>σε ένα κτήμα</h2>
+    <span class="section-script">Ανέσεις</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="amenities-showcase">
+    <div class="amenity-item animate-on-scroll">
+      <span class="amenity-icon">🏛️</span>
+      <h4 class="amenity-title">Κλειστή Αίθουσα</h4>
+      <p class="amenity-desc">Χωρητικότητα έως 400 ατόμων, κλιματιζόμενη, ιδανική για χειμερινούς γάμους</p>
+    </div>
+    <div class="amenity-item animate-on-scroll delay-1">
+      <span class="amenity-icon">🏊</span>
+      <h4 class="amenity-title">Πισίνα</h4>
+      <p class="amenity-desc">Εντυπωσιακή πισίνα που χαρίζει μοναδικό σκηνικό στη δεξίωσή σας</p>
+    </div>
+    <div class="amenity-item animate-on-scroll delay-2">
+      <span class="amenity-icon">🅿️</span>
+      <h4 class="amenity-title">Δωρεάν Parking</h4>
+      <p class="amenity-desc">Ευρύχωρος χώρος στάθμευσης δωρεάν για όλους τους καλεσμένους σας</p>
+    </div>
+    <div class="amenity-item animate-on-scroll delay-3">
+      <span class="amenity-icon">👨‍🍳</span>
+      <h4 class="amenity-title">Κουζίνα Εντός</h4>
+      <p class="amenity-desc">Πλήρως εξοπλισμένη κουζίνα για φρέσκα, ποιοτικά πιάτα</p>
+    </div>
+    <div class="amenity-item animate-on-scroll delay-4">
+      <span class="amenity-icon">🔒</span>
+      <h4 class="amenity-title">Ασφάλεια</h4>
+      <p class="amenity-desc">Μόνιμη φύλαξη χώρου για την ασφάλεια και την ηρεμία σας</p>
+    </div>
+    <div class="amenity-item animate-on-scroll delay-5">
+      <span class="amenity-icon">⚡</span>
+      <h4 class="amenity-title">Ηλεκτρογεννήτρια</h4>
+      <p class="amenity-desc">Αυτόνομη γεννήτρια ρεύματος για αδιάκοπη λειτουργία</p>
+    </div>
+    <div class="amenity-item animate-on-scroll delay-6">
+      <span class="amenity-icon">📶</span>
+      <h4 class="amenity-title">Free WiFi</h4>
+      <p class="amenity-desc">Δωρεάν ασύρματο internet σε όλο τον χώρο</p>
+    </div>
+    <div class="amenity-item animate-on-scroll delay-7">
+      <span class="amenity-icon">🚻</span>
+      <h4 class="amenity-title">10+ WC</h4>
+      <p class="amenity-desc">Πλήρεις εγκαταστάσεις υγιεινής για τους καλεσμένους σας</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXTRA SERVICES ===== -->
+<section class="extras">
+  <div class="extras-label animate-on-scroll">Επιπλέον Υπηρεσίες</div>
+  <div class="extras-track animate-on-scroll delay-1">
+    <span class="extra-item">Βεγγαλικά</span>
+    <span class="extra-item">Projector</span>
+    <span class="extra-item">Φωτιστικά Εφέ</span>
+    <span class="extra-item">Wedding Letters</span>
+    <span class="extra-item">Vintage Camper</span>
+    <span class="extra-item">DJ Equipment</span>
+    <span class="extra-item">Παιδότοπος</span>
+  </div>
+</section>
+
+<!-- ===== CASA 28 ===== -->
+<section class="section casa28" id="casa28">
+  <div class="section-header animate-on-scroll">
+    <span class="section-label">Minimal Χώρος</span>
+    <h2 class="section-title">Casa 28</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="casa28-banner animate-on-scroll delay-1">
+    <div class="casa28-visual">
+      <div class="casa28-visual-text">
+        <span>Casa 28</span>
+        <small>Minimal Event Space</small>
+      </div>
+    </div>
+    <div class="casa28-info">
+      <h3>Ο εναλλακτικός χώρος σας</h3>
+      <p>
+        Εντός του Πολυχώρου Νικολέλη, η Casa 28 αποτελεί τη minimal εκδοχή του χώρου δεξιώσεων. Ιδανική για ζευγάρια που αναζητούν μια πιο οικεία, σύγχρονη αισθητική με λιτές γραμμές και κομψή ατμόσφαιρα.
+      </p>
+      <p>
+        Ένας χώρος που αποδεικνύει ότι η απλότητα μπορεί να είναι εξίσου εντυπωσιακή.
+      </p>
+      <a href="#contact" class="casa28-tag">Μάθετε Περισσότερα</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="cta-content">
+    <h2 class="animate-on-scroll">Σχεδιάζουμε μαζί σας</h2>
+    <p class="animate-on-scroll delay-1">Κρατήσεις 2026 &amp; 2027 &mdash; Κλείστε ραντεβού επίσκεψης</p>
+    <a href="#contact" class="cta-button animate-on-scroll delay-2">Επικοινωνήστε Μαζί Μας</a>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="section contact" id="contact">
+  <div class="section-header animate-on-scroll">
+    <span class="section-label">Επικοινωνία</span>
+    <h2 class="section-title">Κλείστε ραντεβού<br>επίσκεψης</h2>
+    <span class="section-script">Ας γνωριστούμε</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3 class="animate-on-scroll">Θέλετε να μάθετε περισσότερα;</h3>
+      <p class="animate-on-scroll delay-1">
+        Είμαστε εδώ για να απαντήσουμε σε κάθε ερώτησή σας και να σας ξεναγήσουμε στον χώρο μας. Κλείστε ραντεβού και ελάτε να δείτε το Κτήμα 28 από κοντά.
+      </p>
+
+      <div class="contact-detail animate-on-scroll delay-2">
+        <span class="contact-detail-icon">📍</span>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Διεύθυνση</div>
+          <div class="contact-detail-value">28ο χλμ. Ε.Ο. Αθηνών-Λαμίας<br>Αφίδνες, Αττική</div>
+        </div>
+      </div>
+
+      <div class="contact-detail animate-on-scroll delay-3">
+        <span class="contact-detail-icon">📞</span>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Τηλέφωνα</div>
+          <div class="contact-detail-value">
+            <a href="tel:+302114091781">211 4091781</a><br>
+            <a href="tel:+306937399469">693 7399469</a> <small>(Nancy Kappi)</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-detail animate-on-scroll delay-4">
+        <span class="contact-detail-icon">✉️</span>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value">
+            <a href="mailto:sales@ktima28.gr">sales@ktima28.gr</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-detail animate-on-scroll delay-5">
+        <span class="contact-detail-icon">🌐</span>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Website</div>
+          <div class="contact-detail-value">
+            <a href="http://www.ktima28.gr" target="_blank" rel="noopener">www.ktima28.gr</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-map animate-on-scroll delay-2">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3138.5!2d23.8!3d38.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1a0d5c5b8f8c1%3A0x1234567890!2zzprPhM6uzrzOsCAyOA!5e0!3m2!1sel!2sgr!4v1700000000000!5m2!1sel!2sgr"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Κτήμα 28 - Χάρτης">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-logo">Κτήμα 28</div>
+  <p class="footer-tagline">Πολυχώρος Νικολέλη &mdash; Αφίδνες, Αττική</p>
+
+  <nav class="footer-links">
+    <a href="#about">Το Κτήμα</a>
+    <a href="#wedding">Γάμος</a>
+    <a href="#baptism">Βάπτιση</a>
+    <a href="#chapel">Εκκλησάκι</a>
+    <a href="#amenities">Χώροι</a>
+    <a href="#contact">Επικοινωνία</a>
+  </nav>
+
+  <div class="footer-divider"></div>
+
+  <p class="footer-company">ΝΑΓΙΑ ΜΟΝΟΠΡΟΣΩΠΗ Ι.Κ.Ε.</p>
+  <p class="footer-copy">&copy; 2026 Κτήμα 28. Με επιφύλαξη παντός δικαιώματος.</p>
+
+  <p class="footer-saos">
+    Designed by <a href="https://saos.studio" target="_blank" rel="noopener">SAOS Studio</a>
+  </p>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+(function() {
+  'use strict';
+
+  // --- Floating Petals in Hero ---
+  function createPetals() {
+    const container = document.getElementById('heroPetals');
+    if (!container) return;
+
+    const petalColors = [
+      'rgba(240, 221, 213, 0.6)',
+      'rgba(228, 204, 192, 0.5)',
+      'rgba(197, 165, 90, 0.4)',
+      'rgba(201, 144, 138, 0.4)',
+      'rgba(255, 255, 255, 0.3)'
+    ];
+
+    for (let i = 0; i < 20; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      const size = Math.random() * 8 + 6;
+      petal.style.width = size + 'px';
+      petal.style.height = size + 'px';
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.top = -(Math.random() * 20 + 5) + '%';
+      petal.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
+      petal.style.animationDuration = (Math.random() * 8 + 10) + 's';
+      petal.style.animationDelay = (Math.random() * 15) + 's';
+      container.appendChild(petal);
+    }
+  }
+
+  // --- Scroll-triggered Animations (IntersectionObserver) ---
+  function initScrollAnimations() {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+
+  // --- Sticky Header ---
+  function initStickyHeader() {
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', function() {
+      const currentScroll = window.pageYOffset;
+
+      if (currentScroll > 80) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      lastScroll = currentScroll;
+    }, { passive: true });
+  }
+
+  // --- Mobile Menu ---
+  function initMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (!hamburger || !mobileNav) return;
+
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close on link click
+    mobileNav.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Keyboard support
+    hamburger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        hamburger.click();
+      }
+    });
+  }
+
+  // --- Smooth Scroll for anchor links ---
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const headerHeight = document.getElementById('header').offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  }
+
+  // --- Parallax effect on hero ---
+  function initParallax() {
+    const hero = document.querySelector('.hero');
+    const heroContent = document.querySelector('.hero-content');
+
+    if (!hero || !heroContent) return;
+
+    // Only on desktop
+    if (window.innerWidth < 768) return;
+
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const heroHeight = hero.offsetHeight;
+
+      if (scrolled < heroHeight) {
+        const rate = scrolled * 0.3;
+        heroContent.style.transform = 'translateY(' + rate + 'px)';
+        heroContent.style.opacity = 1 - (scrolled / heroHeight) * 0.8;
+      }
+    }, { passive: true });
+  }
+
+  // --- Counter Animation for stats ---
+  function initCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    let counted = false;
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !counted) {
+          counted = true;
+          counters.forEach(function(counter) {
+            const target = parseInt(counter.textContent, 10);
+            let current = 0;
+            const increment = target / 60;
+            const timer = setInterval(function() {
+              current += increment;
+              if (current >= target) {
+                counter.textContent = target;
+                clearInterval(timer);
+              } else {
+                counter.textContent = Math.floor(current);
+              }
+            }, 25);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    if (counters.length > 0) {
+      observer.observe(counters[0].closest('.about-stats'));
+    }
+  }
+
+  // --- Initialize everything on DOM ready ---
+  document.addEventListener('DOMContentLoaded', function() {
+    createPetals();
+    initScrollAnimations();
+    initStickyHeader();
+    initMobileMenu();
+    initSmoothScroll();
+    initParallax();
+    initCounters();
+  });
+
+})();
+</script>
+</body>
+</html>
