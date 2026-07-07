@@ -7,6 +7,7 @@ interface Project {
 }
 
 const projects: Project[] = [
+  { slug: 'luxora-airbnb', name: 'LUXORA', tag: 'Ultra-Luxury Airbnb' },
   { slug: 'almasi', name: 'Almasi Luxury Suites', tag: 'Πολυτελή καταλύματα' },
   { slug: 'avenue', name: 'Avenue Luxury Apartments', tag: 'Διαμερίσματα πολυτελείας' },
   { slug: 'salento', name: 'Salento', tag: 'Wood-fired street food' },
