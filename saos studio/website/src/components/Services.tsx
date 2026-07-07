@@ -6,6 +6,7 @@ const services = [
     tag: 'Δημοφιλέστερο',
     name: 'Premium',
     price: '€500',
+    period: '/μήνα',
     features: [
       'Όλα όσα περιλαμβάνει το Static',
       '+2 επιπλέον σελίδες',
@@ -21,6 +22,7 @@ const services = [
     tag: 'Καλύτερη Αξία',
     name: 'Static',
     price: '€299',
+    period: '/μήνα',
     features: [
       'Custom σχεδιασμός μίας σελίδας',
       'Mobile-first υλοποίηση',
@@ -36,6 +38,7 @@ const services = [
     tag: 'Ολοκληρωμένο',
     name: 'Enterprise',
     price: '€850',
+    period: '/μήνα',
     features: [
       'Όλα όσα περιλαμβάνει το Premium',
       'Έως 8 σελίδες ή e-shop',
@@ -87,13 +90,16 @@ export default function Services() {
 
             <h3 className="text-[1.5rem] font-extrabold mb-3 leading-tight">{s.name}</h3>
 
-            <div className="text-[2.9rem] font-extrabold leading-none mb-2">{s.price}</div>
+            <div className="flex items-baseline gap-1 mb-2">
+              <div className="text-[2.9rem] font-extrabold leading-none">{s.price}</div>
+              <div className={`text-[1.1rem] font-medium ${s.featured ? 'text-white/60' : 'text-muted'}`}>{s.period}</div>
+            </div>
             <p
               className={`text-[0.72rem] font-medium mb-7 ${
                 s.featured ? 'text-white/50' : 'text-muted'
               }`}
             >
-              εφάπαξ, χωρίς κρυφές χρεώσεις
+              μηνιαία συνδρομή, ακυρώστε ανά πάσα στιγμή
             </p>
 
             <div
