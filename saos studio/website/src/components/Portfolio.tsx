@@ -33,7 +33,7 @@ export default function Portfolio() {
         {projects.map((p) => (
           <a
             key={p.slug}
-            href={`/work/${p.slug}/`}
+            href={`/work/${p.slug}/index.html`}
             target="_blank"
             rel="noopener noreferrer"
             className="group block rounded-card overflow-hidden bg-white border border-border transition-all duration-300 hover:border-border-hover hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.25)]"
