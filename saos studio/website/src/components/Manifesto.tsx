@@ -32,9 +32,9 @@ export default function Manifesto() {
 
           <div className="border-t border-border pt-8 mt-8 grid grid-cols-2 gap-6">
             <div>
-              <div className="text-[3rem] font-extrabold text-ink leading-none">€299</div>
+              <div className="text-[3rem] font-extrabold text-ink leading-none">€29</div>
               <p className="text-muted text-[0.78rem] mt-2 leading-snug font-medium">
-                Αρχική τιμή για το Static πακέτο. Premium στα €500. Χωρίς κρυφές χρεώσεις.
+                Μηνιαία τιμή για το Static πακέτο. Premium στα €49. Ακυρώστε ανά πάσα στιγμή.
               </p>
             </div>
             <div>

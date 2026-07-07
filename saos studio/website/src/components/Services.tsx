@@ -5,8 +5,8 @@ const services = [
     num: '01',
     tag: 'Δημοφιλέστερο',
     name: 'Premium',
-    price: '€500',
-    period: '/μήνα',
+    price: '€49',
+    period: '/μήνα + ΦΠΑ',
     features: [
       'Όλα όσα περιλαμβάνει το Static',
       '+2 επιπλέον σελίδες',
@@ -21,8 +21,8 @@ const services = [
     num: '02',
     tag: 'Καλύτερη Αξία',
     name: 'Static',
-    price: '€299',
-    period: '/μήνα',
+    price: '€29',
+    period: '/μήνα + ΦΠΑ',
     features: [
       'Custom σχεδιασμός μίας σελίδας',
       'Mobile-first υλοποίηση',
@@ -37,8 +37,8 @@ const services = [
     num: '03',
     tag: 'Ολοκληρωμένο',
     name: 'Enterprise',
-    price: '€850',
-    period: '/μήνα',
+    price: '€79',
+    period: '/μήνα + ΦΠΑ',
     features: [
       'Όλα όσα περιλαμβάνει το Premium',
       'Έως 8 σελίδες ή e-shop',
