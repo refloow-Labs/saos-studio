@@ -3,6 +3,7 @@ import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Portfolio from './components/Portfolio'
 import Services from './components/Services'
+import FreeProposal from './components/FreeProposal'
 import Approach from './components/Approach'
 import Manifesto from './components/Manifesto'
 import Contact from './components/Contact'
@@ -50,7 +51,11 @@ export default function App() {
           <Services />
         </Chapter>
 
-        <Chapter id="approach-section" tone="gray">
+        <Chapter id="free-proposal-section" tone="gray">
+          <FreeProposal />
+        </Chapter>
+
+        <Chapter id="approach-section" tone="white">
           <Approach />
         </Chapter>
 
