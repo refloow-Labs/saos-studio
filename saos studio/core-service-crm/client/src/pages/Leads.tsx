@@ -7,6 +7,7 @@ export default function Leads() {
   const [leads, setLeads] = useState<any[]>([]);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [nomosFilter, setNomosFilter] = useState('');
   const [loading, setLoading] = useState(true);
   const [importQuery, setImportQuery] = useState('');
   const [importing, setImporting] = useState(false);
@@ -17,12 +18,13 @@ export default function Leads() {
     const params: Record<string, string> = {};
     if (search) params.search = search;
     if (statusFilter) params.status = statusFilter;
+    if (nomosFilter) params.nomos = nomosFilter;
     const data = await api.businesses(params);
     setLeads(data);
     setLoading(false);
   };
 
-  useEffect(() => { load(); }, [statusFilter]);
+  useEffect(() => { load(); }, [statusFilter, nomosFilter]);
 
   const doSearch = (e: React.FormEvent) => { e.preventDefault(); load(); };
 
@@ -49,6 +51,9 @@ export default function Leads() {
     emailed: 'bg-emerald-500/20 text-emerald-400',
     closed: 'bg-neutral-700 text-neutral-300'
   };
+
+  // Get unique nomos values for the filter
+  const uniqueNomos = Array.from(new Set(leads.map(l => l.nomos).filter(Boolean)));
 
   return (
     <div className="p-8 max-w-7xl space-y-6">
@@ -79,6 +84,13 @@ export default function Leads() {
             <option value="deployed">Deployed</option>
             <option value="emailed">Emailed</option>
           </select>
+          <select value={nomosFilter} onChange={e => setNomosFilter(e.target.value)}
+            className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-saos-500">
+            <option value="">All Νομοί</option>
+            {uniqueNomos.map(nomos => (
+              <option key={nomos} value={nomos}>{nomos}</option>
+            ))}
+          </select>
           <button type="submit" className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Search</button>
         </form>
         <div className="flex gap-2">
@@ -98,6 +110,7 @@ export default function Leads() {
             <tr className="border-b border-white/10 text-neutral-400 text-left">
               <th className="px-5 py-3 font-medium">Business</th>
               <th className="px-5 py-3 font-medium">Location</th>
+              <th className="px-5 py-3 font-medium">Νομός</th>
               <th className="px-5 py-3 font-medium">Website</th>
               <th className="px-5 py-3 font-medium">Score</th>
               <th className="px-5 py-3 font-medium">Status</th>
@@ -105,9 +118,9 @@ export default function Leads() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={5} className="px-5 py-8 text-center text-neutral-500"><Loader2 className="w-5 h-5 animate-spin mx-auto" /></td></tr>
+              <tr><td colSpan={6} className="px-5 py-8 text-center text-neutral-500"><Loader2 className="w-5 h-5 animate-spin mx-auto" /></td></tr>
             ) : leads.length === 0 ? (
-              <tr><td colSpan={5} className="px-5 py-8 text-center text-neutral-500">No leads found.</td></tr>
+              <tr><td colSpan={6} className="px-5 py-8 text-center text-neutral-500">No leads found.</td></tr>
             ) : leads.map(l => (
               <tr key={l.id} onClick={() => nav(`/leads/${l.id}`)} className="border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors">
                 <td className="px-5 py-3">
@@ -115,6 +128,7 @@ export default function Leads() {
                   <div className="text-neutral-500 text-xs">{l.category}</div>
                 </td>
                 <td className="px-5 py-3 text-neutral-400 flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> {l.city || '-'}</td>
+                <td className="px-5 py-3 text-neutral-400">{l.nomos || '-'}</td>
                 <td className="px-5 py-3">
                   {l.website ? <a href={l.website} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} className="text-saos-400 hover:underline flex items-center gap-1"><Globe className="w-3.5 h-3.5" /> {new URL(l.website).hostname}</a> : <span className="text-neutral-600">—</span>}
                 </td>

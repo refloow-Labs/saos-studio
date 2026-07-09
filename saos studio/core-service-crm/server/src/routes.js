@@ -29,8 +29,8 @@ router.get('/stats', (req, res) => {
 
 // ── Businesses ──
 router.get('/businesses', (req, res) => {
-  const { status, city, search, limit, offset } = req.query;
-  const rows = listBusinesses({ status, city, search, limit: limit ? parseInt(limit) : 100, offset: offset ? parseInt(offset) : 0 });
+  const { status, city, nomos, assignedTo, search, limit, offset } = req.query;
+  const rows = listBusinesses({ status, city, nomos, assignedTo, search, limit: limit ? parseInt(limit) : 100, offset: offset ? parseInt(offset) : 0 });
   res.json(rows);
 });
 

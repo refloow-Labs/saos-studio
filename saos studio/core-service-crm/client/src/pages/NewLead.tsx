@@ -5,7 +5,7 @@ import { ArrowLeft, Save } from 'lucide-react';
 
 export default function NewLead() {
   const nav = useNavigate();
-  const [form, setForm] = useState({ name: '', category: '', city: '', address: '', phone: '', email: '', website: '', gmbUrl: '', notes: '' });
+  const [form, setForm] = useState({ name: '', category: '', city: '', nomos: '', address: '', phone: '', email: '', website: '', gmbUrl: '', notes: '', assignedTo: '' });
   const [saving, setSaving] = useState(false);
 
   const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }));
@@ -23,12 +23,15 @@ export default function NewLead() {
     { k: 'name', l: 'Business Name *', required: true },
     { k: 'category', l: 'Category' },
     { k: 'city', l: 'City' },
+    { k: 'nomos', l: 'Νομός' },
     { k: 'address', l: 'Address' },
     { k: 'phone', l: 'Phone' },
     { k: 'email', l: 'Email' },
     { k: 'website', l: 'Website' },
     { k: 'gmbUrl', l: 'Google Maps URL' },
   ];
+
+  const salespeople = ['', 'ΣΩΤΗΡΗΣ'];
 
   return (
     <div className="p-8 max-w-2xl space-y-6">
@@ -45,6 +48,16 @@ export default function NewLead() {
                 className="mt-1 w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-saos-500" />
             </div>
           ))}
+        </div>
+        <div>
+          <label className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Assigned To</label>
+          <select value={form.assignedTo} onChange={e => update('assignedTo', e.target.value)}
+            className="mt-1 w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-saos-500">
+            <option value="">Not Assigned</option>
+            {salespeople.filter(s => s).map(sp => (
+              <option key={sp} value={sp}>{sp}</option>
+            ))}
+          </select>
         </div>
         <div>
           <label className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Notes</label>

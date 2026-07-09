@@ -6,6 +6,7 @@ import LeadDetail from './pages/LeadDetail';
 import Pipeline from './pages/Pipeline';
 import PromptBuilder from './pages/PromptBuilder';
 import NewLead from './pages/NewLead';
+import Sotiris from './pages/Sotiris';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/leads" element={<Leads />} />
           <Route path="/leads/new" element={<NewLead />} />
           <Route path="/leads/:id" element={<LeadDetail />} />
+          <Route path="/sotiris" element={<Sotiris />} />
           <Route path="/pipeline" element={<Pipeline />} />
           <Route path="/prompts" element={<PromptBuilder />} />
         </Routes>

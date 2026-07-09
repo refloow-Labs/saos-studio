@@ -1014,6 +1014,22 @@
                 </div>
 
                 <div class="nav-section">
+                    <div class="nav-section-title">Salespeople</div>
+                    <div class="nav-item" data-assigned="Giannis">
+                        <span>Giannis</span>
+                        <span class="nav-item-badge" id="giannisCount">0</span>
+                    </div>
+                    <div class="nav-item" data-assigned="Kostas">
+                        <span>Kostas</span>
+                        <span class="nav-item-badge" id="kostasCount">0</span>
+                    </div>
+                    <div class="nav-item" data-assigned="ΣΩΤΗΡΗΣ">
+                        <span>ΣΩΤΗΡΗΣ</span>
+                        <span class="nav-item-badge" id="sotirisCount">0</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
                     <div class="nav-section-title">Categories</div>
                     <div class="nav-item" data-category="Food & Hospitality">
                         <span>Food & Hospitality</span>
@@ -1112,6 +1128,17 @@
                                 <option value="">All</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">Assigned To</label>
+                            <select class="filter-select" id="assignedToFilter" onchange="applyFilters()">
+                                <option value="">All Salespeople</option>
+                                <option value="Giannis">Giannis</option>
+                                <option value="Kostas">Kostas</option>
+                                <option value="ΣΩΤΗΡΗΣ">ΣΩΤΗΡΗΣ</option>
+                                <option value="unassigned">Unassigned</option>
                             </select>
                         </div>
 

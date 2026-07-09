@@ -17,6 +17,7 @@ db.exec(`
     category    TEXT,
     address     TEXT,
     city        TEXT,
+    nomos       TEXT,
     phone       TEXT,
     email       TEXT,
     website     TEXT,
@@ -27,6 +28,7 @@ db.exec(`
     status      TEXT DEFAULT 'new',
     score       INTEGER DEFAULT 0,
     notes       TEXT,
+    assignedTo  TEXT,
     createdAt   TEXT DEFAULT (datetime('now')),
     updatedAt   TEXT DEFAULT (datetime('now'))
   );
@@ -83,13 +85,13 @@ export function get(sql, params = {}) { return db.prepare(sql).get(params); }
 
 export function insertBusiness(b) {
   const info = db.prepare(`
-    INSERT INTO businesses (name, category, address, city, phone, email, website, gmbUrl, rating, reviews, source, status, score, notes)
-    VALUES (:name, :category, :address, :city, :phone, :email, :website, :gmbUrl, :rating, :reviews, :source, :status, :score, :notes)
+    INSERT INTO businesses (name, category, address, city, nomos, phone, email, website, gmbUrl, rating, reviews, source, status, score, notes, assignedTo)
+    VALUES (:name, :category, :address, :city, :nomos, :phone, :email, :website, :gmbUrl, :rating, :reviews, :source, :status, :score, :notes, :assignedTo)
   `).run({
-    name: b.name || '', category: b.category || '', address: b.address || '', city: b.city || '',
+    name: b.name || '', category: b.category || '', address: b.address || '', city: b.city || '', nomos: b.nomos || '',
     phone: b.phone || '', email: b.email || '', website: b.website || '', gmbUrl: b.gmbUrl || '',
     rating: b.rating ?? null, reviews: b.reviews ?? null, source: b.source || 'manual',
-    status: b.status || 'new', score: b.score || 0, notes: b.notes || ''
+    status: b.status || 'new', score: b.score || 0, notes: b.notes || '', assignedTo: b.assignedTo || ''
   });
   return info.lastInsertRowid;
 }
@@ -105,11 +107,13 @@ export function getBusiness(id) {
   return db.prepare('SELECT * FROM businesses WHERE id = ?').get(id);
 }
 
-export function listBusinesses({ status, city, search, limit = 100, offset = 0 } = {}) {
+export function listBusinesses({ status, city, nomos, assignedTo, search, limit = 100, offset = 0 } = {}) {
   let sql = 'SELECT * FROM businesses WHERE 1=1';
   const params = [];
   if (status) { sql += ' AND status = ?'; params.push(status); }
   if (city) { sql += ' AND city LIKE ?'; params.push(`%${city}%`); }
+  if (nomos) { sql += ' AND nomos = ?'; params.push(nomos); }
+  if (assignedTo) { sql += ' AND assignedTo = ?'; params.push(assignedTo); }
   if (search) { sql += ' AND (name LIKE ? OR website LIKE ? OR city LIKE ?)'; params.push(`%${search}%`, `%${search}%`, `%${search}%`); }
   sql += ' ORDER BY createdAt DESC LIMIT ? OFFSET ?';
   params.push(limit, offset);

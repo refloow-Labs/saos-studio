@@ -38,6 +38,15 @@ export default function LeadDetail() {
     setSaving(false);
   };
 
+  const updateAssignedTo = async (assignedTo: string) => {
+    setSaving(true);
+    await api.updateBusiness(Number(id), { assignedTo });
+    await load();
+    setSaving(false);
+  };
+
+  const salespeople = ['', 'ΣΩΤΗΡΗΣ'];
+
   if (!lead) return <div className="p-10 text-neutral-500"><Loader2 className="w-6 h-6 animate-spin" /></div>;
 
   const logos = lead.assets?.filter((a: any) => a.type === 'logo') || [];
@@ -59,6 +68,7 @@ export default function LeadDetail() {
           <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-neutral-400">
             {lead.category && <span className="bg-white/5 px-2 py-0.5 rounded text-xs">{lead.category}</span>}
             {lead.city && <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {lead.city}</span>}
+            {lead.nomos && <span className="text-xs text-neutral-500">Νομός: {lead.nomos}</span>}
             {lead.phone && <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5" /> {lead.phone}</span>}
             {lead.email && <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5" /> {lead.email}</span>}
             {lead.website && <a href={lead.website} target="_blank" rel="noreferrer" className="text-saos-400 hover:underline flex items-center gap-1"><Globe className="w-3.5 h-3.5" /> Website <ExternalLink className="w-3 h-3" /></a>}
@@ -69,6 +79,13 @@ export default function LeadDetail() {
             <Star className="w-4 h-4 text-yellow-500" />
             <span className="font-bold">{lead.score}</span>
           </div>
+          <select value={lead.assignedTo || ''} onChange={e => updateAssignedTo(e.target.value)} disabled={saving}
+            className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-saos-500">
+            <option value="">Not Assigned</option>
+            {salespeople.filter(s => s).map(sp => (
+              <option key={sp} value={sp}>{sp}</option>
+            ))}
+          </select>
           <select value={lead.status} onChange={e => updateStatus(e.target.value)} disabled={saving}
             className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-saos-500">
             {['new','warm','hot','scraped','generating','deployed','emailed','closed'].map(s => <option key={s} value={s}>{s}</option>)}

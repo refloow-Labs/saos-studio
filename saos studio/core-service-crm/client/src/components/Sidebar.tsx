@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import {
-  LayoutDashboard, Users, LayoutTemplate, Lightbulb, Settings, Zap
+  LayoutDashboard, Users, LayoutTemplate, Lightbulb, Settings, Zap, UserCircle
 } from 'lucide-react';
 
 const links = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/leads', label: 'Leads', icon: Users },
+  { to: '/sotiris', label: 'ΣΩΤΗΡΗΣ', icon: UserCircle },
   { to: '/pipeline', label: 'Pipeline', icon: LayoutTemplate },
   { to: '/prompts', label: 'Prompt Builder', icon: Lightbulb },
 ];

@@ -1,6 +1,7 @@
 // SAOS Studio CRM Application - Enhanced Version
 let currentView = 'all';
 let currentCategory = null;
+let currentAssigned = null;
 let searchQuery = '';
 let activeFilters = {
     status: '',
@@ -8,7 +9,9 @@ let activeFilters = {
     city: '',
     rating: '',
     hasWebsite: '',
-    source: ''
+    source: '',
+    nomos: '',
+    assignedTo: ''
 };
 
 // Initialize app
@@ -32,17 +35,24 @@ function setupEventListeners() {
 
             const view = item.dataset.view;
             const category = item.dataset.category;
+            const assigned = item.dataset.assigned;
 
             if (view) {
                 currentView = view;
                 currentCategory = null;
+                currentAssigned = null;
                 // Update category filter to match
                 document.getElementById('categoryFilter').value = '';
             } else if (category) {
                 currentCategory = category;
                 currentView = 'all';
+                currentAssigned = null;
                 // Update category filter to match
                 document.getElementById('categoryFilter').value = category;
+            } else if (assigned) {
+                currentAssigned = assigned;
+                currentView = 'all';
+                currentCategory = null;
             }
 
             applyFilters();
@@ -97,6 +107,11 @@ function updateStats() {
     const accommodation = clientsData.filter(c => c.category === 'Accommodation').length;
     const healthcare = clientsData.filter(c => c.category === 'Healthcare').length;
 
+    // Salesperson counts
+    const giannisLeads = clientsData.filter(c => c.assignedTo === 'Giannis').length;
+    const kostasLeads = clientsData.filter(c => c.assignedTo === 'Kostas').length;
+    const sotirisLeads = clientsData.filter(c => c.assignedTo === 'ΣΩΤΗΡΗΣ').length;
+
     document.getElementById('totalClientsCount').textContent = total;
     document.getElementById('activeCount').textContent = active;
     document.getElementById('demoSentCount').textContent = demoSent;
@@ -108,6 +123,9 @@ function updateStats() {
     document.getElementById('foodCount').textContent = food;
     document.getElementById('accommodationCount').textContent = accommodation;
     document.getElementById('healthcareCount').textContent = healthcare;
+    document.getElementById('giannisCount').textContent = giannisLeads;
+    document.getElementById('kostasCount').textContent = kostasLeads;
+    document.getElementById('sotirisCount').textContent = sotirisLeads;
 }
 
 function applyFilters() {
@@ -118,6 +136,7 @@ function applyFilters() {
     activeFilters.rating = document.getElementById('ratingFilter').value;
     activeFilters.hasWebsite = document.getElementById('websiteFilter').value;
     activeFilters.source = document.getElementById('sourceFilter').value;
+    activeFilters.assignedTo = document.getElementById('assignedToFilter').value;
 
     // Update active filter tags
     updateActiveFilterTags();
@@ -198,6 +217,11 @@ function getFilteredClients() {
         filtered = filtered.filter(c => c.category === currentCategory);
     }
 
+    // Apply assignedTo filter from navigation
+    if (currentAssigned) {
+        filtered = filtered.filter(c => c.assignedTo === currentAssigned);
+    }
+
     // Apply advanced filters
     if (activeFilters.status) {
         filtered = filtered.filter(c => c.status === activeFilters.status);
@@ -226,6 +250,18 @@ function getFilteredClients() {
 
     if (activeFilters.source) {
         filtered = filtered.filter(c => c.source === activeFilters.source);
+    }
+
+    if (activeFilters.nomos) {
+        filtered = filtered.filter(c => c.nomos === activeFilters.nomos);
+    }
+
+    if (activeFilters.assignedTo) {
+        if (activeFilters.assignedTo === 'unassigned') {
+            filtered = filtered.filter(c => !c.assignedTo || c.assignedTo === '');
+        } else {
+            filtered = filtered.filter(c => c.assignedTo === activeFilters.assignedTo);
+        }
     }
 
     // Apply search
@@ -265,7 +301,25 @@ function renderClientGrid() {
                     <div class="client-name">${escapeHtml(client.name)}</div>
                     ${client.type ? `<div class="client-type">${escapeHtml(client.type)}</div>` : ''}
                 </div>
-                <span class="status-badge status-${client.status}">${formatStatus(client.status)}</span>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span class="status-badge status-${client.status}">${formatStatus(client.status)}</span>
+                    ${renderAssignmentBadge(client)}
+                </div>
+            </div>
+
+            <div class="client-assignment-selector" onclick="event.stopPropagation();" style="margin: 12px 0; padding: 8px; background: var(--bg); border-radius: 6px;">
+                <label style="font-size: 11px; font-weight: 600; color: var(--text-light); display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Assigned To</label>
+                <select
+                    class="filter-select"
+                    style="font-size: 13px; padding: 6px 8px;"
+                    value="${client.assignedTo || ''}"
+                    onchange="updateClientAssignment('${client.id}', this.value)"
+                >
+                    <option value="">Unassigned</option>
+                    <option value="Giannis" ${client.assignedTo === 'Giannis' ? 'selected' : ''}>Giannis</option>
+                    <option value="Kostas" ${client.assignedTo === 'Kostas' ? 'selected' : ''}>Kostas</option>
+                    <option value="ΣΩΤΗΡΗΣ" ${client.assignedTo === 'ΣΩΤΗΡΗΣ' ? 'selected' : ''}>ΣΩΤΗΡΗΣ</option>
+                </select>
             </div>
 
             <div class="client-meta">
@@ -877,4 +931,45 @@ if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', () => {
         loadDeploymentFromStorage();
     });
+}
+// Render assignment badge with color coding
+function renderAssignmentBadge(client) {
+    if (!client.assignedTo) {
+        return '<span style="font-size: 11px; color: var(--text-light); font-weight: 500;">Unassigned</span>';
+    }
+
+    const colors = {
+        'Giannis': { bg: '#3b82f6', text: '#fff' },      // Blue
+        'Kostas': { bg: '#10b981', text: '#fff' },       // Green
+        'ΣΩΤΗΡΗΣ': { bg: '#f59e0b', text: '#000' }       // Amber
+    };
+
+    const color = colors[client.assignedTo] || { bg: '#6b7280', text: '#fff' };
+
+    return `<span style="
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 12px;
+        background: ${color.bg};
+        color: ${color.text};
+        white-space: nowrap;
+    ">${client.assignedTo}</span>`;
+}
+
+// Update client assignment
+function updateClientAssignment(clientId, assignedTo) {
+    const clientIndex = clientsData.findIndex(c => c.id === clientId);
+    if (clientIndex !== -1) {
+        clientsData[clientIndex].assignedTo = assignedTo || '';
+
+        // Save to localStorage
+        localStorage.setItem('crmClients', JSON.stringify(clientsData));
+
+        // Update stats and re-render
+        updateStats();
+        renderClientGrid();
+
+        console.log(`Updated ${clientsData[clientIndex].name} assignment to: ${assignedTo || 'Unassigned'}`);
+    }
 }
