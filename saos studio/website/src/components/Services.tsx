@@ -5,8 +5,8 @@ const services = [
     num: '01',
     tag: 'Δημοφιλέστερο',
     name: 'Premium',
-    price: '€49',
-    period: '/μήνα + ΦΠΑ',
+    price: '€52',
+    period: '/μήνα',
     features: [
       'Όλα όσα περιλαμβάνει το Static',
       '+2 επιπλέον σελίδες',
@@ -14,6 +14,7 @@ const services = [
       'Προχωρημένο SEO & ταχύτητα',
       'Σύνδεση social media',
       '3 γύροι αναθεώρησης',
+      'Υποστήριξη καθόλη τη διάρκεια της συνδρομής',
     ],
     featured: false,
   },
@@ -21,8 +22,8 @@ const services = [
     num: '02',
     tag: 'Καλύτερη Αξία',
     name: 'Static',
-    price: '€29',
-    period: '/μήνα + ΦΠΑ',
+    price: '€46',
+    period: '/μήνα',
     features: [
       'Custom σχεδιασμός μίας σελίδας',
       'Mobile-first υλοποίηση',
@@ -30,6 +31,7 @@ const services = [
       'Βασική ρύθμιση SEO',
       'Σύνδεση domain & deployment',
       '2 γύροι αναθεώρησης',
+      'Υποστήριξη καθόλη τη διάρκεια της συνδρομής',
     ],
     featured: true,
   },
@@ -37,8 +39,8 @@ const services = [
     num: '03',
     tag: 'Ολοκληρωμένο',
     name: 'Enterprise',
-    price: '€79',
-    period: '/μήνα + ΦΠΑ',
+    price: '€83',
+    period: '/μήνα',
     features: [
       'Όλα όσα περιλαμβάνει το Premium',
       'Έως 8 σελίδες ή e-shop',
@@ -95,11 +97,18 @@ export default function Services() {
               <div className={`text-[1.1rem] font-medium ${s.featured ? 'text-white/60' : 'text-muted'}`}>{s.period}</div>
             </div>
             <p
-              className={`text-[0.72rem] font-medium mb-7 ${
+              className={`text-[0.72rem] font-medium mb-2 ${
                 s.featured ? 'text-white/50' : 'text-muted'
               }`}
             >
               μηνιαία συνδρομή, ακυρώστε ανά πάσα στιγμή
+            </p>
+            <p
+              className={`text-[0.72rem] font-medium mb-7 ${
+                s.featured ? 'text-white/60' : 'text-muted'
+              }`}
+            >
+              💰 Δυνατότητα refund - πάρε τα λεφτά σου πίσω
             </p>
 
             <div
