@@ -1014,6 +1014,14 @@
                 </div>
 
                 <div class="nav-section">
+                    <div class="nav-section-title">🤖 AI Agent</div>
+                    <div class="nav-item" data-view="agent-drafts">
+                        <span>Agent Drafts</span>
+                        <span class="nav-item-badge" id="agentDraftsCount">0</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
                     <div class="nav-section-title">Salespeople</div>
                     <div class="nav-item" data-assigned="Giannis">
                         <span>Giannis</span>
@@ -1317,6 +1325,13 @@
     </div>
 
     <script src="data.js"></script>
+    <script src="agent-drafts.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Initialize agent drafts on load
+        if (typeof loadAgentDrafts === 'function') {
+            loadAgentDrafts();
+        }
+    </script>
 </body>
 </html>

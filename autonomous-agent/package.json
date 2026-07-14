@@ -1,0 +1,24 @@
+{
+  "name": "saos-autonomous-agent",
+  "version": "1.0.0",
+  "description": "Autonomous agent for generating SMB websites and sending personalized emails",
+  "type": "module",
+  "main": "src/agent.js",
+  "scripts": {
+    "start": "node src/agent.js",
+    "dev": "nodemon src/agent.js",
+    "test": "node src/test-agent.js",
+    "setup": "node src/setup-gmail.js"
+  },
+  "dependencies": {
+    "googleapis": "^134.0.0",
+    "node-fetch": "^3.3.2",
+    "sqlite3": "^5.1.7",
+    "dotenv": "^16.4.5",
+    "cron": "^3.1.7",
+    "csv-parse": "^5.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

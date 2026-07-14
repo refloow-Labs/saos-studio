@@ -1,0 +1,69 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                    SAOS STUDIO - CLEAN STRUCTURE                 ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📁 SAOS Studio/
+│
+├── 📊 crm/                         (11 MB)
+│   ├── index.html                  → CRM Dashboard
+│   ├── app.js                      → Business logic
+│   ├── data.js                     → 176 clients
+│   ├── email-composer.html         → Email tool
+│   ├── email-templates.js          → Templates
+│   ├── agent-drafts/               → Draft websites
+│   └── assets/                     → Images
+│
+├── 🌐 website/                     (135 MB)
+│   ├── src/                        → React/TypeScript
+│   ├── public/                     → Static files
+│   ├── dist/                       → Production build
+│   ├── package.json                → Dependencies
+│   └── vite.config.ts              → Build config
+│
+├── 🤖 autonomous-agent/            (143 MB)
+│   ├── src/                        → Agent code
+│   │   ├── agent.js                → Main orchestrator
+│   │   ├── website-generator.js   → OpenRouter integration
+│   │   ├── email-service.js       → Gmail integration
+│   │   └── netlify-deployer.js    → Deployment
+│   ├── data/                       → Queue & state
+│   ├── .env                        → API keys
+│   └── package.json                → Dependencies
+│
+├── 🛠️  scripts/                    (8 KB)
+│   ├── start-crm.sh                → Launch CRM
+│   └── start-agent.sh              → Launch agent
+│
+├── 📚 docs/                        (32 KB)
+│   ├── README.md                   → Main docs
+│   ├── START_HERE.md               → Quick start
+│   └── HOW_TO_USE_SAOS_FEEDBACK.md
+│
+├── 📄 README.md                    → Complete guide
+└── 📋 REORGANIZATION_SUMMARY.md   → This cleanup
+
+═══════════════════════════════════════════════════════════════════
+
+QUICK START COMMANDS:
+
+  CRM:      ./scripts/start-crm.sh
+            → http://localhost:8080
+
+  Agent:    cd autonomous-agent && npm start
+            → Automated website generation
+
+  Website:  cd website && npm run dev
+            → http://localhost:5173
+
+═══════════════════════════════════════════════════════════════════
+
+REMOVED (700+ MB):
+  ❌ sales-app/         (53 MB)
+  ❌ sales-app-web/     (623 MB)
+  ❌ core-service-crm/
+  ❌ marketing/
+  ❌ sales/
+  ❌ screenshots/
+  ❌ old docs
+
+═══════════════════════════════════════════════════════════════════

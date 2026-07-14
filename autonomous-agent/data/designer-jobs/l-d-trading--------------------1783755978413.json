@@ -1,0 +1,88 @@
+{
+  "job_id": "l-d-trading--------------------1783755978413",
+  "status": "pending",
+  "created_at": "2026-07-11T07:46:18.414Z",
+  "lead": {
+    "company": "L.D TRADING ΜΟΝΟΠΡΟΣΩΠΗ ΙΔΙΩΤΙΚΗ ΚΕΦΑΛΑΙΟΥΧΙΚΗ ΕΤΑΙΡΕΙΑ ΕΜΠΟΡΙΑΣ ΕΝΔΥΜΑΤΩΝ",
+    "industry": "Retail sale of clothing in specialized stores",
+    "location": "Greece",
+    "email": "gadamidis@ldtrading.com.gr"
+  },
+  "design_brief": {
+    "company": "L.D TRADING ΜΟΝΟΠΡΟΣΩΠΗ ΙΔΙΩΤΙΚΗ ΚΕΦΑΛΑΙΟΥΧΙΚΗ ΕΤΑΙΡΕΙΑ ΕΜΠΟΡΙΑΣ ΕΝΔΥΜΑΤΩΝ",
+    "industry": {
+      "type": "retail",
+      "full": "Retail sale of clothing in specialized stores"
+    },
+    "location": "Greece",
+    "design_strategy": {
+      "primary_goal": "Showcase products and drive store visits or online orders",
+      "emotion": "Excitement, discovery, value",
+      "hierarchy": [
+        "Product showcase",
+        "Categories",
+        "Special offers",
+        "Store info",
+        "Contact"
+      ]
+    },
+    "color_palette": {
+      "name": "Professional Modern",
+      "primary": "#2C3E50",
+      "secondary": "#3498DB",
+      "accent": "#E74C3C",
+      "neutral": "#ECF0F1",
+      "text": "#2C3E50",
+      "usage": "Clean, professional palette for business"
+    },
+    "typography": {
+      "heading": "Inter",
+      "body": "Inter",
+      "accent": "Inter",
+      "rationale": "Clean, modern, highly readable"
+    },
+    "design_style": "Product-focused, clean grid layouts",
+    "sections": [
+      {
+        "name": "hero",
+        "content": "Professional hero section"
+      },
+      {
+        "name": "services",
+        "content": "Services or products"
+      },
+      {
+        "name": "about",
+        "content": "Company information"
+      },
+      {
+        "name": "contact",
+        "content": "Contact form and information"
+      }
+    ],
+    "ux_goals": {
+      "primary_cta": "Shop Now / Visit Store",
+      "mobile_optimization": "Mobile-first design, touch-friendly elements",
+      "accessibility": "WCAG 2.1 AA compliance, keyboard navigation, screen reader friendly",
+      "performance": "Fast loading, optimized images, minimal dependencies",
+      "seo": "Semantic HTML, meta tags, structured data"
+    },
+    "technical_requirements": {
+      "format": "Single-file HTML with embedded CSS and minimal JS",
+      "responsive": "Mobile (320px+), Tablet (768px+), Desktop (1024px+)",
+      "browsers": "Modern browsers (Chrome, Firefox, Safari, Edge)",
+      "assets": "Use placeholder images or free stock photos",
+      "forms": "Functional contact forms with validation",
+      "animations": "Subtle, performance-friendly animations",
+      "no_dependencies": "Avoid external dependencies where possible"
+    },
+    "greek_localization": {
+      "language": "Bilingual - Greek and English",
+      "content": "Default to Greek with English toggle option",
+      "fonts": "Support Greek characters",
+      "cultural": "Incorporate Greek aesthetic elements subtly",
+      "location_emphasis": "Highlight Greece location prominently"
+    }
+  },
+  "designer_prompt": "You are a world-class UI/UX designer creating a professional website for a Greek business.\n\n**Client Information:**\n- Company: L.D TRADING ΜΟΝΟΠΡΟΣΩΠΗ ΙΔΙΩΤΙΚΗ ΚΕΦΑΛΑΙΟΥΧΙΚΗ ΕΤΑΙΡΕΙΑ ΕΜΠΟΡΙΑΣ ΕΝΔΥΜΑΤΩΝ\n- Industry: Retail sale of clothing in specialized stores\n- Location: Greece\n\n**Design Strategy:**\n{\n  \"primary_goal\": \"Showcase products and drive store visits or online orders\",\n  \"emotion\": \"Excitement, discovery, value\",\n  \"hierarchy\": [\n    \"Product showcase\",\n    \"Categories\",\n    \"Special offers\",\n    \"Store info\",\n    \"Contact\"\n  ]\n}\n\n**Visual Identity:**\n\nColor Palette: Professional Modern\n- Primary: #2C3E50 (Clean, professional palette for business)\n- Secondary: #3498DB\n- Accent: #E74C3C\n- Neutral: #ECF0F1\n- Text: #2C3E50\n\nTypography:\n- Headings: Inter\n- Body: Inter\n- Accent: Inter\nRationale: Clean, modern, highly readable\n\nDesign Style: Product-focused, clean grid layouts\n\n**Page Sections:**\n1. HERO: Professional hero section\n2. SERVICES: Services or products\n3. ABOUT: Company information\n4. CONTACT: Contact form and information\n\n**UX Requirements:**\n- Primary CTA: Shop Now / Visit Store\n- Mobile: Mobile-first design, touch-friendly elements\n- Accessibility: WCAG 2.1 AA compliance, keyboard navigation, screen reader friendly\n- Performance: Fast loading, optimized images, minimal dependencies\n- SEO: Semantic HTML, meta tags, structured data\n\n**Technical Requirements:**\n{\n  \"format\": \"Single-file HTML with embedded CSS and minimal JS\",\n  \"responsive\": \"Mobile (320px+), Tablet (768px+), Desktop (1024px+)\",\n  \"browsers\": \"Modern browsers (Chrome, Firefox, Safari, Edge)\",\n  \"assets\": \"Use placeholder images or free stock photos\",\n  \"forms\": \"Functional contact forms with validation\",\n  \"animations\": \"Subtle, performance-friendly animations\",\n  \"no_dependencies\": \"Avoid external dependencies where possible\"\n}\n\n**Greek Context:**\n{\n  \"language\": \"Bilingual - Greek and English\",\n  \"content\": \"Default to Greek with English toggle option\",\n  \"fonts\": \"Support Greek characters\",\n  \"cultural\": \"Incorporate Greek aesthetic elements subtly\",\n  \"location_emphasis\": \"Highlight Greece location prominently\"\n}\n\n**Task:**\nCreate a complete, production-ready website that:\n1. Implements all sections listed above\n2. Uses the specified color palette and typography\n3. Is fully responsive (mobile-first)\n4. Is accessible (WCAG 2.1 AA)\n5. Has smooth, subtle animations\n6. Includes functional contact form with validation\n7. Uses placeholder images where needed\n8. Is delivered as a single HTML file with embedded CSS and JS\n\nThe website should be visually stunning, professional, and perfectly suited for the industry and location."
+}

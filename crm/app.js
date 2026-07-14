@@ -278,6 +278,14 @@ function getFilteredClients() {
 }
 
 function renderClientGrid() {
+    // If viewing agent drafts, render those instead
+    if (currentView === 'agent-drafts') {
+        if (typeof renderAgentDrafts === 'function') {
+            renderAgentDrafts();
+        }
+        return;
+    }
+
     const grid = document.getElementById('clientGrid');
     const clients = getFilteredClients();
 
