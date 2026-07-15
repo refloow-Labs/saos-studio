@@ -139,14 +139,15 @@ nav.scrolled {
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--line);
 }
-/* Default (over hero image) — light text for contrast; dark once scrolled. */
-.nav-logo .wordmark { color: #fff; text-shadow: 0 1px 20px rgba(0,0,0,.35); }
-.nav-logo .tagline-logo { color: rgba(255,255,255,.72); }
-.nav-links a { color: rgba(255,255,255,.88); }
-.nav-links a:hover { color: #fff; }
-.nav-cta { border-color: rgba(255,255,255,.6); color: #fff; }
-.nav-cta:hover { background: rgba(255,255,255,.16); color: #fff; }
-.nav-hamburger span { background: #fff; }
+/* Default (over hero image) — light text for contrast; dark once scrolled.
+   Scoped with :not(.scrolled) so these win over the base color rules below. */
+nav:not(.scrolled) .nav-logo .wordmark { color: #fff; text-shadow: 0 1px 20px rgba(0,0,0,.35); }
+nav:not(.scrolled) .nav-logo .tagline-logo { color: rgba(255,255,255,.75); }
+nav:not(.scrolled) .nav-links a { color: rgba(255,255,255,.9); }
+nav:not(.scrolled) .nav-links a:hover { color: #fff; }
+nav:not(.scrolled) .nav-cta { border-color: rgba(255,255,255,.6); color: #fff; }
+nav:not(.scrolled) .nav-cta:hover { background: rgba(255,255,255,.16); color: #fff; }
+nav:not(.scrolled) .nav-hamburger span { background: #fff; }
 nav.scrolled .nav-logo .wordmark { color: var(--ink); text-shadow: none; }
 nav.scrolled .nav-logo .tagline-logo { color: var(--muted); }
 nav.scrolled .nav-links a { color: var(--ink-soft); }
