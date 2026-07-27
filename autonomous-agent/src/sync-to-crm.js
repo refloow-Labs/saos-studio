@@ -8,6 +8,10 @@
 import sqlite3 from 'sqlite3';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const DB_PATH = './data/approval-queue.db';
 
@@ -26,10 +30,11 @@ async function syncToCRM() {
                 }
 
                 try {
-                    // Use absolute path to CRM folder
-                    const homeDir = process.env.HOME || process.env.USERPROFILE;
-                    const outputFile = path.join(homeDir, 'Desktop', 'SAOS Studio', 'crm', 'agent-drafts.json');
+                    // Resolve CRM folder relative to this file (repo/crm)
+                    const crmDir = path.join(__dirname, '../../crm');
+                    const outputFile = path.join(crmDir, 'agent-drafts.json');
 
+                    await fs.mkdir(crmDir, { recursive: true });
                     await fs.writeFile(outputFile, JSON.stringify(rows, null, 2));
                     console.log(`✅ Synced ${rows.length} drafts to CRM`);
                     console.log(`   📄 ${outputFile}`);

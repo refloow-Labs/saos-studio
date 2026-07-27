@@ -220,6 +220,41 @@ export class ApprovalQueue {
     });
   }
 
+  async getAll() {
+    return new Promise((resolve, reject) => {
+      this.db.all(
+        `SELECT
+          id, lead_id, company, email, phone, website_url, demo_url,
+          status, notes, error_message, created_at, approved_at, sent_at,
+          updated_at, qa_score, qa_status, qa_report
+         FROM approval_queue ORDER BY created_at DESC`,
+        (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        }
+      );
+    });
+  }
+
+  async getById(id) {
+    return new Promise((resolve, reject) => {
+      this.db.get(
+        `SELECT * FROM approval_queue WHERE id = ?`,
+        [id],
+        (err, row) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row || null);
+          }
+        }
+      );
+    });
+  }
+
   async getStats() {
     return new Promise((resolve, reject) => {
       this.db.all(

@@ -9,12 +9,14 @@
     "dev": "nodemon src/agent.js",
     "test": "node src/test-agent.js",
     "test:unit": "node --test tests/*.test.js",
-    "setup": "node src/setup-gmail.js"
+    "setup": "node src/setup-gmail.js",
+    "dashboard": "node src/dashboard-server.js"
   },
   "dependencies": {
     "cron": "^3.1.7",
     "csv-parse": "^5.5.3",
     "dotenv": "^16.4.5",
+    "express": "^5.2.1",
     "googleapis": "^134.0.0",
     "node-fetch": "^3.3.2",
     "sqlite3": "^5.1.7"

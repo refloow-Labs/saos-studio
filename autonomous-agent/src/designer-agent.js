@@ -7,6 +7,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { DesignBriefGenerator } from './design-brief-generator.js';
+import { SkillRunner } from './skill-runner.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,9 +31,12 @@ export class DesignerAgent {
   /**
    * Request website design from Claude Code agent
    * @param {Object} lead - Lead information
+   * @param {Object} [options] - options
+   * @param {Array} [options.qaFeedback] - QA issues from a previous failed attempt, appended to the prompt
+   * @param {boolean} [options.forceSimulation] - skip the real skill run and always simulate (used by CLI test mode)
    * @returns {Promise<Object>} Design result
    */
-  async designWebsite(lead) {
+  async designWebsite(lead, options = {}) {
     const jobId = this.generateJobId(lead);
     console.log(`\n🎨 Requesting design for: ${lead.Company || lead.company}`);
     console.log(`   Job ID: ${jobId}`);
@@ -40,6 +44,7 @@ export class DesignerAgent {
     try {
       // Generate design brief and prompt
       const { brief, prompt } = this.briefGenerator.generateDesignerPrompt(lead);
+      const fullPrompt = prompt + this.buildQaFeedbackSection(options.qaFeedback);
 
       // Create job file
       const job = {
@@ -53,7 +58,7 @@ export class DesignerAgent {
           email: lead.Email || lead.email,
         },
         design_brief: brief,
-        designer_prompt: prompt,
+        designer_prompt: fullPrompt,
       };
 
       const jobFilePath = path.join(this.jobsDir, `${jobId}.json`);
@@ -64,9 +69,17 @@ export class DesignerAgent {
       console.log(`   📝 Job file created: ${jobFilePath}`);
       console.log(`   ⏳ Waiting for designer agent to complete...`);
 
-      // **IMPORTANT**: In production, this would spawn an actual Claude Code session
-      // For now, we'll simulate the designer agent with a comprehensive template
-      const result = await this.simulateDesignerAgent(job, outputFilePath);
+      let result = null;
+
+      if (!options.forceSimulation && (await SkillRunner.isClaudeAvailable())) {
+        result = await this.runViaSkill(job, outputFilePath);
+      }
+
+      if (!result) {
+        // Real skill run unavailable, skipped, failed, or malformed —
+        // fall back to the deterministic simulated designer.
+        result = await this.simulateDesignerAgent(job, outputFilePath);
+      }
 
       console.log(`   ✅ Design completed!`);
       console.log(`   📄 Output size: ${(result.output.html.length / 1024).toFixed(2)} KB`);
@@ -77,6 +90,94 @@ export class DesignerAgent {
       console.error(`   ❌ Design failed: ${error.message}`);
       throw error;
     }
+  }
+
+  /**
+   * Build a clearly-delimited QA corrections section to append to the designer prompt.
+   * Mirrors WebsiteGenerator.sanitizeQaFeedback's bounding logic locally (severity sort,
+   * cap 10 items, 300-char truncation) so this module has no import dependency on
+   * website-generator.js.
+   * @param {Array} [qaFeedback]
+   * @returns {string}
+   */
+  buildQaFeedbackSection(qaFeedback) {
+    if (!Array.isArray(qaFeedback) || qaFeedback.length === 0) {
+      return '';
+    }
+
+    const items = this.sanitizeQaFeedback(qaFeedback)
+      .map((issue, i) => `${i + 1}. [${issue.severity}] ${issue.description}${issue.fix ? ` — ${issue.fix}` : ''}`)
+      .join('\n');
+
+    return `\n\n--- ΔΙΟΡΘΩΣΕΙΣ QA — ΥΠΟΧΡΕΩΤΙΚΕΣ ΔΙΟΡΘΩΣΕΙΣ ---\nΗ προηγούμενη έκδοση απέτυχε στον ποιοτικό έλεγχο. Διόρθωσε ΟΠΩΣΔΗΠΟΤΕ τα εξής:\n${items}\n--- ΤΕΛΟΣ ΔΙΟΡΘΩΣΕΩΝ QA ---`;
+  }
+
+  /**
+   * Bound QA feedback before it is injected into a prompt: sorts by severity
+   * (critical > high > medium > low), caps to the 10 most severe issues, and
+   * truncates/normalizes free-text fields.
+   * @param {Array} qaFeedback
+   * @returns {Array}
+   */
+  sanitizeQaFeedback(qaFeedback) {
+    const severityRank = { critical: 0, high: 1, medium: 2, low: 3 };
+    const rankOf = (severity) => {
+      const rank = severityRank[String(severity || '').toLowerCase()];
+      return rank === undefined ? 4 : rank;
+    };
+    const clean = (text) => String(text || '').replace(/[\r\n]+/g, ' ').substring(0, 300);
+
+    return [...qaFeedback]
+      .sort((a, b) => rankOf(a.severity) - rankOf(b.severity))
+      .slice(0, 10)
+      .map((issue) => ({
+        severity: issue.severity,
+        description: clean(issue.description),
+        fix: issue.fix ? clean(issue.fix) : issue.fix,
+      }));
+  }
+
+  /**
+   * Spawn a headless Claude Code session running the designer skill.
+   * Never throws — returns null (to trigger the simulation fallback) on any
+   * skipped/failed/malformed outcome.
+   * @param {Object} job
+   * @param {string} outputFilePath
+   * @returns {Promise<Object|null>}
+   */
+  async runViaSkill(job, outputFilePath) {
+    const skill = process.env.DESIGNER_AGENT_SKILL || 'ui-ux-pro-max';
+    const runner = new SkillRunner();
+
+    const skillPrompt = `${job.designer_prompt}\n\nWhen finished, write your final result as valid JSON to the output file with this exact shape: {"status": "completed", "output": {"html": "<full single-file HTML document as a string>", "design_notes": "...", "features_implemented": ["..."]}}. The "html" field must contain the complete, production-ready single-file HTML document (inline CSS/JS, no external dependencies).`;
+
+    let res;
+    try {
+      res = await runner.runSkill({
+        jobId: job.job_id,
+        skill,
+        prompt: skillPrompt,
+        outputFile: outputFilePath,
+        allowedTools: ['Read', 'Write', 'Glob', 'Grep'],
+        maxTurns: 40,
+      });
+    } catch (err) {
+      console.warn(`   ⚠️ Designer agent skill run threw (${err.message}) — falling back to simulation`);
+      return null;
+    }
+
+    if (!res.ok) {
+      console.warn(`   ⚠️ Designer agent skill run ${res.skipped ? 'skipped' : 'failed'} (${res.reason || res.error || 'unknown'}) — falling back to simulation`);
+      return null;
+    }
+
+    const html = res.result && res.result.output && res.result.output.html;
+    if (typeof html !== 'string' || html.length === 0) {
+      console.warn('   ⚠️ Designer agent skill returned malformed output (no html) — falling back to simulation');
+      return null;
+    }
+
+    return res.result;
   }
 
   /**
@@ -592,4 +693,45 @@ export class DesignerAgent {
     };
     return translations[name] || name;
   }
+}
+
+// ---------------------------------------------------------------------------
+// CLI mode: `node src/designer-agent.js --test "Company,industry"`
+// Runs the simulated designer only (no claude spawn, no cost) and writes the
+// resulting HTML to data/designer-output/<jobId>.html.
+// ---------------------------------------------------------------------------
+const isCliMain =
+  !!process.argv[1] &&
+  path.resolve(__filename).toLowerCase() === path.resolve(process.argv[1]).toLowerCase();
+
+async function runCli() {
+  const cliArgs = process.argv.slice(2);
+  const testFlagIdx = cliArgs.indexOf('--test');
+
+  if (testFlagIdx === -1 || !cliArgs[testFlagIdx + 1]) {
+    console.error('Usage: node src/designer-agent.js --test "Company,industry"');
+    process.exit(1);
+    return;
+  }
+
+  const [companyArg, industryArg] = cliArgs[testFlagIdx + 1].split(',').map((s) => (s || '').trim());
+  const lead = {
+    Company: companyArg || 'Test Company',
+    'NACE 2 Desc': industryArg || 'business',
+  };
+
+  const agent = new DesignerAgent();
+  await agent.initialize();
+
+  const result = await agent.designWebsite(lead, { forceSimulation: true });
+
+  const htmlPath = path.join(agent.outputDir, `${result.job_id}.html`);
+  await fs.writeFile(htmlPath, result.output.html);
+
+  console.log(path.resolve(htmlPath));
+  process.exit(0);
+}
+
+if (isCliMain) {
+  await runCli();
 }

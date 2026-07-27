@@ -1,6 +1,19 @@
 import fetch from 'node-fetch';
+import crypto from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Greek → Latin transliteration. Without this, generateSiteName() strips every
+// Greek letter and returns an empty slug for Greek-only company names.
+const GREEK_TO_LATIN = {
+  α: 'a', β: 'v', γ: 'g', δ: 'd', ε: 'e', ζ: 'z', η: 'i', θ: 'th', ι: 'i',
+  κ: 'k', λ: 'l', μ: 'm', ν: 'n', ξ: 'x', ο: 'o', π: 'p', ρ: 'r', σ: 's',
+  ς: 's', τ: 't', υ: 'y', φ: 'f', χ: 'ch', ψ: 'ps', ω: 'o',
+};
 
 export class WebsiteGenerator {
   constructor() {
@@ -158,9 +171,10 @@ Return ONLY the complete HTML code, nothing else.`;
     try {
       const siteName = this.generateSiteName(lead.Company);
 
-      // Use absolute path to CRM folder
-      const homeDir = process.env.HOME || process.env.USERPROFILE;
-      const crmDir = path.join(homeDir, 'Desktop', 'SAOS Studio', 'crm', 'agent-drafts');
+      // Repo-relative CRM folder (the one the CRM actually serves), not the
+      // machine-specific Desktop path this was originally written against.
+      const crmDir = process.env.CRM_DRAFTS_PATH
+        || path.join(__dirname, '../../crm/agent-drafts');
       const outputDir = path.join(crmDir, siteName);
 
       await fs.mkdir(outputDir, { recursive: true });
@@ -178,8 +192,7 @@ Return ONLY the complete HTML code, nothing else.`;
     } catch (error) {
       console.error('  ❌ Failed to save website:', error.message);
       console.error('  Error details:', error);
-      // Return fallback
-      return `agent-drafts/${this.generateSiteName(lead.Company)}/index.html`;
+      throw error;
     }
   }
 
@@ -205,12 +218,24 @@ Return ONLY the complete HTML code, nothing else.`;
   }
 
   generateSiteName(companyName) {
-    return companyName
+    const source = String(companyName || '');
+    const slug = source
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[\u03b1-\u03c9\u03c2]/g, (ch) => GREEK_TO_LATIN[ch] || ch)
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '')
-      .substring(0, 50);
+      .substring(0, 50)
+      .replace(/-$/, '');
+
+    // An empty slug would resolve to the agent-drafts root itself, overwriting
+    // the CRM index and colliding across every such company.
+    if (!slug) {
+      const digest = crypto.createHash('sha1').update(source).digest('hex').slice(0, 8);
+      return `site-${digest}`;
+    }
+
+    return slug;
   }
 }

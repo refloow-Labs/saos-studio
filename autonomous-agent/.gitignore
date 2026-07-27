@@ -1,0 +1,14 @@
+# Secrets — use .env.example as the template
+.env
+
+# Dependencies
+node_modules/
+.claude/skills/playwright-skill/node_modules/
+.claude/skills/playwright-skill/.temp-execution-*.js
+
+# QA gate runtime artifacts (reports, screenshots, job files)
+data/qa-output/
+data/qa-jobs/
+
+# SQLite runtime state
+data/*.db

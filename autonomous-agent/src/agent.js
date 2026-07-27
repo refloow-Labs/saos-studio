@@ -3,6 +3,7 @@
 import dotenv from 'dotenv';
 import { CronJob } from 'cron';
 import { WebsiteGenerator } from './website-generator.js';
+import { DesignerAgent } from './designer-agent.js';
 import { EmailService } from './email-service.js';
 import { ApprovalQueue } from './approval-queue.js';
 import { LeadsManager } from './leads-manager.js';
@@ -15,6 +16,8 @@ dotenv.config();
 class AutonomousAgent {
   constructor() {
     this.websiteGenerator = new WebsiteGenerator();
+    this.designerAgentEnabled = process.env.DESIGNER_AGENT_ENABLED === 'true';
+    this.designerAgent = new DesignerAgent();
     this.emailService = new EmailService();
     this.approvalQueue = new ApprovalQueue();
     this.leadsManager = new LeadsManager();
@@ -38,9 +41,52 @@ class AutonomousAgent {
     }
     console.log(`🧪 QA gate: ${this.qaGate.enabled ? 'enabled' : 'disabled'}`);
 
+    if (this.designerAgentEnabled) {
+      await this.designerAgent.initialize();
+    }
+    console.log(`🎨 Generator: ${this.designerAgentEnabled ? 'designer-agent' : 'website-generator'}`);
+
     console.log('✅ Agent initialized successfully');
     console.log(`📊 Daily website limit: ${this.dailyLimit}`);
     console.log(`📧 Sender: ${process.env.SENDER_NAME} <${process.env.SENDER_EMAIL}>`);
+  }
+
+  /**
+   * Generate website data via the active generator (DesignerAgent or WebsiteGenerator),
+   * always returning the shape deployToNetlify() expects:
+   * { html, company, industry, description, generatedAt }.
+   * @param {Object} lead
+   * @param {Array|null} [qaFeedback] - QA issues from a previous failed attempt, if any
+   * @returns {Promise<Object>} websiteData
+   */
+  async generateWebsite(lead, qaFeedback = null) {
+    if (this.designerAgentEnabled) {
+      return this.generateWebsiteViaDesignerAgent(lead, qaFeedback);
+    }
+    return this.websiteGenerator.generate(lead, qaFeedback ? { qaFeedback } : {});
+  }
+
+  /**
+   * Adapts DesignerAgent.designWebsite()'s result shape
+   * ({ job_id, status, completed_at, output: { html, ... } }) into the
+   * websiteData shape deployToNetlify() expects.
+   * @private
+   */
+  async generateWebsiteViaDesignerAgent(lead, qaFeedback) {
+    const result = await this.designerAgent.designWebsite(lead, qaFeedback ? { qaFeedback } : {});
+    const html = result && result.output && result.output.html;
+
+    if (!html) {
+      throw new Error('DesignerAgent returned no HTML output');
+    }
+
+    return {
+      html,
+      company: lead.Company,
+      industry: this.websiteGenerator.detectIndustry(lead['NACE 2 Desc']),
+      description: lead['Περιγραφή 1'] || '',
+      generatedAt: result.completed_at || new Date().toISOString(),
+    };
   }
 
   async runDailyCycle() {
@@ -75,8 +121,8 @@ class AutonomousAgent {
           console.log(`\n🔨 Generating website for: ${lead.Company}`);
 
           if (!this.qaGate.enabled) {
-            // Generate website using ui-ux-pro-max skill
-            const websiteData = await this.websiteGenerator.generate(lead);
+            // Generate website using the active generator (designer-agent or website-generator)
+            const websiteData = await this.generateWebsite(lead);
 
             // Deploy to Netlify
             const deployUrl = await this.websiteGenerator.deployToNetlify(websiteData, lead);
@@ -110,7 +156,7 @@ class AutonomousAgent {
 
           // eslint-disable-next-line no-constant-condition
           while (true) {
-            websiteData = await this.websiteGenerator.generate(lead, qaFeedback ? { qaFeedback } : {});
+            websiteData = await this.generateWebsite(lead, qaFeedback);
             deployUrl = await this.websiteGenerator.deployToNetlify(websiteData, lead);
             htmlPath = this.websiteGenerator.lastSavedHtmlPath;
 
@@ -302,7 +348,7 @@ const agent = new AutonomousAgent();
 
 if (process.argv.includes('--check-config')) {
   console.log(`qa_gate: ${agent.qaGate.enabled ? 'enabled' : 'disabled'}`);
-  console.log('generator: website-generator');
+  console.log(`generator: ${agent.designerAgentEnabled ? 'designer-agent' : 'website-generator'}`);
   console.log(`daily_limit: ${agent.dailyLimit}`);
   process.exit(0);
 } else {

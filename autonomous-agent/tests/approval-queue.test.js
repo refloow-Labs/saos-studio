@@ -173,3 +173,66 @@ test("getStats() reflects a 'qa_failed' row", async () => {
     await closeDb(queue.db);
   });
 });
+
+test('getAll() returns rows without a website_data key but including qa_* fields', async () => {
+  await withTempCwd(async () => {
+    const queue = new ApprovalQueue();
+    await queue.initialize();
+
+    await queue.addToQueue({
+      company: 'GetAll Co',
+      email: 'getall@co.gr',
+      phone: '2101112222',
+      websiteUrl: null,
+      demoUrl: 'http://example.com/demo-getall',
+      websiteData: { html: '<html>getall</html>' },
+      status: 'pending_approval',
+      createdAt: new Date().toISOString(),
+      qaScore: 77,
+      qaStatus: 'qa_passed',
+      qaReport: { score: 77, pass: true, issues: [] },
+    });
+
+    const rows = await queue.getAll();
+    assert.equal(rows.length, 1);
+    const [row] = rows;
+
+    assert.ok(!('website_data' in row), 'expected website_data to be excluded from getAll() rows');
+    assert.equal(row.company, 'GetAll Co');
+    assert.equal(row.qa_score, 77);
+    assert.equal(row.qa_status, 'qa_passed');
+    assert.equal(typeof row.qa_report, 'string');
+    assert.deepEqual(JSON.parse(row.qa_report), { score: 77, pass: true, issues: [] });
+
+    await closeDb(queue.db);
+  });
+});
+
+test('getById() returns the full row including website_data, and null for an unknown id', async () => {
+  await withTempCwd(async () => {
+    const queue = new ApprovalQueue();
+    await queue.initialize();
+
+    const id = await queue.addToQueue({
+      company: 'GetById Co',
+      email: 'getbyid@co.gr',
+      phone: '2103334444',
+      websiteUrl: null,
+      demoUrl: 'http://example.com/demo-getbyid',
+      websiteData: { html: '<html>getbyid</html>' },
+      status: 'pending_approval',
+      createdAt: new Date().toISOString(),
+    });
+
+    const row = await queue.getById(id);
+    assert.ok(row, 'expected a row to be returned');
+    assert.equal(row.company, 'GetById Co');
+    assert.ok('website_data' in row, 'expected website_data to be included in getById() row');
+    assert.deepEqual(JSON.parse(row.website_data), { html: '<html>getbyid</html>' });
+
+    const missing = await queue.getById(999999);
+    assert.equal(missing, null);
+
+    await closeDb(queue.db);
+  });
+});

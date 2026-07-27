@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAOS Agent Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1>SAOS Agent Dashboard</h1>
+      <div class="topbar-actions">
+        <span id="last-updated" class="muted"></span>
+        <button id="refresh-btn" class="btn btn-secondary">🔄 Ανανέωση</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="counters" class="counters"></section>
+
+    <section class="weekly">
+      <span id="weekly-stats">Φόρτωση εβδομαδιαίων στατιστικών...</span>
+    </section>
+
+    <section class="queue-section">
+      <h2>Ουρά Εγκρίσεων</h2>
+      <table class="queue-table">
+        <thead>
+          <tr>
+            <th>Εταιρεία</th>
+            <th>Email</th>
+            <th>Ημερομηνία</th>
+            <th>Κατάσταση</th>
+            <th>QA</th>
+            <th>Ενέργειες</th>
+          </tr>
+        </thead>
+        <tbody id="queue-body">
+          <tr><td colspan="6" class="muted">Φόρτωση...</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
