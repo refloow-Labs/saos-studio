@@ -37,21 +37,50 @@ export class ApprovalQueue {
           if (err) {
             reject(err);
           } else {
-            console.log('✅ Approval queue database initialized');
-            resolve();
+            this.runMigrations()
+              .then(() => {
+                console.log('✅ Approval queue database initialized');
+                resolve();
+              })
+              .catch(reject);
           }
         });
       });
     });
   }
 
+  async runMigrations() {
+    const migrations = [
+      'ALTER TABLE approval_queue ADD COLUMN qa_score INTEGER',
+      'ALTER TABLE approval_queue ADD COLUMN qa_status TEXT',
+      'ALTER TABLE approval_queue ADD COLUMN qa_report TEXT'
+    ];
+
+    for (const sql of migrations) {
+      await new Promise((resolve, reject) => {
+        this.db.run(sql, (err) => {
+          if (err && !/duplicate column name/i.test(err.message)) {
+            console.error('⚠️  Migration failed:', err.message);
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
+    }
+  }
+
   async addToQueue(item) {
     return new Promise((resolve, reject) => {
       const stmt = this.db.prepare(`
         INSERT INTO approval_queue
-        (lead_id, company, email, phone, website_url, demo_url, website_data, status, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (lead_id, company, email, phone, website_url, demo_url, website_data, status, created_at, qa_score, qa_status, qa_report)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
+
+      const qaReport = (item.qaReport && typeof item.qaReport === 'object')
+        ? JSON.stringify(item.qaReport)
+        : (item.qaReport || null);
 
       stmt.run(
         item.leadId,
@@ -63,6 +92,9 @@ export class ApprovalQueue {
         JSON.stringify(item.websiteData),
         item.status,
         item.createdAt,
+        item.qaScore ?? null,
+        item.qaStatus ?? null,
+        qaReport,
         function(err) {
           if (err) {
             reject(err);

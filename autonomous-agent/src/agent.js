@@ -8,6 +8,7 @@ import { ApprovalQueue } from './approval-queue.js';
 import { LeadsManager } from './leads-manager.js';
 import { StateManager } from './state-manager.js';
 import { syncToCRM } from './sync-to-crm.js';
+import { QAGate } from './qa-gate.js';
 
 dotenv.config();
 
@@ -18,8 +19,10 @@ class AutonomousAgent {
     this.approvalQueue = new ApprovalQueue();
     this.leadsManager = new LeadsManager();
     this.stateManager = new StateManager();
+    this.qaGate = new QAGate();
 
     this.dailyLimit = parseInt(process.env.DAILY_WEBSITE_LIMIT || '50');
+    this.qaMaxRetries = parseInt(process.env.QA_MAX_RETRIES || '2');
     this.isRunning = false;
   }
 
@@ -29,6 +32,11 @@ class AutonomousAgent {
     await this.stateManager.initialize();
     await this.approvalQueue.initialize();
     await this.leadsManager.loadLeads();
+
+    if (this.qaGate.enabled) {
+      await this.qaGate.initialize();
+    }
+    console.log(`🧪 QA gate: ${this.qaGate.enabled ? 'enabled' : 'disabled'}`);
 
     console.log('✅ Agent initialized successfully');
     console.log(`📊 Daily website limit: ${this.dailyLimit}`);
@@ -66,11 +74,78 @@ class AutonomousAgent {
         try {
           console.log(`\n🔨 Generating website for: ${lead.Company}`);
 
-          // Generate website using ui-ux-pro-max skill
-          const websiteData = await this.websiteGenerator.generate(lead);
+          if (!this.qaGate.enabled) {
+            // Generate website using ui-ux-pro-max skill
+            const websiteData = await this.websiteGenerator.generate(lead);
 
-          // Deploy to Netlify
-          const deployUrl = await this.websiteGenerator.deployToNetlify(websiteData, lead);
+            // Deploy to Netlify
+            const deployUrl = await this.websiteGenerator.deployToNetlify(websiteData, lead);
+
+            // Add to approval queue
+            await this.approvalQueue.addToQueue({
+              leadId: lead.id,
+              company: lead.Company,
+              email: lead.Email,
+              phone: lead['Τηλέφωνο'],
+              websiteUrl: lead['Ιστοσελίδα Εταιρίας'],
+              demoUrl: deployUrl,
+              websiteData: websiteData,
+              status: 'pending_approval',
+              createdAt: new Date().toISOString()
+            });
+
+            await this.stateManager.incrementWebsiteCount();
+            console.log(`✅ Website generated and added to approval queue`);
+            console.log(`🔗 Demo URL: ${deployUrl}`);
+            continue;
+          }
+
+          // QA-gated flow
+          let attempt = 0;
+          let qaFeedback = null;
+          let websiteData;
+          let deployUrl;
+          let htmlPath;
+          let verdict = null;
+
+          // eslint-disable-next-line no-constant-condition
+          while (true) {
+            websiteData = await this.websiteGenerator.generate(lead, qaFeedback ? { qaFeedback } : {});
+            deployUrl = await this.websiteGenerator.deployToNetlify(websiteData, lead);
+            htmlPath = this.websiteGenerator.lastSavedHtmlPath;
+
+            if (!htmlPath) {
+              console.warn(`⚠️  No saved HTML path for ${lead.Company} — skipping QA review`);
+              verdict = null;
+              break;
+            }
+
+            try {
+              verdict = await this.qaGate.review({ htmlPath, company: lead.Company, lead });
+            } catch (qaError) {
+              console.error(`❌ QA gate review failed for ${lead.Company}:`, qaError.message);
+              verdict = null;
+              break;
+            }
+
+            if (verdict && !verdict.pass && attempt < this.qaMaxRetries) {
+              attempt++;
+              qaFeedback = verdict.issues;
+              console.log(`🔁 QA failed (score ${verdict.score} < ${verdict.minScore}) — regenerating attempt ${attempt}`);
+              continue;
+            }
+
+            break;
+          }
+
+          console.log(`🧪 QA total attempts: ${attempt + 1}`);
+
+          const status = verdict === null
+            ? 'pending_approval'
+            : (verdict.pass ? 'pending_approval' : 'qa_failed');
+          const qaStatus = verdict === null
+            ? 'qa_error'
+            : (verdict.pass ? 'qa_passed' : 'qa_failed');
 
           // Add to approval queue
           await this.approvalQueue.addToQueue({
@@ -81,12 +156,15 @@ class AutonomousAgent {
             websiteUrl: lead['Ιστοσελίδα Εταιρίας'],
             demoUrl: deployUrl,
             websiteData: websiteData,
-            status: 'pending_approval',
-            createdAt: new Date().toISOString()
+            status: status,
+            createdAt: new Date().toISOString(),
+            qaScore: verdict?.score ?? null,
+            qaStatus: qaStatus,
+            qaReport: verdict ?? null
           });
 
           await this.stateManager.incrementWebsiteCount();
-          console.log(`✅ Website generated and added to approval queue`);
+          console.log(`✅ Website generated and added to approval queue (status: ${status})`);
           console.log(`🔗 Demo URL: ${deployUrl}`);
 
         } catch (error) {
@@ -221,10 +299,18 @@ class AutonomousAgent {
 
 // Start the agent
 const agent = new AutonomousAgent();
-agent.start().catch(console.error);
 
-// Handle graceful shutdown
-process.on('SIGINT', () => {
-  console.log('\n\n👋 Shutting down agent...');
+if (process.argv.includes('--check-config')) {
+  console.log(`qa_gate: ${agent.qaGate.enabled ? 'enabled' : 'disabled'}`);
+  console.log('generator: website-generator');
+  console.log(`daily_limit: ${agent.dailyLimit}`);
   process.exit(0);
-});
+} else {
+  agent.start().catch(console.error);
+
+  // Handle graceful shutdown
+  process.on('SIGINT', () => {
+    console.log('\n\n👋 Shutting down agent...');
+    process.exit(0);
+  });
+}

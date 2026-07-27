@@ -8,15 +8,16 @@
     "start": "node src/agent.js",
     "dev": "nodemon src/agent.js",
     "test": "node src/test-agent.js",
+    "test:unit": "node --test tests/*.test.js",
     "setup": "node src/setup-gmail.js"
   },
   "dependencies": {
+    "cron": "^3.1.7",
+    "csv-parse": "^5.5.3",
+    "dotenv": "^16.4.5",
     "googleapis": "^134.0.0",
     "node-fetch": "^3.3.2",
-    "sqlite3": "^5.1.7",
-    "dotenv": "^16.4.5",
-    "cron": "^3.1.7",
-    "csv-parse": "^5.5.3"
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
