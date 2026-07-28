@@ -1,0 +1,15 @@
+# SAOS Studio — CRM served in a container so the whole team (macOS + Windows)
+# gets the same setup without installing Python or anything else locally.
+# Everything else (the autonomous agent, the dashboard) still runs on the host.
+services:
+  crm:
+    image: nginx:alpine
+    container_name: saos-crm
+    ports:
+      - "${CRM_PORT:-8080}:80"
+    volumes:
+      # Live bind mount: the agent writes agent-drafts.json and agent-drafts/<site>/
+      # on the host, and they show up immediately — no rebuild, no restart.
+      - ./crm:/usr/share/nginx/html:ro
+      - ./docker/crm.nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
