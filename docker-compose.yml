@@ -1,6 +1,8 @@
-# SAOS Studio — CRM served in a container so the whole team (macOS + Windows)
-# gets the same setup without installing Python or anything else locally.
-# Everything else (the autonomous agent, the dashboard) still runs on the host.
+# SAOS Studio — everything now runs the same way on macOS and Windows:
+#   - crm: served by nginx, no local Python needed.
+#   - agent: the autonomous agent, built once so sqlite3 (a native module) is
+#     always the Linux binary the container needs, never a host-built one.
+#   - dashboard: the same image, running the read-only queue dashboard.
 services:
   crm:
     image: nginx:alpine
@@ -12,4 +14,37 @@ services:
       # on the host, and they show up immediately — no rebuild, no restart.
       - ./crm:/usr/share/nginx/html:ro
       - ./docker/crm.nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+
+  agent:
+    build: ./autonomous-agent
+    container_name: saos-agent
+    env_file: ./autonomous-agent/.env
+    environment:
+      # The agent runs at /app inside the container, so the repo-relative
+      # default in website-generator.js (../../crm/agent-drafts) doesn't
+      # resolve. Point it at the crm/ bind mount below instead, which lands
+      # in the exact same host folder the crm service serves from.
+      - CRM_DRAFTS_PATH=/crm/agent-drafts
+    volumes:
+      - ./autonomous-agent/data:/app/data
+      - ./crm:/crm
+    # Opt-in only: this service sends real emails to real leads. A plain
+    # `docker compose up` (e.g. someone just wanting the CRM) must never
+    # start it by accident.
+    profiles: ["agent"]
+    restart: "no"
+
+  dashboard:
+    build: ./autonomous-agent
+    container_name: saos-dashboard
+    command: node src/dashboard-server.js
+    env_file: ./autonomous-agent/.env
+    ports:
+      - "${DASHBOARD_PORT:-4000}:4000"
+    volumes:
+      - ./autonomous-agent/data:/app/data
+    # Default-on: unlike `agent`, this only reads/writes the local approval
+    # queue — it never sends email — so it's safe to start with a plain
+    # `docker compose up`.
     restart: unless-stopped

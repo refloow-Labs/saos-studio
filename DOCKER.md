@@ -1,8 +1,9 @@
 # CRM σε Docker
 
 Το CRM τρέχει σε container ώστε να δουλεύει το ίδιο σε **macOS και Windows**, χωρίς να
-χρειάζεται Python ή οτιδήποτε άλλο εγκατεστημένο τοπικά. Τα υπόλοιπα (autonomous agent,
-dashboard, Claude Code) τρέχουν κανονικά στο μηχάνημά σου, όπως πριν.
+χρειάζεται Python ή οτιδήποτε άλλο εγκατεστημένο τοπικά. Πλέον και ο **autonomous agent**
+και το **dashboard** τρέχουν κι αυτά σε container (δες [παρακάτω](#agent-και-dashboard-σε-docker)) — το μόνο που τρέχει ακόμα
+τοπικά είναι το Claude Code.
 
 ## Προϋπόθεση
 
@@ -58,3 +59,74 @@ $env:CRM_PORT=8090; docker compose up -d    # Windows PowerShell
 
 Αν βρεθεί ο φάκελος `sales/`, πρόσθεσε ένα δεύτερο service που σερβίρει τη ρίζα του repo
 στο 8081 και οι σύνδεσμοι ζωντανεύουν.
+
+---
+
+# Agent και Dashboard σε Docker
+
+Ο autonomous agent και το dashboard τρέχουν πλέον κι αυτά σε container, χτισμένα από το
+ίδιο [`autonomous-agent/Dockerfile`](autonomous-agent/Dockerfile). Έτσι όλη η ομάδα
+(macOS + Windows) τρέχει **τον ίδιο runtime** — όχι έναν agent που δουλεύει στο Mac σου
+και σκάει στα Windows ενός συναδέλφου.
+
+## Γιατί το χρειαζόμασταν (τι έσπαγε πριν)
+
+- **`sqlite3` είναι native module.** Ένα binary χτισμένο σε macOS σκάει σε Windows με
+  `"not a valid Win32 application"` (και το αντίστροφο). Χτίζοντάς το *μέσα* στο image,
+  όλοι τρέχουν το ίδιο, σωστό binary — μόνιμα.
+- **Το QA gate χρειάζεται πραγματικό Chromium.** Πριν έπρεπε να εγκατασταθεί χειροκίνητα
+  σε κάθε μηχάνημα (`.claude/skills/playwright-skill/node_modules`). Τώρα είναι ήδη μέσα
+  στο image.
+- **Line endings.** Το `node_modules` είναι tracked στο git repo αυτό. Το `npm install`
+  σε Windows ξαναγράφει ~200 αρχεία με CRLF, γεμίζοντας κάθε diff με θόρυβο. Με το
+  install να τρέχει μόνο μέσα στο container (και με το [`.gitattributes`](.gitattributes)
+  να κανονικοποιεί σε LF), αυτό σταματάει.
+- **Το παλιό `scripts/start-crm.sh` ήταν macOS-only** (`lsof`, `open`, hardcoded
+  `/Users/giannistambakis/...`) — έχει ήδη αντικατασταθεί από το `crm` container· το
+  ίδιο ισχύει τώρα και για την εκκίνηση του agent.
+
+## Χρήση
+
+Ο agent είναι **opt-in** (πίσω από `profiles: ["agent"]`) γιατί στέλνει **πραγματικά
+emails** σε πραγματικά leads. Ένα απλό `docker compose up` δεν πρέπει ποτέ να τον
+ξεκινήσει κατά λάθος:
+
+```bash
+docker compose --profile agent up -d agent   # ξεκίνα τον agent (στέλνει emails!)
+docker compose --profile agent logs -f agent
+docker compose --profile agent down
+```
+
+Το dashboard είναι **default-on** — μόνο διαβάζει/γράφει στην τοπική approval queue
+(SQLite), δεν στέλνει ποτέ email — οπότε ξεκινάει κανονικά μαζί με το CRM:
+
+```bash
+docker compose up -d              # crm + dashboard  → http://localhost:4000
+docker compose up -d dashboard    # μόνο το dashboard, αν το crm τρέχει ήδη
+```
+
+## Rebuild μετά από νέο κώδικα
+
+Το image χτίζεται μία φορά και μετά τρέχει από cache· αν κάνεις `git pull` και άλλαξε
+κώδικας (ή το `package.json`), χρειάζεται rebuild πριν το επόμενο `up`:
+
+```bash
+docker compose build agent dashboard
+docker compose --profile agent up -d agent
+docker compose up -d dashboard
+```
+
+## Πού μένουν τα δεδομένα
+
+Το SQLite state (`data/agent-state.db`) και τα παραγόμενα demo sites (`crm/agent-drafts/`)
+ζουν σε **bind mounts** από τον host — όχι μέσα στο container:
+
+- `./autonomous-agent/data` → `/app/data` (agent + dashboard, ίδιο volume ώστε να
+  βλέπουν την ίδια ουρά εγκρίσεων)
+- `./crm` → `/crm` μέσα στον agent, με `CRM_DRAFTS_PATH=/crm/agent-drafts` ώστε να
+  γράφει στον **ίδιο** φάκελο που σερβίρει το `crm` container
+
+Άρα ένα `docker compose build` ή ακόμα και ένα `docker rm` του container **δεν χάνει
+τίποτα** — τα δεδομένα μένουν στον host disk.
+
+Σχετικό αρχείο: [`autonomous-agent/Dockerfile`](autonomous-agent/Dockerfile).

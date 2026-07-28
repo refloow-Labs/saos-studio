@@ -4,13 +4,17 @@
   "description": "Autonomous agent for generating SMB websites and sending personalized emails",
   "type": "module",
   "main": "src/agent.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node src/agent.js",
     "dev": "nodemon src/agent.js",
     "test": "node src/test-agent.js",
     "test:unit": "node --test tests/*.test.js",
     "setup": "node src/setup-gmail.js",
-    "dashboard": "node src/dashboard-server.js"
+    "dashboard": "node src/dashboard-server.js",
+    "doctor": "node src/doctor.js"
   },
   "dependencies": {
     "cron": "^3.1.7",

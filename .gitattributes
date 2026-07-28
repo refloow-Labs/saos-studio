@@ -1,0 +1,10 @@
+# node_modules is git-tracked in this repo. Without this file, npm install
+# on Windows rewrites ~200 files with CRLF line endings, polluting every
+# diff with whitespace-only noise. Normalize everything to LF on checkout
+# and commit, regardless of the OS doing the checking out.
+* text=auto eol=lf
+*.sh text eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+*.db binary

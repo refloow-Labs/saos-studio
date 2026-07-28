@@ -196,27 +196,6 @@ Return ONLY the complete HTML code, nothing else.`;
     }
   }
 
-  async createAndUploadZip(dir, siteId) {
-    // For simplicity, we'll use Netlify's file upload API
-    const indexPath = path.join(dir, 'index.html');
-    const content = await fs.readFile(indexPath, 'utf-8');
-
-    const response = await fetch(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.netlifyToken}`
-      },
-      body: JSON.stringify({
-        files: {
-          '/index.html': content
-        }
-      })
-    });
-
-    return response.json();
-  }
-
   generateSiteName(companyName) {
     const source = String(companyName || '');
     const slug = source

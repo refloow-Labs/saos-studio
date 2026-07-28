@@ -74,8 +74,8 @@ export class ApprovalQueue {
     return new Promise((resolve, reject) => {
       const stmt = this.db.prepare(`
         INSERT INTO approval_queue
-        (lead_id, company, email, phone, website_url, demo_url, website_data, status, created_at, qa_score, qa_status, qa_report)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (lead_id, company, email, phone, website_url, demo_url, website_data, status, created_at, qa_score, qa_status, qa_report, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       const qaReport = (item.qaReport && typeof item.qaReport === 'object')
@@ -95,6 +95,7 @@ export class ApprovalQueue {
         item.qaScore ?? null,
         item.qaStatus ?? null,
         qaReport,
+        item.notes ?? null,
         function(err) {
           if (err) {
             reject(err);

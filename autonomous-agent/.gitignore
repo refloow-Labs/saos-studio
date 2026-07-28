@@ -12,3 +12,7 @@ data/qa-jobs/
 
 # SQLite runtime state
 data/*.db
+
+# Extra CA certs are per-machine (antivirus/corporate proxy), never committed
+certs/*.crt
+certs/*.pem

@@ -1,0 +1,15 @@
+# Keep the build context small and never bake secrets or local state into the image.
+node_modules
+data
+.env
+.env.example
+.git
+*.db
+.claude/skills/*/node_modules
+tests
+*.md
+
+# Editor / OS noise
+.vscode
+.idea
+.DS_Store
