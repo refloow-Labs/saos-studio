@@ -2,6 +2,7 @@
 
 **Για:** coding agent που θα υλοποιήσει το Στάδιο Α (demo sites).
 **Προϋπόθεση ανάγνωσης:** [`SITE_ENGINE_REQUIREMENTS.md`](SITE_ENGINE_REQUIREMENTS.md) — οι απαιτήσεις D‑1…D‑10, S‑1…S‑13, N‑1…N‑9 αναφέρονται εδώ με τους κωδικούς τους.
+**Αναθεώρηση 2026-07-29:** ενσωματώθηκαν οι αποφάσεις του design session ([`NICHE_PACKS_DESIGN.md`](NICHE_PACKS_DESIGN.md) §6): Pexels αντί Unsplash, per-section ContentPlan, pack-aware assembler, cost tracking, `LEADS_FILE`. Το design layer (niche packs) είναι V1.5 — το V1 χτίζεται με τον `generic` pack αλλά με το σωστό interface από την αρχή.
 
 ---
 
@@ -70,6 +71,8 @@ export function normalizeLead(raw)
 
 Κάλεσέ το μέσα στο `loadLeads()` του `leads-manager.js` και **ενημέρωσε το φίλτρο** να χρησιμοποιεί τα κανονικοποιημένα πεδία.
 
+**Αποσύνδεση από το CRM (απόφαση 2026-07-29):** το μονοπάτι των leads γίνεται env-configurable — `LEADS_FILE` (default: το σημερινό `crm/leads-no-website.json`), ώστε ο agent να τρέχει αυτόνομα σε Docker/server χωρίς το `crm/` folder. Αντικατέστησε το hardcoded path στη γραμμή 11 του `leads-manager.js`.
+
 **Προσοχή N‑6:** αν φορτωθούν leads αλλά επιλεγούν **0**, τύπωσε ρητή προειδοποίηση με τον λόγο. Το σημερινό bug ήταν αόρατο επί μήνες ακριβώς επειδή απέτυχε σιωπηλά.
 
 **Acceptance:** `getNextLeads(10)` επιστρέφει 10 leads με μη κενά `company`/`email` από το πραγματικό αρχείο.
@@ -120,7 +123,11 @@ export class ContentWriter {
 
 **Επικύρωση εξόδου:** έλεγξε το JSON με σχήμα. Αν λείπει πεδίο ή το κείμενο < 300 λέξεις, **ξαναζήτα μία φορά** με το σφάλμα ως feedback· μετά απέτυχε καθαρά.
 
+**Per-section regeneration (απόφαση 2026-07-29):** πρόσθεσε `async rewriteSection(lead, contentPlan, sectionId, feedback)` που ξαναγράφει **ένα μόνο section** (στέλνει το υπάρχον ContentPlan ως context, ζητά JSON μόνο του section). Το QA gate, όταν το finding αφορά συγκεκριμένο section (π.χ. placeholder στο `services`), καλεί αυτό αντί για ολικό `write()` — φθηνότερο και δεν ρισκάρει να χαλάσει sections που πέρασαν. Ολικό rewrite μόνο για ολικά findings (π.χ. συνολικές λέξεις < 300, ομοιότητα S‑10).
+
 **Στο retry του QA gate** το `qaFeedback` περνά αυτούσιο στο prompt (υπάρχει ήδη `sanitizeQaFeedback` στο `website-generator.js` — αντίγραψε τη λογική).
+
+**Cost/token tracking (απόφαση 2026-07-29):** κάθε κλήση OpenRouter επιστρέφει `usage` στο response. Ο ContentWriter το επιστρέφει μαζί με το ContentPlan (`{ contentPlan, usage: { tokensIn, tokensOut, costUsd } }`)· ο caller τα γράφει στο SQLite ανά site (νέες στήλες ή πίνακας `llm_usage`: `lead_id, tokens_in, tokens_out, cost_usd, retries, created_at`) και αθροίζει στο `daily_stats`. Εμφάνιση: dashboard (:4000) + ημερήσιο report. Καλύπτει το κριτήριο αποδοχής N‑4 «κόστος/site μετρημένο».
 
 ---
 
@@ -129,15 +136,17 @@ export class ContentWriter {
 ### `src/image-picker.js` (D‑3, D‑4)
 ```js
 export class ImagePicker {
-  constructor(options = {})   // env: UNSPLASH_ACCESS_KEY ή PEXELS_API_KEY
+  constructor(options = {})   // env: PEXELS_API_KEY
   isConfigured()
-  async pick(imageQueries, { count = 4, category }) 
-  // -> [{ url, alt, width, height, credit }]
+  async pick(imageQueries, { count = 4, category, seed })
+  // -> [{ src, alt, width, height, credit }]   // src: data URI (WebP base64)
 }
 ```
-- **Cache ανά κατηγορία σε αρχείο** (`data/image-cache.json`): 417 κατηγορίες, όχι 6.463 κλήσεις. Κρίσιμο για κόστος και όρια API.
+- **Pexels, ΟΧΙ Unsplash (απόφαση 2026-07-29):** το Unsplash API απαιτεί hotlinking + `download_location` ping — ασύμβατο με self-contained single-file HTML. Το Pexels επιτρέπει download/χρήση χωρίς hotlink mandate (200 req/h, 20k/μήνα — υπεραρκετά με cache). Credit γραμμή στο footer: «Φωτογραφίες: Pexels».
+- **Cache ανά κατηγορία στο δίσκο** (`data/image-cache/<category-slug>/` + `index.json`): κατέβασμα 50-100 φωτό ανά κατηγορία **μία φορά**, όχι 6.463 κλήσεις. Resize ~1200px (hero) / ~600px (cards), **WebP q≈70, ενσωμάτωση ως base64 data URI** (~300-450 KB/σελίδα σύνολο).
+- **Ντετερμινιστική επιλογή:** `seed` = hash(lead.id) → index στο cache, ώστε γείτονες ίδιας κατηγορίας να παίρνουν διαφορετικές φωτό και το ίδιο lead πάντα τις ίδιες (N‑5).
 - `alt`: **ελληνικό**, περιγραφικό, με το primary keyword (D‑4) — παράγεται σε κώδικα, όχι από το API.
-- Χωρίς κλειδί ⇒ επιστρέφει `[]` και ο assembler βγάζει έκδοση χωρίς εικόνες (N‑6), με σημείωση στο verdict.
+- Χωρίς κλειδί ⇒ επιστρέφει `[]` και ο assembler βγάζει την no-photo εκδοχή (gradient/SVG-pattern hero) (N‑6), με σημείωση στο verdict.
 - Πάντα `loading="lazy"`, `width`/`height` (αποφυγή layout shift).
 
 ### `src/seo-builder.js` (S‑1…S‑13)
@@ -153,9 +162,10 @@ export function buildSeo({ lead, contentPlan, baseUrl, slug, stage = 'demo' })
 
 ### `src/site-assembler.js` (S‑3, S‑4, S‑11, D‑5, D‑6, D‑9)
 ```js
-export function assembleSite({ contentPlan, images, seo, designTokens, lead })
+export function assembleSite({ pack, contentPlan, images, seo, lead })
 // -> { html, wordCount }
 ```
+**Pack-aware από την αρχή (απόφαση 2026-07-29):** το `pack` είναι το niche pack manifest (βλ. [`NICHE_PACKS_DESIGN.md`](NICHE_PACKS_DESIGN.md) §3 — section recipe, tokens, variants, CTA vocabulary). **Στο V1 υλοποιείται ΕΝΑΣ pack: `packs/generic/`** (sections: hero, about, services, why, faq, contact· 1-2 variants· tokens από το υπάρχον `design-brief-generator.js`). Τα sections γράφονται ως JS functions (template literals) με tagged `html` helper που κάνει escape το LLM κείμενο. Η επιλογή variant/παλέτας γίνεται ντετερμινιστικά με seed από `lead.id`. Τα niche packs (estiasi, filoxenia, ygeia) έρχονται στο V1.5 **χωρίς αλλαγή του interface**.
 - `<html lang="el">` (S‑3) · **ένα** `<h1>` = `hero.headline`, sections σε `<h2>` (S‑4)
 - `<header> <main> <section> <footer>` (S‑11)
 - Φόρμα **Netlify Forms**: `<form name="contact" method="POST" data-netlify="true">` + κρυφό `form-name` (D‑5) — η σημερινή φόρμα κάνει μόνο `alert()` και δεν στέλνει πουθενά
@@ -193,7 +203,8 @@ async deployDemo({ slug, html, assets = {} })
 
 ```bash
 CONTENT_MODEL=              # μοντέλο για το κείμενο
-UNSPLASH_ACCESS_KEY=        # ή PEXELS_API_KEY
+PEXELS_API_KEY=             # εικόνες (απόφαση 2026-07-29: όχι Unsplash — hotlink mandate)
+LEADS_FILE=                 # μονοπάτι leads JSON (default: crm/leads-no-website.json)
 NETLIFY_DEMO_SITE_ID=       # το ΕΝΑ demo site
 DEMO_BASE_URL=              # π.χ. https://demo.saosstudio.gr
 SITE_STAGE=demo             # demo | production
@@ -224,8 +235,10 @@ MAX_CONTENT_SIMILARITY=0.70
 - [ ] Έλεγχος δείγματος 20 sites από **διαφορετικές** κατηγορίες: καμία ομοιότητα > 70%
 - [ ] Κάθε `<img>` έχει ελληνικό `alt`· κάθε site ≥ 300 λέξεις· ακριβώς ένα `<h1>`
 - [ ] Το JSON‑LD περνά από validator· `robots` = `noindex` σε `SITE_STAGE=demo`
-- [ ] Χωρίς `UNSPLASH_ACCESS_KEY` το site παράγεται κανονικά χωρίς εικόνες (N‑6)
-- [ ] Κόστος ανά site μετρημένο και < $0,02 (N‑4)
+- [ ] Χωρίς `PEXELS_API_KEY` το site παράγεται κανονικά με τη no-photo εκδοχή (N‑6)
+- [ ] Κόστος ανά site μετρημένο και < $0,02 (N‑4) — `tokens_in/tokens_out/cost_usd` ανά site στο SQLite, ορατά στο dashboard και στο ημερήσιο report
+- [ ] `LEADS_FILE` env var λειτουργεί: ο agent τρέχει με leads JSON εκτός του `crm/` folder
+- [ ] Το ίδιο lead παράγει πάντα το ίδιο site (ίδιο variant/παλέτα/εικόνες — seed από `lead.id`, N‑5)
 
 ---
 
