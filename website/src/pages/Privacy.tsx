@@ -13,7 +13,9 @@ import Footer from '../components/Footer'
 
 const STUDIO = {
   name: 'SAOS Studio',
-  city: 'Θεσσαλονίκη, Ελλάδα',
+  // Keep in sync with the Organization address in src/lib/schema.ts — search
+  // engines cross-check the location stated on the page against the markup.
+  city: 'Σαμοθράκη, Ελλάδα',
   email: 'saos.ventures@gmail.com',
 }
 

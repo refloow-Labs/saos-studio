@@ -1,0 +1,23 @@
+{
+  "name": "SAOS Studio",
+  "short_name": "SAOS",
+  "description": "Επαγγελματικές ιστοσελίδες σε μέρες, από €46/μήνα.",
+  "lang": "el",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -40,3 +40,8 @@ __pycache__/
 *.bak
 *~
 .gstack/
+
+# Build output — Netlify builds from source, so committed artifacts only drift.
+website/dist/
+website/dist-ssr/
+website/.shots/

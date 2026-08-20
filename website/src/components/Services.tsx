@@ -1,57 +1,5 @@
 import SectionLabel from './SectionLabel'
-
-const services = [
-  {
-    num: '01',
-    tag: 'Δημοφιλέστερο',
-    name: 'Premium',
-    price: '€52',
-    period: '/μήνα',
-    features: [
-      'Όλα όσα περιλαμβάνει το Static',
-      '+2 επιπλέον σελίδες',
-      'Ενσωμάτωση Google Analytics',
-      'Προχωρημένο SEO & ταχύτητα',
-      'Σύνδεση social media',
-      '3 γύροι αναθεώρησης',
-      'Υποστήριξη καθόλη τη διάρκεια της συνδρομής',
-    ],
-    featured: false,
-  },
-  {
-    num: '02',
-    tag: 'Καλύτερη Αξία',
-    name: 'Static',
-    price: '€46',
-    period: '/μήνα',
-    features: [
-      'Custom σχεδιασμός μίας σελίδας',
-      'Mobile-first υλοποίηση',
-      'Φόρμα επικοινωνίας',
-      'Βασική ρύθμιση SEO',
-      'Σύνδεση domain & deployment',
-      '2 γύροι αναθεώρησης',
-      'Υποστήριξη καθόλη τη διάρκεια της συνδρομής',
-    ],
-    featured: true,
-  },
-  {
-    num: '03',
-    tag: 'Ολοκληρωμένο',
-    name: 'Enterprise',
-    price: '€83',
-    period: '/μήνα',
-    features: [
-      'Όλα όσα περιλαμβάνει το Premium',
-      'Έως 8 σελίδες ή e-shop',
-      'Σύστημα διαχείρισης (CMS)',
-      'Ενσωμάτωση πληρωμών',
-      'Πολυγλωσσική υποστήριξη',
-      'Προτεραιότητα υποστήριξης',
-    ],
-    featured: false,
-  },
-]
+import { services } from '../lib/services'
 
 export default function Services() {
   return (

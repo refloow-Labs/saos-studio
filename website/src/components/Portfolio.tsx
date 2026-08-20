@@ -14,6 +14,7 @@ const projects: Project[] = [
   { slug: 'ammos', name: 'AMMOS Beach Bar', tag: 'Beach bar & εστίαση' },
   { slug: 'gi-kai-ydor', name: 'Γη & Ύδωρ', tag: 'Εστιατόριο' },
   { slug: 'dental-home', name: 'Dental Home', tag: 'Οδοντιατρείο' },
+  { slug: 'desire-patisserie', name: 'Desire Patisserie', tag: 'Ζαχαροπλαστείο' },
 ]
 
 export default function Portfolio() {
@@ -30,22 +31,31 @@ export default function Portfolio() {
         </p>
       </div>
 
+      {/* Demos link to the directory form, not /work/<slug>/index.html — both
+          resolve, and linking the suffixed one gave every demo a duplicate URL.
+          Each demo page carries noindex, so these stay out of the index. */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((p) => (
           <a
             key={p.slug}
-            href={`/work/${p.slug}/index.html`}
+            href={`/work/${p.slug}/`}
             target="_blank"
             rel="noopener noreferrer"
             className="group block rounded-card overflow-hidden bg-white border border-border transition-all duration-300 hover:border-border-hover hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.25)]"
           >
             <div className="relative aspect-[16/10] overflow-hidden bg-surface">
-              <img
-                src={`/work/${p.slug}/thumb.jpg`}
-                alt={p.name}
-                loading="lazy"
-                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-              />
+              <picture>
+                <source srcSet={`/work/${p.slug}/thumb.webp`} type="image/webp" />
+                <img
+                  src={`/work/${p.slug}/thumb.jpg`}
+                  alt={`${p.name} — ${p.tag}`}
+                  width={1000}
+                  height={625}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </picture>
             </div>
             <div className="flex items-center justify-between gap-4 px-6 py-5">
               <div>

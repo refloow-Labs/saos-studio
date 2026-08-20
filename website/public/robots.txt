@@ -1,0 +1,37 @@
+# https://saos.studio/robots.txt
+
+User-agent: *
+Allow: /
+
+# NOTE: /work/* is intentionally NOT disallowed here. Those demo pages carry
+# <meta name="robots" content="noindex,follow">, and a crawler has to be able to
+# fetch a page to see its noindex. Blocking them in robots.txt would leave them
+# indexable as URL-only entries.
+
+# AI crawlers are welcome — citations in AI answers are a discovery channel for
+# a design studio, not a leak.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://saos.studio/sitemap.xml

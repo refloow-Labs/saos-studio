@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import Chapter from './components/Chapter'
 import CookieConsent from './components/CookieConsent'
 import PrivacyPage from './pages/Privacy'
+import NotFoundPage from './pages/NotFound'
 
 function usePathname() {
   const [pathname, setPathname] = useState(() =>
@@ -24,13 +25,34 @@ function usePathname() {
   return pathname
 }
 
-export default function App() {
-  const pathname = usePathname()
+/** Paths the app renders as real pages. Anything else is a 404. */
+const KNOWN_PATHS = ['/', '/index.html', '/privacy', '/privacy/']
+
+interface Props {
+  /**
+   * Route to render, supplied by the prerenderer. On the client this is omitted
+   * and the route comes from `window.location` instead.
+   */
+  pathname?: string
+}
+
+export default function App({ pathname: ssrPathname }: Props = {}) {
+  const clientPathname = usePathname()
+  const pathname = ssrPathname ?? clientPathname
 
   if (pathname === '/privacy' || pathname === '/privacy/') {
     return (
       <>
         <PrivacyPage />
+        <CookieConsent />
+      </>
+    )
+  }
+
+  if (!KNOWN_PATHS.includes(pathname)) {
+    return (
+      <>
+        <NotFoundPage />
         <CookieConsent />
       </>
     )

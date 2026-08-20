@@ -6,12 +6,12 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
-# SPA fallback — every non-asset path serves index.html so client-side
-# routing (/privacy) works in production.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# NOTE: there is deliberately no `/* → /index.html 200` SPA fallback.
+# Every route the app can render is prerendered to a real file at build time
+# (see scripts/prerender.mjs), so Netlify serves those directly and falls back
+# to dist/404.html — with a genuine 404 status — for anything else. The old
+# catch-all made every URL on the site return 200, including /robots.txt,
+# /sitemap.xml and arbitrary typos.
 
 # Long-lived caching for hashed asset bundles
 [[headers]]
@@ -19,11 +19,12 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Modest caching for the font file
+# Self-hosted fonts are content-stable; cache them hard.
 [[headers]]
   for = "/fonts/*"
   [headers.values]
-    Cache-Control = "public, max-age=2592000"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
 
 # Security headers
 [[headers]]
@@ -33,3 +34,11 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    # Report-only first. Watch the browser console against production for a few
+    # days, then rename this key to Content-Security-Policy to enforce.
+    # 'unsafe-inline' on script-src is required by the Consent Mode v2 bootstrap
+    # in index.html; the demo pages under /work/* are inline-styled throughout.
+    # img-src also covers the demo pages under /work/*, which pull photography
+    # from Unsplash and Google user content.
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-src https://calendly.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://calendly.com https://forms.gle; object-src 'none'"

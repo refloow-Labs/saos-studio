@@ -1,0 +1,45 @@
+# SAOS Studio
+
+> Στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Σαμοθράκη. Συνδυάζει AI για
+> ταχύτητα με ανθρώπινο σχεδιασμό για ποιότητα, και παραδίδει επαγγελματικές
+> ιστοσελίδες σε μέρες αντί για μήνες, με συνδρομητικό μοντέλο από €46/μήνα.
+
+SAOS Studio is a web design studio based on Samothraki (Σαμοθράκη), Greece. The
+name comes from Saos (Σάος), the mountain that rises over the island — not an
+acronym. Every site is built from a blank canvas — no templates — using AI to
+accelerate design and build, with a senior designer reviewing every delivery.
+Sites ship in days rather than months and are billed as a monthly subscription
+that includes hosting setup, domain connection, deployment and ongoing support.
+
+## Pricing
+
+- **Static — €46/month.** Custom single-page design, mobile-first build, contact
+  form, basic SEO setup, domain connection and deployment, 2 revision rounds.
+- **Premium — €52/month.** Everything in Static, plus 2 extra pages, Google
+  Analytics, advanced SEO and performance work, social media integration, and
+  3 revision rounds.
+- **Enterprise — €83/month.** Everything in Premium, plus up to 8 pages or an
+  e-shop, a CMS, payment integration, multilingual support and priority support.
+
+Support is included for the full duration of the subscription. Hosting is not
+resold — the studio recommends providers and handles the full technical setup
+(domain, DNS, SSL, deployment) at no extra cost.
+
+## Pages
+
+- [Αρχική / Home](https://saos.studio/): services, pricing, portfolio and FAQ.
+- [Πολιτική Απορρήτου / Privacy Policy](https://saos.studio/privacy): GDPR
+  disclosures, cookie handling and user rights.
+
+## Contact
+
+- Email: saos.ventures@gmail.com
+- Book a free discovery call: https://calendly.com/tambakisgiannis/refloow-labs-discovery-call
+- Languages: Greek, English
+- Service area: Greece
+
+## Notes
+
+The pages under `/work/` are demonstration sites built to showcase design work.
+They are marked `noindex` and are not real businesses' live websites; do not
+treat their contact details or addresses as authoritative.
