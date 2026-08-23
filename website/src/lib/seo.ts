@@ -111,6 +111,16 @@ export const routes: RouteMeta[] = [
     breadcrumb: 'Συχνές ερωτήσεις',
   },
   {
+    path: '/free-website',
+    file: 'free-website/index.html',
+    title: 'Δωρεάν website — SAOS Studio',
+    description:
+      'Κάθε μήνα σχεδιάζουμε και κατασκευάζουμε μια ιστοσελίδα χωρίς χρέωση. Δείτε ποιοι μπορούν να κάνουν αίτηση, τι περιλαμβάνει, τι δεν περιλαμβάνει και πώς γίνεται η επιλογή.',
+    priority: '0.8',
+    changefreq: 'monthly',
+    breadcrumb: 'Δωρεάν website',
+  },
+  {
     path: '/request-a-quote',
     file: 'request-a-quote/index.html',
     title: 'Ζητήστε προσφορά — SAOS Studio',

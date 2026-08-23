@@ -1,7 +1,7 @@
 import { useId, useState, type FormEvent } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import Modal from './Modal'
-import { TextField, TextareaField, SelectField } from './form/Fields'
+import { TextField, SelectField } from './form/Fields'
 import { INDUSTRIES } from '../lib/industries'
 import { isValidEmail, normaliseUrl, submit } from '../lib/submit'
 
@@ -10,28 +10,46 @@ interface Props {
   onClose: () => void
 }
 
-type FieldName = 'name' | 'industry' | 'reason' | 'website' | 'contact' | 'email' | 'extra'
+type FieldName = 'business' | 'name' | 'industry' | 'email' | 'contact' | 'website'
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 const EMPTY: Record<FieldName, string> = {
+  business: '',
   name: '',
   industry: '',
-  reason: '',
-  website: '',
-  contact: '',
   email: '',
-  extra: '',
+  contact: '',
+  website: '',
 }
 
+/**
+ * Onboarding for the free-website application.
+ *
+ * Kept to the basics on purpose. The CTA promises two minutes, and the previous
+ * version asked seven questions including two free-text boxes — which is nearer
+ * five minutes and asks an owner to write an essay before we have so much as
+ * their name. Everything here is answerable from memory in a few seconds.
+ *
+ * The two open questions that were dropped ("why are you applying", "anything
+ * else") were the ones informing selection. That conversation now happens after
+ * first contact, where it is a conversation rather than a form field — we reply
+ * to every application either way, so there is always a chance to ask.
+ *
+ * Fields sit in a two-column grid from `sm` up, so the form reads as short as
+ * it is rather than as a tall stack.
+ *
+ * The exclusions note is load-bearing: the homepage section no longer lists what
+ * the offer excludes, so without this an applicant could reach submit having
+ * never seen that hosting is not covered.
+ */
 export default function ApplicationModal({ open, onClose }: Props) {
   const ids = {
+    business: useId(),
     name: useId(),
     industry: useId(),
-    reason: useId(),
-    website: useId(),
-    contact: useId(),
     email: useId(),
-    extra: useId(),
+    contact: useId(),
+    website: useId(),
   }
   const statusId = useId()
 
@@ -47,12 +65,12 @@ export default function ApplicationModal({ open, onClose }: Props) {
 
   function validate() {
     const next: Partial<Record<FieldName, string>> = {}
+    if (!values.business.trim()) next.business = 'Συμπληρώστε το όνομα της επιχείρησης.'
     if (!values.name.trim()) next.name = 'Συμπληρώστε το όνομά σας.'
     if (!values.industry) next.industry = 'Επιλέξτε κλάδο.'
-    if (!values.reason.trim()) next.reason = 'Πείτε μας λίγα λόγια για τον λόγο της αίτησης.'
-    if (!values.contact.trim()) next.contact = 'Πείτε μας πώς να επικοινωνήσουμε μαζί σας.'
     if (!values.email.trim()) next.email = 'Συμπληρώστε το email σας.'
     else if (!isValidEmail(values.email)) next.email = 'Το email δεν φαίνεται σωστό.'
+    if (!values.contact.trim()) next.contact = 'Πείτε μας πώς να επικοινωνήσουμε μαζί σας.'
     // Website is optional on purpose — not having one is a reason to apply.
     if (values.website.trim() && !normaliseUrl(values.website))
       next.website = 'Η διεύθυνση δεν φαίνεται σωστή. Δοκιμάστε κάτι σαν example.gr'
@@ -115,7 +133,7 @@ export default function ApplicationModal({ open, onClose }: Props) {
           <h3 className="mt-5 text-headline text-[1.4rem]">Ευχαριστούμε!</h3>
           <p className="mx-auto mt-4 max-w-[46ch] text-[0.92rem] leading-[1.8] text-muted font-body">
             Λάβαμε την αίτησή σας. Θα τη διαβάσουμε προσεκτικά και θα επικοινωνήσουμε μαζί
-            σας με email — είτε γίνει δεκτή είτε όχι.
+            σας — είτε γίνει δεκτή είτε όχι.
           </p>
           <p className="mx-auto mt-4 max-w-[46ch] text-[0.85rem] leading-[1.7] text-muted font-body">
             Δεν γίνονται όλες οι αιτήσεις δεκτές. Αν η δική σας δεν επιλεγεί, θα σας
@@ -132,69 +150,33 @@ export default function ApplicationModal({ open, onClose }: Props) {
       ) : (
         <form onSubmit={handleSubmit} noValidate className="px-6 py-6 sm:px-8">
           <p className="text-[0.88rem] leading-[1.75] text-muted font-body">
-            Επτά σύντομες ερωτήσεις. Όσο πιο συγκεκριμένοι είστε, τόσο καλύτερα μπορούμε να
-            αξιολογήσουμε την αίτηση.
+            Μόνο τα βασικά — χρειάζεται περίπου 2 λεπτά. Τα υπόλοιπα τα συζητάμε αν
+            προχωρήσουμε.
           </p>
 
-          <div className="mt-6 space-y-5">
+          <div className="mt-6 grid gap-5 sm:grid-cols-2">
+            <TextField
+              id={ids.business}
+              name="business"
+              label="Επιχείρηση"
+              required
+              autoComplete="organization"
+              placeholder="Το όνομα της επιχείρησής σας"
+              value={values.business}
+              onChange={(v) => set('business', v)}
+              error={errors.business}
+            />
+
             <TextField
               id={ids.name}
               name="name"
-              label="Ποιος είστε;"
+              label="Ονοματεπώνυμο"
               required
               autoComplete="name"
-              placeholder="Ονοματεπώνυμο και επιχείρηση"
+              placeholder="Πώς σας λένε"
               value={values.name}
               onChange={(v) => set('name', v)}
               error={errors.name}
-            />
-
-            <SelectField
-              id={ids.industry}
-              name="industry"
-              label="Σε ποιον κλάδο δραστηριοποιείστε;"
-              required
-              options={INDUSTRIES}
-              value={values.industry}
-              onChange={(v) => set('industry', v)}
-              error={errors.industry}
-            />
-
-            <TextareaField
-              id={ids.reason}
-              name="reason"
-              label="Γιατί θέλετε να κάνετε αίτηση;"
-              required
-              rows={4}
-              placeholder="Τι θέλετε να πετύχετε και τι σας εμποδίζει σήμερα;"
-              value={values.reason}
-              onChange={(v) => set('reason', v)}
-              error={errors.reason}
-            />
-
-            <TextField
-              id={ids.website}
-              name="website"
-              label="Έχετε ήδη ιστοσελίδα;"
-              inputMode="url"
-              autoComplete="url"
-              placeholder="π.χ. example.gr"
-              value={values.website}
-              onChange={(v) => set('website', v)}
-              error={errors.website}
-              hint="Προαιρετικό. Αν δεν έχετε, αφήστε το κενό — δεν είναι μειονέκτημα."
-            />
-
-            <TextField
-              id={ids.contact}
-              name="contact"
-              label="Πώς μπορούμε να επικοινωνήσουμε μαζί σας;"
-              required
-              autoComplete="tel"
-              placeholder="Τηλέφωνο, Viber, WhatsApp ή ό,τι σας βολεύει"
-              value={values.contact}
-              onChange={(v) => set('contact', v)}
-              error={errors.contact}
             />
 
             <TextField
@@ -211,14 +193,44 @@ export default function ApplicationModal({ open, onClose }: Props) {
               error={errors.email}
             />
 
-            <TextareaField
-              id={ids.extra}
-              name="extra"
-              label="Κάτι άλλο που θα θέλατε να ξέρουμε;"
-              rows={3}
-              placeholder="Προαιρετικό"
-              value={values.extra}
-              onChange={(v) => set('extra', v)}
+            {/* Owners here often prefer Viber or WhatsApp to email, so the field
+                asks for whichever channel suits them rather than a phone number. */}
+            <TextField
+              id={ids.contact}
+              name="contact"
+              label="Τηλέφωνο ή Viber / WhatsApp"
+              required
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder="Ό,τι σας βολεύει"
+              value={values.contact}
+              onChange={(v) => set('contact', v)}
+              error={errors.contact}
+            />
+
+            <SelectField
+              id={ids.industry}
+              name="industry"
+              label="Κλάδος"
+              required
+              options={INDUSTRIES}
+              value={values.industry}
+              onChange={(v) => set('industry', v)}
+              error={errors.industry}
+            />
+
+            <TextField
+              id={ids.website}
+              name="website"
+              label="Υπάρχουσα ιστοσελίδα"
+              inputMode="url"
+              autoComplete="url"
+              placeholder="π.χ. example.gr"
+              value={values.website}
+              onChange={(v) => set('website', v)}
+              error={errors.website}
+              hint="Προαιρετικό — αν δεν έχετε, δεν είναι μειονέκτημα."
             />
           </div>
 
@@ -233,12 +245,16 @@ export default function ApplicationModal({ open, onClose }: Props) {
 
           <div className="mt-2 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[0.78rem] leading-[1.6] text-muted font-body">
-              Θα σας απαντήσουμε με email, είτε η αίτηση γίνει δεκτή είτε όχι.
+              Απαντάμε είτε η αίτηση γίνει δεκτή είτε όχι.{' '}
+              <a href="/free-website" className="font-semibold text-ink underline">
+                Τι περιλαμβάνει
+              </a>
+              .
             </p>
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="btn-accent justify-center px-8 py-3.5 text-[0.85rem] disabled:opacity-70"
+              className="btn-accent flex-shrink-0 justify-center px-8 py-3.5 text-[0.85rem] disabled:opacity-70"
             >
               {status === 'submitting' ? 'Αποστολή…' : 'Στείλτε την αίτηση'}
               {status !== 'submitting' && <span aria-hidden>→</span>}

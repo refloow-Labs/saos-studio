@@ -191,13 +191,30 @@ export default function Carousel({
     return () => window.clearInterval(id)
   }, [autoAdvanceMs, paused, active, goTo])
 
+  /*
+   * Wrapping cannot key off `active + 1` alone once more than one slide is
+   * visible. With two slides in view the track stops scrolling while the last
+   * slide sits in the right-hand column, so `active` never reaches the final
+   * index and `goTo(active + 1)` resolves to a position the scroller clamps —
+   * the arrow goes dead instead of looping. The scroll extents are the honest
+   * signal for "there is nothing further this way", so wrap off those.
+   */
+  const next = useCallback(
+    () => (loop && atEnd ? goTo(0) : goTo(active + 1)),
+    [loop, atEnd, goTo, active],
+  )
+  const prev = useCallback(
+    () => (loop && atStart ? goTo(slides.length - 1) : goTo(active - 1)),
+    [loop, atStart, goTo, active, slides.length],
+  )
+
   function onKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'ArrowRight') {
       e.preventDefault()
-      goTo(active + 1)
+      next()
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault()
-      goTo(active - 1)
+      prev()
     }
   }
 
@@ -223,7 +240,7 @@ export default function Carousel({
   const prevButton = (
     <button
       type="button"
-      onClick={() => goTo(active - 1)}
+      onClick={prev}
       disabled={prevDisabled}
       aria-controls={regionId}
       aria-label="Προηγούμενο"
@@ -236,7 +253,7 @@ export default function Carousel({
   const nextButton = (
     <button
       type="button"
-      onClick={() => goTo(active + 1)}
+      onClick={next}
       disabled={nextDisabled}
       aria-controls={regionId}
       aria-label="Επόμενο"

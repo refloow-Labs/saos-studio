@@ -35,14 +35,24 @@ const TRUST = [
 export default function OfferSplit() {
   return (
     <div className="w-full">
+      {/*
+        Centred rather than the site's usual left-aligned heading. The Chapter
+        container is already dead-centred at every width, but the heading block
+        is capped at max-w-3xl, so left-aligning it left ~380px of empty space
+        on the right of a 1152px container and the whole section read as
+        left-weighted. `align="center"` also centres the body copy and keeps
+        both inside their existing measures (20ch / 54ch), so no line gets
+        longer — only the axis changes.
+      */}
       <SectionHeading
+        align="center"
         size="lg"
         body="Δύο ξεχωριστά πράγματα, και μόνο το πρώτο είναι απαραίτητο. Δεν κλειδώνουμε την ιστοσελίδα σας πίσω από συνδρομή."
       >
         Πληρώνετε μία φορά για την κατασκευή. Το SEO είναι <em>δική σας επιλογή.</em>
       </SectionHeading>
 
-      <div className="mt-12 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+      <div className="mt-14 grid gap-6 md:mt-16 lg:grid-cols-[1.3fr_1fr]">
         <Reveal>
           <div className="flex h-full flex-col rounded-card bg-warm-soft p-8 sm:p-10">
             <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-warm-ink font-body">
@@ -133,7 +143,7 @@ export default function OfferSplit() {
 
       {/* Moved out of the hero, where it was a fourth text block competing with
           the CTA. Here it reads as terms attached to the offer. */}
-      <ul className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border pt-7 text-[0.83rem] font-semibold text-muted font-body">
+      <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-border pt-7 text-center text-[0.83rem] font-semibold text-muted font-body">
         {TRUST.map((item) => (
           <li key={item} className="flex items-center gap-2">
             <Check aria-hidden strokeWidth={3} className="h-3.5 w-3.5 text-warm-dim" />

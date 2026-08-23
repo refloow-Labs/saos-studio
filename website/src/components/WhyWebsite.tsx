@@ -1,90 +1,99 @@
-import Reveal from './Reveal'
+import { useState } from 'react'
+import Modal from './Modal'
 import EvaluationForm from './EvaluationForm'
+import MountSaos from './MountSaos'
 
 /**
- * Why a small business needs a site at all.
+ * The free-evaluation ask.
  *
- * The objection this answers is real and specific: most Greek SMBs already have
- * a Google Business Profile and an Instagram, and genuinely do not see what a
- * website adds. Three concrete arguments, each about something the owner already
- * recognises from their own week.
+ * One idea, stated once: a good-looking site is not the point — bringing
+ * visits, bookings and customers is. Everything else has been cut. This
+ * replaced three numbered arguments plus an inline form, which together ran to
+ * most of a screen and buried the one action the section exists to prompt.
  *
- * No statistics. Every "78% of customers research online" figure we could put
- * here would be borrowed from a study about a different market, or invented.
- * The arguments stand without them.
+ * Two things here are load-bearing and easy to remove by accident:
+ *
+ * `id="evaluation"` is linked from `lib/faqs.ts` as `/#evaluation` (the answer
+ * about taking on an existing site). Renaming it silently breaks that link —
+ * nothing in the build checks cross-page anchors.
+ *
+ * The CTA opens `EvaluationForm` in a dialog rather than embedding it. This
+ * section is the form's only route into the site, so dropping the form
+ * altogether would strand the whole free-evaluation funnel; putting it in a
+ * dialog keeps the section to a single action while leaving the funnel intact.
+ *
+ * The component and its `#giati-website` chapter id keep their old names on
+ * purpose — renaming files and anchors for a copy change is churn with a real
+ * chance of breaking an inbound link.
  */
-const REASONS = [
-  {
-    num: '01',
-    title: 'Ο πελάτης αποφασίζει πριν σας τηλεφωνήσει',
-    body: 'Μέχρι να σηκώσετε το τηλέφωνο, έχει ήδη δει τρεις ακόμα επιλογές. Η ιστοσελίδα είναι η μόνη από αυτές που ελέγχετε εσείς: τι βλέπει πρώτο, τι καταλαβαίνει για τη δουλειά σας, πόσο εύκολο του κάνετε το επόμενο βήμα.',
-  },
-  {
-    num: '02',
-    title: 'Το προφίλ σας στο Google δείχνει πού είστε, όχι γιατί εσάς',
-    body: 'Ένας χάρτης, ένα τηλέφωνο και μερικές φωτογραφίες. Δεν χωράει το μενού σας, οι υπηρεσίες σας, η ιστορία σας ή ο λόγος που οι πελάτες σας επιστρέφουν. Τα δύο δουλεύουν καλύτερα μαζί: η ιστοσελίδα ενισχύει και την εμφάνισή σας στις τοπικές αναζητήσεις.',
-  },
-  {
-    num: '03',
-    title: 'Το Instagram δεν είναι δικό σας',
-    body: 'Ο λογαριασμός μπορεί να κλειδώσει, ο αλγόριθμος να αλλάξει, η προσέγγιση να πέσει από τη μια μέρα στην άλλη. Χτίζετε πάνω σε ξένο έδαφος. Το domain και η ιστοσελίδα σας μένουν δικά σας ό,τι και να γίνει.',
-  },
-]
-
 export default function WhyWebsite() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <div className="w-full">
-      <div className="max-w-3xl">
-        <h2 className="text-headline text-[clamp(1.9rem,4.2vw,3.1rem)] max-w-[18ch]">
-          Έχετε ήδη πελάτες. Το θέμα είναι πόσοι <em>δεν σας βρήκαν.</em>
-        </h2>
+    <div id="evaluation" className="relative isolate w-full scroll-mt-32 overflow-hidden">
+      {/*
+        The hero's ridgeline again, at roughly half its strength and anchored
+        low so it sits under the copy rather than behind it. Decorative only.
+        Width is the content column rather than the viewport: a `w-screen`
+        break-out would need its own clipping ancestor, and this is background
+        texture, not a composition element.
+      */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -bottom-[14%] -z-10 h-[max(170px,min(26vw,360px))] text-warm"
+      >
+        <MountSaos className="h-full w-full" opacity={0.1} />
       </div>
 
-      <ol className="mt-14 space-y-12 md:space-y-16">
-        {REASONS.map((reason, i) => (
-          <Reveal as="li" key={reason.num} delay={i * 80}>
-            <div className="grid gap-4 border-t border-white/15 pt-7 md:grid-cols-[5rem_1fr] md:gap-10">
-              <span
-                aria-hidden
-                className="text-display text-[clamp(1.8rem,3.4vw,2.6rem)] leading-none text-warm"
-              >
-                {reason.num}
-              </span>
-              <div>
-                <h3 className="text-[clamp(1.1rem,2vw,1.45rem)] font-extrabold leading-snug text-white">
-                  {reason.title}
-                </h3>
-                <p className="mt-4 max-w-[62ch] text-[0.95rem] leading-[1.85] text-white/65 font-body">
-                  {reason.body}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </ol>
+      <div className="mx-auto flex max-w-[44rem] flex-col items-center text-center">
+        {/* `.on-dark` comes from Chapter tone="dark", which renders the heading
+            white and the <em> in the warm accent. */}
+        <h2 className="text-headline text-[clamp(1.9rem,4.4vw,3.15rem)]">
+          Θα σας πούμε ένα <em>μυστικό</em>
+        </h2>
 
-      {/*
-        The free evaluation, attached to the argument rather than given its own
-        section. It is the natural reply to "but I already have a website" and
-        reads as a diagnostic offer here instead of a second competing pitch.
-        `/#evaluation` is linked from the FAQ answer about existing sites.
-      */}
-      <Reveal className="mt-16">
-        <div
-          id="evaluation"
-          className="scroll-mt-32 rounded-card border border-white/15 bg-white/5 p-7 sm:p-10"
+        {/* Four sentences, so the measure widens toward the ~65ch cap in
+            REDESIGN.md and the type steps down; at the previous 50ch it ran to
+            eight centred lines and stopped reading as a single thought. The
+            closing outcome is emphasised so the paragraph still has a hierarchy
+            when it is skimmed. */}
+        <p className="mt-6 max-w-[62ch] text-[clamp(0.95rem,1.2vw,1.08rem)] leading-[1.8] text-white/70 font-body">
+          Η ιστοσελίδα σας δεν χρειάζεται απλώς να είναι όμορφη. Χρειάζεται να
+          εμφανίζεται όταν οι σωστοί άνθρωποι αναζητούν τις υπηρεσίες σας. Πρέπει να
+          εμπνέει εμπιστοσύνη, να εξηγεί ξεκάθαρα τι προσφέρετε και να οδηγεί τον
+          επισκέπτη στο επόμενο βήμα.{' '}
+          <span className="font-semibold text-white">
+            Στόχος είναι περισσότερες επισκέψεις, κρατήσεις και αιτήματα επικοινωνίας
+            για την επιχείρησή σας.
+          </span>
+        </p>
+
+        {/* Full width on mobile so the long Greek label has room to sit on one
+            line; it wraps rather than overflowing if it still cannot. */}
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="btn-accent mt-10 w-full justify-center px-7 py-4 text-center text-[0.9rem] sm:w-auto sm:px-9 sm:text-[0.95rem]"
         >
-          <h3 className="text-[clamp(1.05rem,1.9vw,1.35rem)] font-extrabold leading-snug text-white max-w-[26ch]">
-            Έχετε ήδη ιστοσελίδα; Δείτε δωρεάν τι την κρατάει πίσω.
-          </h3>
-          <p className="mt-3 max-w-[54ch] text-[0.9rem] leading-[1.8] text-white/60 font-body">
+          Λάβετε δωρεάν αξιολόγηση της ιστοσελίδας <span aria-hidden>→</span>
+        </button>
+      </div>
+
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Δωρεάν αξιολόγηση ιστοσελίδας"
+        size="max-w-2xl"
+      >
+        <div className="px-6 py-6 sm:px-8">
+          <p className="max-w-[54ch] text-[0.9rem] leading-[1.8] text-muted font-body">
             Ταχύτητα φόρτωσης, εμφάνιση στο κινητό, βασικό SEO. Θα σας πούμε ειλικρινά αν
             αξίζει διόρθωση ή νέα κατασκευή, ακόμα κι αν η απάντηση σημαίνει μικρότερη
             δουλειά για εμάς.
           </p>
-          <EvaluationForm onDark className="mt-7 max-w-2xl" />
+          <EvaluationForm className="mt-6" />
         </div>
-      </Reveal>
+      </Modal>
     </div>
   )
 }
