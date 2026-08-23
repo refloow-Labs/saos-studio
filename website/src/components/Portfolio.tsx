@@ -115,17 +115,6 @@ export default function Portfolio() {
         </a>
       </Reveal>
 
-      {/*
-        Required disclosure — the businesses in public/work/ are invented, and
-        the section may never imply otherwise (see the note atop lib/projects.ts).
-        It sits below the CTA rather than above the grid: it is a footnote about
-        the work, not an introduction to it, and two lines of caveat were the
-        last thing standing between the heading and the previews. The full
-        disclosure remains on /examples.
-      */}
-      <p className="mx-auto mt-10 max-w-[56ch] text-center text-[0.76rem] leading-[1.7] text-white/40 font-body">
-        Δείγματα σχεδιασμού — οι επιχειρήσεις που εμφανίζονται σε αυτά είναι φανταστικές.
-      </p>
     </div>
   )
 }
