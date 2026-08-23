@@ -31,7 +31,16 @@ function isCurrent(href: string, pathname: string): boolean {
   return strip(href) === strip(pathname)
 }
 
-export default function Navigation() {
+interface Props {
+  /**
+   * Set by pages whose first section is a dark full-bleed hero. The bar is
+   * transparent until scrolled, so over a dark ground the default near-black
+   * wordmark and links are invisible.
+   */
+  overDark?: boolean
+}
+
+export default function Navigation({ overDark = false }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -94,6 +103,18 @@ export default function Navigation() {
     }
   }, [mobileOpen])
 
+  /*
+   * Only while the bar is still transparent AND the mobile panel is shut. Once
+   * the bar turns solid white on scroll it must revert to the dark wordmark, and
+   * an open mobile panel is a white sheet — leaving the bar transparent above it
+   * would hang white markup off nothing.
+   *
+   * `scrolled` is false during SSR, so the prerendered homepage ships the light
+   * treatment, which is the correct first paint over a dark hero. No flash on
+   * hydration.
+   */
+  const light = overDark && !scrolled && !mobileOpen
+
   return (
     <>
       <a href="#main" className="skip-link font-body">
@@ -121,8 +142,10 @@ export default function Navigation() {
           className="relative z-10 flex flex-shrink-0 items-center"
           aria-label="saos.studio — Αρχική"
         >
+          {/* Both variants are the same 1746×228 artwork, so swapping the src
+              cannot shift layout. */}
           <img
-            src="/logos/logo-dark.png"
+            src={light ? '/logos/logo-white.png' : '/logos/logo-dark.png'}
             width={1746}
             height={228}
             alt="saos.studio"
@@ -138,8 +161,14 @@ export default function Navigation() {
                 <a
                   href={l.href}
                   aria-current={current ? 'page' : undefined}
-                  className={`group relative whitespace-nowrap text-[0.78rem] tracking-[0.02em] font-semibold transition-colors duration-200 hover:text-ink font-body ${
-                    current ? 'text-ink' : 'text-muted'
+                  className={`group relative whitespace-nowrap text-[0.78rem] tracking-[0.02em] font-semibold transition-colors duration-200 font-body ${
+                    light
+                      ? current
+                        ? 'text-white hover:text-white'
+                        : 'text-white/75 hover:text-white'
+                      : current
+                        ? 'text-ink hover:text-ink'
+                        : 'text-muted hover:text-ink'
                   }`}
                 >
                   {l.label}
@@ -174,12 +203,16 @@ export default function Navigation() {
           >
             <span aria-hidden className="relative block h-4 w-6">
               <span
-                className={`absolute left-0 right-0 h-[2px] bg-ink transition-all duration-300 ${
+                className={`absolute left-0 right-0 h-[2px] transition-all duration-300 ${
+                  light ? 'bg-white' : 'bg-ink'
+                } ${
                   mobileOpen ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-[5px]'
                 }`}
               />
               <span
-                className={`absolute left-0 right-0 h-[2px] bg-ink transition-all duration-300 ${
+                className={`absolute left-0 right-0 h-[2px] transition-all duration-300 ${
+                  light ? 'bg-white' : 'bg-ink'
+                } ${
                   mobileOpen ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-[5px]'
                 }`}
               />

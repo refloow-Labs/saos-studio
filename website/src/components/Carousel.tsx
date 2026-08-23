@@ -26,6 +26,25 @@ interface Props {
   emphasizeActive?: boolean
   onDark?: boolean
   className?: string
+  /**
+   * Wrap around at both ends instead of stopping. The arrows stay enabled and
+   * advancing past the last slide returns to the first.
+   *
+   * This is wrap-around, **not** seamless infinite translation — going from the
+   * last slide to the first scrolls back across the track. Real infinite motion
+   * needs cloned slides, which would fight the bounding-rect measuring below.
+   * The auto-advance has always wrapped this way, so the arrows now simply
+   * agree with it.
+   */
+  loop?: boolean
+  /**
+   * `below` keeps the arrows in the control row under the track. `overlay`
+   * floats them over the track's left and right edges, vertically centred —
+   * for a single large slide, where a control row reads as detached.
+   */
+  arrowPlacement?: 'below' | 'overlay'
+  /** Shows a «3 / 5» counter beside the dots. */
+  showCounter?: boolean
 }
 
 /**
@@ -51,6 +70,9 @@ export default function Carousel({
   emphasizeActive = false,
   onDark = false,
   className = '',
+  loop = false,
+  arrowPlacement = 'below',
+  showCounter = false,
 }: Props) {
   const scrollerRef = useRef<HTMLUListElement>(null)
   const regionId = useId()
@@ -131,7 +153,13 @@ export default function Carousel({
       const el = scrollerRef.current
       if (!el) return
       const items = Array.from(el.children) as HTMLElement[]
-      const target = items[Math.max(0, Math.min(index, items.length - 1))]
+      if (!items.length) return
+      // Modulo twice so a -1 from the prev arrow lands on the last slide rather
+      // than going negative.
+      const resolved = loop
+        ? ((index % items.length) + items.length) % items.length
+        : Math.max(0, Math.min(index, items.length - 1))
+      const target = items[resolved]
       if (!target) return
 
       const box = el.getBoundingClientRect()
@@ -143,7 +171,7 @@ export default function Carousel({
 
       el.scrollTo({ left: el.scrollLeft + delta, behavior: 'smooth' })
     },
-    [align],
+    [align, loop],
   )
 
   // Auto-advance. Wraps back to the start once the last slide is fully in view.
@@ -173,11 +201,50 @@ export default function Carousel({
     }
   }
 
+  const overlay = arrowPlacement === 'overlay'
+
   const arrowBase = `inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed ${
-    onDark
-      ? 'border-white/20 text-white hover:enabled:bg-white/10'
-      : 'border-border text-ink hover:enabled:bg-surface'
+    overlay
+      ? // Floated over the track, so it needs its own ground to stay legible
+        // against whatever screenshot happens to sit behind it.
+        onDark
+        ? 'border-white/20 bg-break/70 text-white backdrop-blur-md hover:enabled:bg-break/90'
+        : 'border-border bg-bg/80 text-ink backdrop-blur-md hover:enabled:bg-bg'
+      : onDark
+        ? 'border-white/20 text-white hover:enabled:bg-white/10'
+        : 'border-border text-ink hover:enabled:bg-surface'
   }`
+
+  // With `loop` the ends are reachable in both directions, so the arrows never
+  // go dead.
+  const prevDisabled = loop ? false : atStart
+  const nextDisabled = loop ? false : atEnd
+
+  const prevButton = (
+    <button
+      type="button"
+      onClick={() => goTo(active - 1)}
+      disabled={prevDisabled}
+      aria-controls={regionId}
+      aria-label="Προηγούμενο"
+      className={arrowBase}
+    >
+      <ChevronLeft aria-hidden className="h-5 w-5" />
+    </button>
+  )
+
+  const nextButton = (
+    <button
+      type="button"
+      onClick={() => goTo(active + 1)}
+      disabled={nextDisabled}
+      aria-controls={regionId}
+      aria-label="Επόμενο"
+      className={arrowBase}
+    >
+      <ChevronRight aria-hidden className="h-5 w-5" />
+    </button>
+  )
 
   return (
     <section
@@ -189,65 +256,83 @@ export default function Carousel({
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <ul
-        ref={scrollerRef}
-        id={regionId}
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        aria-label={`${label} — χρησιμοποιήστε τα βελάκια για πλοήγηση`}
-        className="no-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth py-4"
+      <div className="relative">
+        {overlay && (
+          <>
+            <div className="absolute left-2 top-1/2 z-10 -translate-y-1/2 md:left-4">
+              {prevButton}
+            </div>
+            <div className="absolute right-2 top-1/2 z-10 -translate-y-1/2 md:right-4">
+              {nextButton}
+            </div>
+          </>
+        )}
+
+        <ul
+          ref={scrollerRef}
+          id={regionId}
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          aria-label={`${label} — χρησιμοποιήστε τα βελάκια για πλοήγηση`}
+          className="no-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth py-4"
+        >
+          {slides.map((slide, i) => (
+            <li
+              key={i}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} από ${slides.length}`}
+              data-current={i === active}
+              style={
+                align === 'center'
+                  ? {
+                      marginLeft: i === 0 ? edgePad : undefined,
+                      marginRight: i === slides.length - 1 ? edgePad : undefined,
+                    }
+                  : undefined
+              }
+              className={`shrink-0 transition-[transform,opacity] duration-500 ease-out ${
+                align === 'center' ? 'snap-center' : 'snap-start'
+              } ${
+                emphasizeActive && i !== active
+                  ? 'scale-[0.93] opacity-60'
+                  : 'scale-100 opacity-100'
+              } ${slideClassName}`}
+            >
+              {slide}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div
+        className={`mt-7 flex items-center gap-6 ${
+          overlay ? 'justify-center' : 'justify-between'
+        }`}
       >
-        {slides.map((slide, i) => (
-          <li
-            key={i}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${i + 1} από ${slides.length}`}
-            data-current={i === active}
-            style={
-              align === 'center'
-                ? {
-                    marginLeft: i === 0 ? edgePad : undefined,
-                    marginRight: i === slides.length - 1 ? edgePad : undefined,
-                  }
-                : undefined
-            }
-            className={`shrink-0 transition-[transform,opacity] duration-500 ease-out ${
-              align === 'center' ? 'snap-center' : 'snap-start'
-            } ${
-              emphasizeActive && i !== active ? 'scale-[0.93] opacity-60' : 'scale-100 opacity-100'
-            } ${slideClassName}`}
-          >
-            {slide}
-          </li>
-        ))}
-      </ul>
+        {!overlay && (
+          <div className="flex items-center gap-3">
+            {prevButton}
+            {nextButton}
+          </div>
+        )}
 
-      <div className="mt-7 flex items-center justify-between gap-6">
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => goTo(active - 1)}
-            disabled={atStart}
-            aria-controls={regionId}
-            aria-label="Προηγούμενο"
-            className={arrowBase}
+        {showCounter && (
+          <p
+            aria-hidden
+            className={`text-[0.78rem] font-bold tabular-nums font-body ${
+              onDark ? 'text-white/60' : 'text-muted'
+            }`}
           >
-            <ChevronLeft aria-hidden className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            onClick={() => goTo(active + 1)}
-            disabled={atEnd}
-            aria-controls={regionId}
-            aria-label="Επόμενο"
-            className={arrowBase}
-          >
-            <ChevronRight aria-hidden className="h-5 w-5" />
-          </button>
-        </div>
+            {active + 1} / {slides.length}
+          </p>
+        )}
 
-        <ol className="flex flex-wrap items-center justify-end gap-2">
+        <ol
+          className={`flex flex-wrap items-center gap-2 ${
+            overlay ? 'justify-center' : 'justify-end'
+          }`}
+        >
           {slides.map((_, i) => (
             <li key={i}>
               <button

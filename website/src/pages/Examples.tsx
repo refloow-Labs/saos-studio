@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react'
-import { ExternalLink } from 'lucide-react'
 import Layout from '../components/Layout'
 import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
-import Modal from '../components/Modal'
+import ProjectPreviewModal from '../components/ProjectPreviewModal'
 import ProjectCard from '../components/ProjectCard'
 import { projects, type Project } from '../lib/projects'
 
@@ -171,37 +170,7 @@ export default function ExamplesPage() {
         </div>
       </Chapter>
 
-      <Modal
-        open={preview !== null}
-        onClose={() => setPreview(null)}
-        title={preview ? `Προεπισκόπηση — ${preview.name}` : ''}
-      >
-        {preview && (
-          <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-4 border-b border-border px-6 py-3">
-              <p className="text-[0.8rem] text-muted font-body">
-                <span className="font-bold text-ink">{preview.category}</span> ·{' '}
-                {preview.description}
-              </p>
-              <a
-                href={`/work/${preview.slug}/`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline flex-shrink-0 px-5 py-2 text-[0.75rem]"
-              >
-                Νέα καρτέλα <ExternalLink aria-hidden className="h-3.5 w-3.5" />
-              </a>
-            </div>
-            <iframe
-              key={preview.slug}
-              src={`/work/${preview.slug}/`}
-              title={`Προεπισκόπηση ιστοσελίδας: ${preview.name}`}
-              loading="lazy"
-              className="h-[70svh] w-full border-0 bg-white"
-            />
-          </div>
-        )}
-      </Modal>
+      <ProjectPreviewModal project={preview} onClose={() => setPreview(null)} />
     </Layout>
   )
 }

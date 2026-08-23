@@ -39,7 +39,10 @@ import Contact from '../components/Contact'
  */
 export default function HomePage() {
   return (
-    <Layout>
+    /* navOverDark: the hero is a dark full-bleed section, and the nav is
+       transparent until scrolled — without this its near-black wordmark and
+       links sit invisibly on top of it. */
+    <Layout navOverDark>
       <Hero />
 
       <Chapter id="offer" tone="gray">

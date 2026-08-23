@@ -1,51 +1,128 @@
+import Carousel from './Carousel'
 import Doodle from './Doodle'
+import HeroShowcaseCard from './HeroShowcaseCard'
+import MountSaos from './MountSaos'
+import { projects } from '../lib/projects'
 
 /**
  * The page's opening statement and primary conversion.
  *
- * Asymmetric split rather than a stacked centre column: copy left, a real site
- * we designed on the right. A studio that builds websites should show one in the
- * first screen. The previous version was type over white with a doodle, which
- * asked the visitor to take the craft on trust.
+ * Centred composition on a dark ground, with the Mount Saos ridgeline drawn
+ * behind it. The mountain is not decoration: the studio is local to Samothraki
+ * and Alexandroupoli — `schema.ts` publishes a Σαμοθράκη locality — so the
+ * silhouette and the geographic headline are making the same claim.
  *
- * Text elements are capped at three (headline, subtext, CTAs). The eyebrow and
- * the three trust ticks that used to sit here were doing a different job and
- * moved to the offer section directly below, where they have room to be read
- * rather than skimmed past on the way to the button.
+ * Five deliberate layers, back to front:
+ *
+ *   0  the `break` ground, with a soft radial lift toward `break-2`
+ *   1  <MountSaos> — the ridgeline, anchored to the carousel
+ *   2  atmospheric gradients: darker at the top so the headline stays legible,
+ *      fading back to the ground at the bottom
+ *   3  the content column — badge, headline, supporting line, CTAs
+ *   4  the showcase carousel (view-only), covering the ridge's base
+ *
+ * Layers 3 and 4 carry `relative z-10`; everything below is `aria-hidden` and
+ * `pointer-events-none`, so the drawing can never intercept a click or reach
+ * the accessibility tree.
+ *
+ * `on-dark` on the root is load-bearing rather than cosmetic: `index.css` maps
+ * `.on-dark .text-headline` to white and `.on-dark .text-headline em` to the
+ * warm accent, which is where the headline's emphasis colour comes from.
+ *
+ * Nothing here is wrapped in `Reveal`. This is above the fold on every screen,
+ * and the previous hero deliberately kept its LCP content static too.
  */
 export default function Hero() {
+  const featured = projects.filter((p) => p.featured)
+
   return (
-    <div className="relative w-full overflow-hidden">
-      <div className="relative mx-auto grid min-h-[92svh] w-full max-w-6xl items-center gap-12 px-5 pb-16 pt-24 sm:px-8 md:px-12 lg:grid-cols-[1.3fr_0.85fr] lg:gap-14">
-        <div className="relative">
-          <Doodle
-            variant="sparkle"
-            className="absolute -top-14 -left-8 hidden h-20 w-20 rotate-12 opacity-80 lg:block"
-          />
+    <section
+      className="on-dark relative isolate w-full overflow-hidden bg-break text-white"
+      aria-labelledby="hero-heading"
+    >
+      {/* Layer 0 — a soft off-centre lift so the flat near-black reads as a
+          lit space rather than a swatch. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            'radial-gradient(115% 78% at 50% 8%, #1E1A14 0%, #14110C 58%, #14110C 100%)',
+        }}
+      />
 
-          <h1 className="text-headline text-[clamp(2rem,3.6vw,2.85rem)] max-w-[24ch]">
-            Η online παρουσία που αξίζει η <em>επιχείρησή σας.</em>
-          </h1>
+      {/* Layer 2 — atmosphere. The top wash protects headline contrast; the
+          bottom one lands the drawing back into the page ground so there is no
+          seam where the hero meets the next section. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-1/2 bg-gradient-to-b from-break via-break/70 to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-break to-transparent"
+      />
 
-          <p className="mt-7 max-w-[46ch] text-[clamp(1rem,1.3vw,1.12rem)] leading-[1.75] text-muted font-body">
-            Σχεδιάζουμε websites που συνδυάζουν καθαρό design, ταχύτητα και πραγματική
-            χρησιμότητα.{' '}
-            <span className="font-semibold text-ink">
-              Εφάπαξ κατασκευή, με προαιρετικό μηνιαίο SEO.
-            </span>
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-32 sm:px-8 md:px-12 md:pb-24 md:pt-36">
+        {/* Layer 3 — content. */}
+        <div className="flex flex-col items-center text-center">
+          {/*
+            A positioning badge, not a rating badge. REDESIGN.md rules out
+            fabricated authority — award badges, client counts, rating
+            aggregates — and the reviews in `lib/reviews.ts` are invented
+            samples that deliberately emit no Review/AggregateRating JSON-LD.
+            So this carries something true and checkable instead of a number
+            that would have to be retracted later.
+          */}
+          <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.07] px-4 py-2 text-[0.72rem] font-semibold tracking-[0.01em] text-white/80 font-body sm:text-[0.78rem]">
+            <Doodle variant="sparkle" className="h-4 w-4 flex-shrink-0" strokeWidth={4} />
+            Στούντιο από τη Σαμοθράκη &amp; την Αλεξανδρούπολη
           </p>
 
-          <div className="mt-9 flex flex-col items-start gap-5">
+          {/*
+            Exact wording, fixed by the brief. The only addition is the <em>,
+            which the `.on-dark` rule renders in the warm accent.
+
+            Mixed case with the tonos intact — never text-transform. Greek drops
+            the tonos in all-caps, which is why banner words elsewhere on the
+            site are authored uppercase in the markup instead.
+          */}
+          <h1
+            id="hero-heading"
+            className="text-headline mt-7 max-w-[17ch] text-balance text-[clamp(2.05rem,5.6vw,4.4rem)]"
+          >
+            Ανάπτυξη και προώθηση ιστοσελίδων στη <em>Βόρεια Ελλάδα</em>
+          </h1>
+
+          {/* text-white/70, not text-muted: #6B6257 on #14110C fails contrast
+              badly. This clears AA comfortably.
+
+              Three sentences rather than one, so the measure widens to ~64ch —
+              REDESIGN.md caps body copy around 65ch — and the type steps down
+              slightly. At the old size and width this ran to six centred lines
+              and started competing with the headline. */}
+          <p className="mt-9 max-w-[64ch] text-[clamp(0.94rem,1.15vw,1.06rem)] leading-[1.8] text-white/70 font-body">
+            Το Saos Studio, μέρος της Rhooa Labs, δημιουργεί και προωθεί websites για
+            επιχειρήσεις της Βόρειας Ελλάδας.{' '}
+            <span className="font-semibold text-white">
+              Ξεκινάμε πάντα με δωρεάν SEO audit, για να δείτε τι αποδίδει πριν
+              δεσμευτείτε.
+            </span>{' '}
+            Στόχος μας είναι περισσότερες κρατήσεις, αιτήματα επικοινωνίας και τοπική
+            προβολή, όχι απλώς μια πιο όμορφη homepage.
+          </p>
+
+          <div className="mt-12 flex w-full flex-col items-center gap-5 sm:w-auto md:mt-14">
             <a
               href="/request-a-quote"
-              className="btn-accent w-full justify-center text-center px-6 py-4 text-[0.95rem] sm:w-auto sm:px-9"
+              className="btn-accent w-full justify-center px-6 py-4 text-center text-[0.95rem] sm:w-auto sm:px-9"
             >
               Ζητήστε προσφορά σε 2 λεπτά <span aria-hidden>→</span>
             </a>
 
             <a
               href="/how-it-works"
-              className="group link-arrow text-[0.88rem] font-bold text-muted transition-colors duration-200 hover:text-ink font-body"
+              className="group link-arrow text-[0.88rem] font-bold text-white/60 transition-colors duration-200 hover:text-white font-body"
             >
               Δείτε πώς λειτουργεί
               <span
@@ -58,40 +135,54 @@ export default function Hero() {
           </div>
         </div>
 
-        {/*
-          A real capture of a site we designed, not a div-built mock browser.
-          `full.webp` is the full-page screenshot already in public/work/, shown
-          top-anchored so the fold of the design is what reads.
+        {/* Layers 1 and 4 — the mountain, then the showcase over it.
 
-          Rendered at every breakpoint rather than `hidden lg:block`: a
-          CSS-hidden image is still downloaded, so the mobile visitor was paying
-          for a picture they never saw. On small screens it sits below the CTA
-          and is partly in view, which is a better hero than type alone anyway.
-        */}
-        <div className="relative">
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-card border border-border bg-white lg:aspect-[4/5]">
-            <picture>
-              <source srcSet="/work/salento/full.webp" type="image/webp" />
-              <img
-                src="/work/salento/full.jpg"
-                alt="Δείγμα σχεδιασμού: ιστοσελίδα εστιατορίου street food"
-                width={820}
-                height={620}
-                decoding="async"
-                /* Lowercase on purpose. React 18 does not recognise the
-                   camelCase `fetchPriority` prop and drops it with a warning;
-                   the spread passes the real HTML attribute through. */
-                {...{ fetchpriority: 'high' }}
-                className="absolute inset-x-0 top-0 w-full"
-              />
-            </picture>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent"
-            />
+            The ridge is anchored to the carousel rather than to the section,
+            and its height is derived from the viewport WIDTH. Both matter. A
+            percentage of the section height gave the svg a box far taller than
+            its own 3.43:1 viewBox, and `slice` then zoomed the drawing until
+            only one stray segment of ridge was left on screen.
+
+            `43vw` is not arbitrary: it is exactly 1/2.32, the artwork's own
+            aspect, so at desktop widths `slice` scales the drawing without
+            cropping it at all. The 280px floor makes the box proportionally
+            taller on a phone, which crops inward to the summit — a natural
+            crop rather than a squashed mountain. The 760px ceiling stops it
+            growing without limit on an ultrawide display.
+
+            The lift is what creates the composition: the peak clears the card
+            by roughly 300px on desktop, while the card covers the mountain's
+            base. That overlap is where the depth comes from.
+
+            `w-screen` + centring breaks it out of the max-w-6xl column to full
+            bleed; the section's `overflow-hidden` clips it. */}
+        <div className="relative mt-14 md:mt-16">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-[max(140px,min(27vw,480px))] left-1/2 -z-10 h-[max(280px,min(43vw,760px))] w-screen -translate-x-1/2 text-warm"
+          >
+            <MountSaos className="h-full w-full" />
           </div>
+
+          <Carousel
+            label="Δείγματα σχεδιασμού"
+            onDark
+            loop
+            arrowPlacement="overlay"
+            showCounter
+            align="start"
+            autoAdvanceMs={5000}
+            slideClassName="w-full"
+            slides={featured.map((project, i) => (
+              <HeroShowcaseCard
+                key={project.slug}
+                project={project}
+                priority={i === 0}
+              />
+            ))}
+          />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
