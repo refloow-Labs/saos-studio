@@ -42,9 +42,15 @@ __pycache__/
 .gstack/
 
 # Build output — Netlify builds from source, so committed artifacts only drift.
-website/dist/
-website/dist-ssr/
-website/.shots/
+**/dist/
+**/dist-ssr/
+**/.shots/
+
+# Dependencies
+**/node_modules/
+
+# Netlify
+**/.netlify/
 
 # Local environment. autonomous-agent/.env was tracked in this public repo with
 # placeholder credentials; the first real OpenRouter / Netlify / Gmail key pasted
