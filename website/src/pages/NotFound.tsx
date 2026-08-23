@@ -1,5 +1,4 @@
-import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
+import Layout from '../components/Layout'
 
 /**
  * Rendered for any path the app doesn't recognise. Prerendered to `dist/404.html`,
@@ -8,15 +7,8 @@ import Footer from '../components/Footer'
  */
 export default function NotFoundPage() {
   return (
-    <>
-      <div aria-hidden className="fixed inset-0 z-0 pointer-events-none bg-white" />
-      <Navigation />
-
-      <main
-        className="relative px-6 md:px-12 pt-32 md:pt-40 pb-24 min-h-[60svh] flex items-center"
-        style={{ zIndex: 10 }}
-      >
-        <div className="max-w-[44rem] mx-auto w-full">
+    <Layout mainClassName="px-6 md:px-12 pt-32 md:pt-40 pb-24 min-h-[60svh] flex items-center">
+      <div className="max-w-[44rem] mx-auto w-full">
           <p className="text-[0.6rem] tracking-[0.22em] uppercase font-semibold text-accent/70 font-body mb-6">
             Σφάλμα 404
           </p>
@@ -30,18 +22,15 @@ export default function NotFoundPage() {
             αρχική σελίδα ή δείτε τα έργα μας.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-            <a href="/" className="btn-primary justify-center px-9 py-4 text-[0.9rem]">
-              Αρχική σελίδα <span aria-hidden>→</span>
-            </a>
-            <a href="/#work" className="btn-outline justify-center px-9 py-4 text-[0.9rem]">
-              Δείτε τα Έργα μας
-            </a>
-          </div>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          <a href="/" className="btn-primary justify-center px-9 py-4 text-[0.9rem]">
+            Αρχική σελίδα <span aria-hidden>→</span>
+          </a>
+          <a href="/examples" className="btn-outline justify-center px-9 py-4 text-[0.9rem]">
+            Δείτε τα Έργα μας
+          </a>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   )
 }

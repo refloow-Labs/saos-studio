@@ -1,6 +1,5 @@
 import { useConsentStore } from '../lib/consent'
-import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
+import Layout from '../components/Layout'
 
 /**
  * Privacy & Cookie policy page. Plain editorial layout — same brand as the
@@ -23,12 +22,8 @@ export default function PrivacyPage() {
   const reopen = useConsentStore((s) => s.reopen)
 
   return (
-    <>
-      <div aria-hidden className="fixed inset-0 z-0 pointer-events-none bg-white" />
-      <Navigation />
-
-      <main className="relative px-6 md:px-12 pt-32 md:pt-40 pb-24" style={{ zIndex: 10 }}>
-        <article className="max-w-[44rem] mx-auto">
+    <Layout mainClassName="px-6 md:px-12 pt-32 md:pt-40 pb-24">
+      <article className="max-w-[44rem] mx-auto">
           <p className="text-[0.6rem] tracking-[0.22em] uppercase font-semibold text-accent/70 font-body mb-6">
             Νομικά
           </p>
@@ -218,11 +213,8 @@ export default function PrivacyPage() {
               ← Επιστροφή στην αρχική
             </a>
           </div>
-        </article>
-      </main>
-
-      <Footer />
-    </>
+      </article>
+    </Layout>
   )
 }
 

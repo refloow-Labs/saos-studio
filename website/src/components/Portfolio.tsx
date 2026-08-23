@@ -1,76 +1,99 @@
-import SectionLabel from './SectionLabel'
-
-interface Project {
-  slug: string
-  name: string
-  tag: string
-}
-
-const projects: Project[] = [
-  { slug: 'luxora-airbnb', name: 'LUXORA', tag: 'Ultra-Luxury Airbnb' },
-  { slug: 'almasi', name: 'Almasi Luxury Suites', tag: 'Πολυτελή καταλύματα' },
-  { slug: 'avenue', name: 'Avenue Luxury Apartments', tag: 'Διαμερίσματα πολυτελείας' },
-  { slug: 'salento', name: 'Salento', tag: 'Wood-fired street food' },
-  { slug: 'ammos', name: 'AMMOS Beach Bar', tag: 'Beach bar & εστίαση' },
-  { slug: 'gi-kai-ydor', name: 'Γη & Ύδωρ', tag: 'Εστιατόριο' },
-  { slug: 'dental-home', name: 'Dental Home', tag: 'Οδοντιατρείο' },
-  { slug: 'desire-patisserie', name: 'Desire Patisserie', tag: 'Ζαχαροπλαστείο' },
-]
+import { useState } from 'react'
+import { ExternalLink } from 'lucide-react'
+import SectionOpener from './SectionOpener'
+import Carousel from './Carousel'
+import Reveal from './Reveal'
+import Modal from './Modal'
+import ProjectCard from './ProjectCard'
+import { projects, type Project } from '../lib/projects'
 
 export default function Portfolio() {
+  const [preview, setPreview] = useState<Project | null>(null)
+  const featured = projects.filter((p) => p.featured)
+
   return (
     <div className="w-full">
-      <div className="max-w-2xl mb-14">
-        <SectionLabel text="Έργα" align="left" />
-        <h2 className="text-headline text-[clamp(2.2rem,5vw,4rem)]">
-          Δουλειές που <em>μιλάνε</em> μόνες τους.
-        </h2>
-        <p className="mt-6 text-[1rem] text-muted leading-[1.7] font-body">
-          Πραγματικές ιστοσελίδες, φτιαγμένες για πραγματικές επιχειρήσεις.
-          Πατήστε σε οποιαδήποτε για να τη δείτε live.
-        </p>
-      </div>
+      <SectionOpener
+        word="ΕΡΓΑ"
+        heading={
+          <>
+            Μερικά από τα <em>έργα</em> μας.
+          </>
+        }
+        body="Δείγματα σχεδιασμού που φτιάξαμε για να δείξουμε το εύρος της δουλειάς μας, από εστίαση και φιλοξενία μέχρι υγεία. Πατήστε σε όποιο θέλετε για προεπισκόπηση."
+        doodle="burst"
+      />
 
-      {/* Demos link to the directory form, not /work/<slug>/index.html — both
-          resolve, and linking the suffixed one gave every demo a duplicate URL.
-          Each demo page carries noindex, so these stay out of the index. */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((p) => (
-          <a
-            key={p.slug}
-            href={`/work/${p.slug}/`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-card overflow-hidden bg-white border border-border transition-all duration-300 hover:border-border-hover hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.25)]"
-          >
-            <div className="relative aspect-[16/10] overflow-hidden bg-surface">
-              <picture>
-                <source srcSet={`/work/${p.slug}/thumb.webp`} type="image/webp" />
-                <img
-                  src={`/work/${p.slug}/thumb.jpg`}
-                  alt={`${p.name} — ${p.tag}`}
-                  width={1000}
-                  height={625}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </picture>
-            </div>
-            <div className="flex items-center justify-between gap-4 px-6 py-5">
-              <div>
-                <h3 className="text-[1.05rem] font-extrabold text-ink leading-tight">
-                  {p.name}
-                </h3>
-                <p className="text-[0.8rem] text-muted font-medium mt-0.5">{p.tag}</p>
-              </div>
-              <span className="flex-shrink-0 text-muted transition-all duration-300 group-hover:text-ink group-hover:translate-x-1">
-                ↗
-              </span>
-            </div>
-          </a>
+      {/* The honesty line. These are invented businesses, and the section must
+          never imply otherwise — see the note at the top of lib/projects.ts. */}
+      <Reveal className="mt-6">
+        <p className="mx-auto max-w-[62ch] text-center text-[0.8rem] leading-[1.7] text-white/45 font-body">
+          Σημείωση: πρόκειται για δείγματα σχεδιασμού. Οι επιχειρήσεις, τα στοιχεία
+          επικοινωνίας και οι κριτικές που εμφανίζονται σε αυτά είναι φανταστικά.
+        </p>
+      </Reveal>
+
+      <Carousel
+        label="Δείγματα σχεδιασμού"
+        onDark
+        align="center"
+        emphasizeActive
+        autoAdvanceMs={4000}
+        slideClassName="w-[80%] sm:w-[52%] lg:w-[38%]"
+        className="mt-10 md:mt-14"
+        slides={featured.map((project) => (
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            onPreview={setPreview}
+            onDark
+          />
         ))}
-      </div>
+      />
+
+      {/* Was `#paradeigmata`, the grid that used to sit directly below. That grid
+          is now /examples, where all eight live with their category filter. */}
+      <Reveal className="mt-12 flex justify-center">
+        <a href="/examples" className="btn-on-dark px-8 py-3.5 text-[0.85rem]">
+          Δείτε όλα τα έργα μας <span aria-hidden>→</span>
+        </a>
+      </Reveal>
+
+      <Modal
+        open={preview !== null}
+        onClose={() => setPreview(null)}
+        title={preview ? `Προεπισκόπηση: ${preview.name}` : ''}
+      >
+        {preview && (
+          <div className="flex h-full flex-col">
+            <div className="flex items-center justify-between gap-4 border-b border-border px-6 py-3">
+              <p className="text-[0.8rem] text-muted font-body">
+                <span className="font-bold text-ink">{preview.category}</span> ·{' '}
+                {preview.description}
+              </p>
+              <a
+                href={`/work/${preview.slug}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline flex-shrink-0 px-5 py-2 text-[0.75rem]"
+              >
+                Νέα καρτέλα <ExternalLink aria-hidden className="h-3.5 w-3.5" />
+              </a>
+            </div>
+
+            {/* Same-origin static file, so it frames without any header dance.
+                Loaded only while the dialog is open — mounting eight hidden
+                iframes with the carousel would be eight extra page loads. */}
+            <iframe
+              key={preview.slug}
+              src={`/work/${preview.slug}/`}
+              title={`Προεπισκόπηση ιστοσελίδας: ${preview.name}`}
+              loading="lazy"
+              className="h-[70svh] w-full border-0 bg-white"
+            />
+          </div>
+        )}
+      </Modal>
     </div>
   )
 }

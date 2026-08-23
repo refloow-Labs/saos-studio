@@ -5,6 +5,9 @@ import App from './App'
 // from the same compiled bundle they render with — no duplicated config.
 export * from './lib/seo'
 export { schemaFor } from './lib/schema'
+// Lets prerender.mjs check that every declared route is actually wired to a page
+// component before it writes files that would 404 on hydration.
+export { pagePaths } from './App'
 
 /**
  * Server entry for the build-time prerender. Not wrapped in StrictMode — the

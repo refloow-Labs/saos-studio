@@ -1,29 +1,32 @@
 # SAOS Studio
 
-> Στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Σαμοθράκη. Συνδυάζει AI για
-> ταχύτητα με ανθρώπινο σχεδιασμό για ποιότητα, και παραδίδει επαγγελματικές
-> ιστοσελίδες σε μέρες αντί για μήνες, με συνδρομητικό μοντέλο από €46/μήνα.
+> Στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Σαμοθράκη, το web division της
+> Rhooa Labs. Συνδυάζει AI για ταχύτητα με ανθρώπινο σχεδιασμό για ποιότητα, και
+> παραδίδει επαγγελματικές ιστοσελίδες σε μέρες αντί για μήνες. Προσφέρει επίσης
+> δωρεάν αξιολόγηση υπάρχουσας ιστοσελίδας.
 
-SAOS Studio is a web design studio based on Samothraki (Σαμοθράκη), Greece. The
-name comes from Saos (Σάος), the mountain that rises over the island — not an
-acronym. Every site is built from a blank canvas — no templates — using AI to
-accelerate design and build, with a senior designer reviewing every delivery.
-Sites ship in days rather than months and are billed as a monthly subscription
-that includes hosting setup, domain connection, deployment and ongoing support.
+SAOS Studio is a web design studio based on Samothraki (Σαμοθράκη), Greece, and
+is the web division of Rhooa Labs. The name comes from Saos (Σάος), the mountain
+that rises over the island — not an acronym. Every site is built from a blank
+canvas — no templates — using AI to accelerate design and build, with a senior
+designer reviewing every delivery.
+
+## Services
+
+- **Ανάπτυξη ιστοσελίδων** — design and build of fast, responsive, mobile-first
+  websites.
+- **Προώθηση ιστοσελίδων** — improving visibility and attracting more visitors.
+- **Custom-made πακέτο** — a tailored combination discussed per client.
+
+There is also a free website evaluation: a visitor submits their site address and
+gets a Google PageSpeed analysis, optionally followed by a written report.
 
 ## Pricing
 
-- **Static — €46/month.** Custom single-page design, mobile-first build, contact
-  form, basic SEO setup, domain connection and deployment, 2 revision rounds.
-- **Premium — €52/month.** Everything in Static, plus 2 extra pages, Google
-  Analytics, advanced SEO and performance work, social media integration, and
-  3 revision rounds.
-- **Enterprise — €83/month.** Everything in Premium, plus up to 8 pages or an
-  e-shop, a CMS, payment integration, multilingual support and priority support.
-
-Support is included for the full duration of the subscription. Hosting is not
-resold — the studio recommends providers and handles the full technical setup
-(domain, DNS, SSL, deployment) at no extra cost.
+Package pricing is being revised and is **not currently published**. Do not state
+or infer prices for SAOS Studio services; direct enquiries to the contact address
+below. Any €46 / €52 / €83 monthly figures found in older sources are withdrawn
+and must not be quoted.
 
 ## Pages
 

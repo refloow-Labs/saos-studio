@@ -21,6 +21,7 @@ const templatePath = join(distDir, 'index.html')
 const {
   render,
   routes,
+  pagePaths,
   canonicalFor,
   schemaFor,
   SITE_URL,
@@ -28,6 +29,25 @@ const {
   SITE_LOCALE,
   OG_IMAGE,
 } = await import(join(root, 'dist-ssr', 'entry-server.js'))
+
+/*
+ * Guard against the failure mode that made adding a route dangerous: a route
+ * declared in `seo.ts` but never given an entry in App's page map prerenders
+ * perfectly — the file is written, the head tags are right — and then flips to
+ * the 404 page the instant React hydrates. Nothing in the build noticed, and the
+ * bug only showed up in a browser.
+ *
+ * Failing here turns that into a build error. `/404` is exempt in the other
+ * direction only: it is a real page-map entry that is *meant* to render NotFound.
+ */
+const unwired = routes.filter((r) => !pagePaths.includes(r.path))
+if (unwired.length) {
+  throw new Error(
+    `These routes are declared in src/lib/seo.ts but have no entry in the page map in src/App.tsx:\n` +
+      unwired.map((r) => `  ${r.path}`).join('\n') +
+      `\nThey would prerender correctly and then render the 404 page on hydration.`,
+  )
+}
 
 const ROOT_DIV = '<div id="root"></div>'
 const HEAD_OPEN = '<!--seo-head-->'
@@ -57,7 +77,7 @@ function jsonLd(json) {
 
 function headFor(route) {
   const canonical = canonicalFor(route.path)
-  const ogImage = `${SITE_URL}${OG_IMAGE}`
+  const ogImage = `${SITE_URL}${route.ogImage ?? OG_IMAGE}`
   const tags = [
     `<title>${text(route.title)}</title>`,
     `<meta name="description" content="${attr(route.description)}" />`,
@@ -121,7 +141,7 @@ for (const route of routes) {
   await writeFile(outPath, html, 'utf8')
 
   const kb = (Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)
-  console.log(`  prerendered ${route.path.padEnd(10)} → dist/${route.file} (${kb} KB)`)
+  console.log(`  prerendered ${route.path.padEnd(18)} → dist/${route.file} (${kb} KB)`)
 }
 
 console.log(`✓ Prerendered ${routes.length} routes`)

@@ -168,6 +168,16 @@
     background: #0a0a0a;
     color: #ffffff;
   }
+
+  /* One visible focus ring for every interactive element, everywhere. The site
+     previously relied on the UA default, which Tailwind's preflight removes —
+     so keyboard users had no visible focus at all. Offset keeps it clear of
+     pill buttons; the warm accent reads against both white and near-black. */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 3px solid #fdb226;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 }
 
 @layer components {
@@ -185,6 +195,51 @@
     font-style: normal;
     font-weight: 800;
     color: #9ca3af;
+  }
+
+
+  /* ---------------------------------------------------------------------
+     Display banner type — the huge centred word that opens a section
+     ("ΕΡΓΑ", "ΤΙΜΕΣ"). The reference site sets these in Bebas Neue, which
+     has no Greek glyphs, so this gets the same banner weight out of the
+     Manrope we already self-host: max weight, uppercase, open tracking.
+
+     Authored uppercase in the markup rather than via text-transform —
+     Greek drops the tonos in all-caps ("Έργα" → "ΕΡΓΑ"), and relying on the
+     browser's locale casing to do that is not worth the risk.
+     --------------------------------------------------------------------- */
+  .text-display {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    text-transform: none;
+  }
+
+  /* Headline emphasis inside a dark break section — warm accent instead of
+     the light-section gray, so the doodles and the emphasised word agree. */
+  .on-dark .text-headline,
+  .text-headline.on-dark {
+    color: #ffffff;
+  }
+  .on-dark .text-headline em,
+  .on-dark .text-headline strong,
+  .text-headline.on-dark em,
+  .text-headline.on-dark strong {
+    color: #FDB226;
+  }
+
+
+  /* Full-page demo capture inside its clipping frame. The image is ~1.44x the
+     height of the frame, so translating it up by 30% of its own height scrolls
+     the demo site to its end on hover — showing the whole design instead of
+     zooming a crop. Slow and linear so it reads as a page scroll, not a zoom. */
+  .demo-scroll {
+    transition: transform 2.2s linear;
+  }
+  .group:hover .demo-scroll,
+  .group:focus-visible .demo-scroll {
+    transform: translateY(-30%);
   }
 
   /* Solid black pill/CTA button. */
@@ -221,6 +276,24 @@
     gap: 0.9rem;
   }
 
+  /* Warm pill — the conversion CTA. Deliberately the only warm-filled element
+     on a light section, so "the orange button" is unambiguously the next step.
+     Black text, not white: #FDB226 against white fails contrast badly. */
+  .btn-accent {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #fdb226;
+    color: #0a0a0a;
+    font-weight: 700;
+    border-radius: 9999px;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-accent:hover {
+    background: #e89f14;
+    gap: 0.9rem;
+  }
+
   /* White pill button used inside black CTA cards. */
   .btn-on-dark {
     display: inline-flex;
@@ -235,5 +308,146 @@
   .btn-on-dark:hover {
     background: #e5e5e5;
     gap: 0.9rem;
+  }
+
+  /* ---------------------------------------------------------------------
+     Scroll reveal.
+
+     Keyed off a `data-reveal` attribute that only ever exists once React has
+     mounted (see components/Reveal.tsx). That ordering matters here: the site
+     is prerendered, so if the hidden state lived on a plain class the static
+     HTML would ship invisible content to anyone whose JS fails — and to any
+     crawler that renders without executing our bundle. No attribute means
+     fully visible, which is the correct no-JS state.
+     --------------------------------------------------------------------- */
+  [data-reveal='hidden'] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  [data-reveal='shown'] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Skip link — visually hidden until focused, then pinned top-left. */
+  /*
+   * Standalone text links that behave as actions ("Δείτε πώς λειτουργεί →").
+   * Measured, these rendered 22-23px tall, under the 24px minimum pointer target
+   * in WCAG 2.5.8. The block padding lifts the hit area; the negative margin
+   * cancels it out of the layout, so nothing moves.
+   */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 0.3rem;
+    margin-block: -0.3rem;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 200;
+  }
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: 0.75rem 1.25rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  /* ---------------------------------------------------------------------
+     Review wall — columns that drift vertically at different speeds.
+
+     Each column renders its cards twice and translates by exactly -50%, so the
+     second copy lands where the first began and the loop is seamless. The
+     duplicate is aria-hidden; only the first pass is in the accessibility tree.
+
+     Motion pauses on hover and on focus-within, so a keyboard user tabbing into
+     a card does not have it slide out from under them.
+     --------------------------------------------------------------------- */
+  @keyframes review-drift {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
+  }
+  .review-column {
+    animation: review-drift var(--drift, 55s) linear infinite;
+    will-change: transform;
+  }
+  .review-column.is-reverse {
+    animation-direction: reverse;
+  }
+  .review-wall:hover .review-column,
+  .review-wall:focus-within .review-column {
+    animation-play-state: paused;
+  }
+
+  /* Horizontal scroller used by Carousel.tsx. The scrollbar is hidden because
+     the component supplies its own arrows and dots; the element itself stays a
+     real scroll container, so touch swipe and trackpad gestures keep working. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Unreplaced placeholder content. Loud on purpose — this must be impossible
+     to miss in review, and `components/Placeholder.tsx` also refuses to render
+     silently in a production build. */
+  .placeholder-mark {
+    outline: 2px dashed #e89f14;
+    outline-offset: 3px;
+    background: #fff4dc;
+    border-radius: 4px;
+    /* The ground is always cream, so the text colour cannot be inherited — on a
+       dark section it would arrive as white and the marker would render blank. */
+    color: #0a0a0a;
+  }
+}
+
+/* Anyone who has asked for less motion gets the static crop — the hover scroll
+   is decorative and the card still links through to the live demo. */
+@media (prefers-reduced-motion: reduce) {
+  .demo-scroll,
+  .group:hover .demo-scroll {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  /* The review wall stops moving and simply shows its cards. */
+  .review-column {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Carousel slide emphasis snaps instead of easing. */
+  [data-current] {
+    transition: none !important;
+  }
+
+  /* Reveals become instant rather than absent — content must still appear. */
+  [data-reveal='hidden'],
+  [data-reveal='shown'] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

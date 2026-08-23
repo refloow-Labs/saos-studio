@@ -41,4 +41,15 @@
     # in index.html; the demo pages under /work/* are inline-styled throughout.
     # img-src also covers the demo pages under /work/*, which pull photography
     # from Unsplash and Google user content.
-    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-src https://calendly.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://calendly.com https://forms.gle; object-src 'none'"
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-src 'self' https://calendly.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://calendly.com https://forms.gle; object-src 'none'"
+
+# The project preview modal frames the demo pages from the homepage. The blanket
+# X-Frame-Options: DENY and frame-ancestors 'none' above forbid that even
+# same-origin, so the demos get a narrower rule: framable by this origin only.
+# Clickjacking protection on the real site is unchanged — only /work/* is
+# relaxed, and those pages are static, inert and carry no forms or session.
+[[headers]]
+  for = "/work/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"

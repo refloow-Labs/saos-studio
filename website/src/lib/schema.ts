@@ -17,9 +17,13 @@ import {
   BOOKING_URL,
   OG_IMAGE,
   canonicalFor,
+  routes,
 } from './seo'
-import { faqs } from './faqs'
-import { services, PRICE_CURRENCY, LOWEST_PRICE } from './services'
+import { faqs, homeFaqs, type Faq } from './faqs'
+import { services } from './services'
+import { processStages } from './process'
+import { projects } from './projects'
+import { team } from './story'
 
 const ORG_ID = `${SITE_URL}/#organization`
 const SITE_ID = `${SITE_URL}/#website`
@@ -37,13 +41,21 @@ function organization() {
     },
     image: `${SITE_URL}${OG_IMAGE}`,
     description:
-      'Στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Σαμοθράκη. Συνδυάζει AI με ανθρώπινο σχεδιασμό, παραδίδοντας επαγγελματικά sites σε μέρες με συνδρομητικό μοντέλο.',
+      'Στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Σαμοθράκη, το web division της Rhooa Labs. Συνδυάζει AI με ανθρώπινο σχεδιασμό, παραδίδοντας επαγγελματικά sites σε μέρες αντί για μήνες.',
     // The studio takes its name from Σάος, the mountain on Samothraki. Stating
     // it explicitly helps search engines and AI models tie the brand name to the
     // place rather than reading it as an acronym.
     disambiguatingDescription:
       'Το όνομα SAOS προέρχεται από το όρος Σάος της Σαμοθράκης.',
     email: CONTACT_EMAIL,
+    // SAOS Studio is the web division of Rhooa Labs. Stating the relationship
+    // lets search engines and AI models resolve the two as one entity graph
+    // rather than two unrelated companies that happen to share founders.
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'Rhooa Labs',
+      url: 'https://rhooalabs.com',
+    },
     // Locality only — the studio publishes no street address, and inventing one
     // would be worse than omitting it.
     address: {
@@ -77,50 +89,155 @@ function website() {
   }
 }
 
+/**
+ * The Service node, deliberately without `offers`.
+ *
+ * It used to emit an AggregateOffer built from the tier prices. Those prices
+ * were withdrawn pending repricing, and price markup must never outlive the
+ * prices it describes — Google treats structured data that contradicts the page
+ * as a violation. `hasOfferCatalog` lists what we do without asserting a price.
+ * Restore `offers` only when `services.ts` carries real prices again.
+ */
 function serviceOffer() {
   return {
     '@type': 'Service',
     '@id': `${SITE_URL}/#service`,
-    name: 'Σχεδιασμός και κατασκευή ιστοσελίδων με συνδρομή',
+    name: 'Σχεδιασμός και κατασκευή ιστοσελίδων',
     serviceType: 'Web design and development',
     provider: { '@id': ORG_ID },
     areaServed: { '@type': 'Country', name: 'Greece' },
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: PRICE_CURRENCY,
-      lowPrice: LOWEST_PRICE,
-      offerCount: String(services.length),
-      offers: services.map((s) => ({
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Υπηρεσίες',
+      itemListElement: services.map((s) => ({
         '@type': 'Offer',
-        name: s.name,
-        price: s.priceAmount,
-        priceCurrency: PRICE_CURRENCY,
-        url: `${SITE_URL}/#services`,
-        availability: 'https://schema.org/InStock',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: s.priceAmount,
-          priceCurrency: PRICE_CURRENCY,
-          // Monthly subscription.
-          billingDuration: 1,
-          billingIncrement: 1,
-          unitCode: 'MON',
+        itemOffered: {
+          '@type': 'Service',
+          name: s.name,
+          description: s.summary,
         },
+        // The services now live on /services, not as homepage anchors.
+        url: `${SITE_URL}/services#${s.id}`,
       })),
     },
   }
 }
 
-function faqPage(canonical: string) {
+/**
+ * Takes the questions to mark up rather than reading `faqs` directly.
+ *
+ * The homepage renders a six-question subset and `/faq` renders all twelve.
+ * Emitting the full list on both would have the homepage's markup describe six
+ * answers a crawler cannot find there — the mismatch this module's parity rule
+ * exists to prevent. Callers pass exactly what their page renders.
+ */
+function faqPage(canonical: string, items: Faq[]) {
   return {
     '@type': 'FAQPage',
     '@id': `${canonical}#faq`,
     inLanguage: SITE_LANG,
-    mainEntity: faqs.map((f) => ({
+    mainEntity: items.map((f) => ({
       '@type': 'Question',
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
+  }
+}
+
+/**
+ * The delivery process as a HowTo.
+ *
+ * No `totalTime`: the honest answer varies by project and the only figure we
+ * have — Rhooa Labs' «2–4 εβδομάδες» — is flagged in `story.ts` as unconfirmed
+ * for websites. A guessed duration in structured data is a claim, not a hint.
+ */
+function howTo(canonical: string) {
+  return {
+    '@type': 'HowTo',
+    '@id': `${canonical}#howto`,
+    name: 'Πώς κατασκευάζουμε την ιστοσελίδα σας',
+    description:
+      'Η διαδικασία από το πρώτο μήνυμα μέχρι τη δημοσίευση: προσφορά, έγκριση, σχεδιασμός, κατασκευή, διορθώσεις, launch και προαιρετικό μηνιαίο SEO.',
+    inLanguage: SITE_LANG,
+    step: processStages.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.label,
+      text: s.desc,
+      url: `${canonical}#${s.slug}`,
+    })),
+  }
+}
+
+/**
+ * The demo sites as an ItemList.
+ *
+ * `CreativeWork`, not `Product` or `LocalBusiness`: these depict invented
+ * businesses, and emitting business markup for them would assert that eight
+ * companies exist. No rating or review node appears here for the same reason.
+ */
+function examplesList(canonical: string) {
+  return {
+    '@type': 'ItemList',
+    '@id': `${canonical}#examples`,
+    name: 'Δείγματα σχεδιασμού',
+    numberOfItems: projects.length,
+    itemListElement: projects.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: p.name,
+        description: p.description,
+        genre: p.category,
+        url: `${SITE_URL}/work/${p.slug}/`,
+        creator: { '@id': ORG_ID },
+      },
+    })),
+  }
+}
+
+function aboutPage(canonical: string) {
+  return {
+    '@type': 'AboutPage',
+    '@id': `${canonical}#about`,
+    mainEntity: { '@id': ORG_ID },
+    inLanguage: SITE_LANG,
+    about: team.map((m) => ({
+      '@type': 'Person',
+      name: m.name,
+      jobTitle: m.role,
+      description: m.bio,
+      worksFor: { '@id': ORG_ID },
+      image: `${SITE_URL}/team/${m.slug}.jpg`,
+    })),
+  }
+}
+
+function contactPage(canonical: string) {
+  return {
+    '@type': 'ContactPage',
+    '@id': `${canonical}#contact`,
+    inLanguage: SITE_LANG,
+    mainEntity: { '@id': ORG_ID },
+  }
+}
+
+/**
+ * Two levels only — the site is flat, so every page hangs directly off the home
+ * page. Built from `route.breadcrumb`, which is absent on `/` because the home
+ * page is the root of the trail rather than an entry in it.
+ */
+function breadcrumb(path: string, canonical: string) {
+  const label = routes.find((r) => r.path === path)?.breadcrumb
+  if (!label) return null
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${canonical}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Αρχική', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: label, item: canonical },
+    ],
   }
 }
 
@@ -143,16 +260,38 @@ function webPage(path: string, title: string, description: string) {
  * <script type="application/ld+json"> tag.
  */
 export function schemaFor(path: string, title: string, description: string): string {
+  const canonical = canonicalFor(path)
   const graph: unknown[] = [
     organization(),
     website(),
     webPage(path, title, description),
   ]
 
-  // The pricing grid and the FAQ accordion both live on the homepage only.
-  if (path === '/') {
-    graph.push(serviceOffer(), faqPage(canonicalFor(path)))
+  /*
+   * Per-route nodes. Every entry here must correspond to content the route
+   * actually renders — structured data that describes something absent from the
+   * page is a violation, not an optimisation.
+   *
+   * Note what is deliberately missing: `/reviews` gets nothing beyond the base
+   * nodes. The reviews on it are labelled samples (`REVIEWS_ARE_SAMPLES` in
+   * reviews.ts), and `Review`/`AggregateRating` markup for invented reviews is
+   * the kind of thing that earns a manual action. Add them in the same commit
+   * that replaces the samples with real ones, never before.
+   */
+  const perRoute: Record<string, () => unknown[]> = {
+    '/': () => [faqPage(canonical, homeFaqs())],
+    '/services': () => [serviceOffer()],
+    '/how-it-works': () => [howTo(canonical)],
+    '/examples': () => [examplesList(canonical)],
+    '/our-story': () => [aboutPage(canonical)],
+    '/faq': () => [faqPage(canonical, faqs)],
+    '/request-a-quote': () => [contactPage(canonical)],
   }
+
+  graph.push(...(perRoute[path]?.() ?? []))
+
+  const crumbs = breadcrumb(path, canonical)
+  if (crumbs) graph.push(crumbs)
 
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
 }

@@ -45,3 +45,11 @@ __pycache__/
 website/dist/
 website/dist-ssr/
 website/.shots/
+
+# Local environment. autonomous-agent/.env was tracked in this public repo with
+# placeholder credentials; the first real OpenRouter / Netlify / Gmail key pasted
+# in would have been committed. Use .env.example as the template.
+.env
+.env.local
+*.env
+!*.env.example

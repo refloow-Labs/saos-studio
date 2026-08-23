@@ -1,116 +1,224 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+/**
+ * Real routes, not homepage anchors.
+ *
+ * These used to be absolute hashes (`/#services`) because every section lived on
+ * the homepage and the nav still had to work from /privacy and /404. Each now
+ * has its own prerendered page.
+ *
+ * «Κριτικές» is intentionally absent: six labels plus the CTA overflows the
+ * desktop bar in Greek, and reviews are the least load-bearing of the seven. It
+ * is reachable from the footer and from the homepage section.
+ */
 const links = [
-  { label: 'Έργα', href: '#work' },
-  { label: 'Υπηρεσίες', href: '#services' },
-  { label: 'Προσέγγιση', href: '#approach' },
-  { label: 'Τιμές', href: '#pricing' },
-  { label: 'Επικοινωνία', href: '#contact' },
+  { label: 'Η ιστορία μας', href: '/our-story' },
+  { label: 'Υπηρεσίες', href: '/services' },
+  { label: 'Πώς λειτουργεί', href: '/how-it-works' },
+  { label: 'Έργα', href: '/examples' },
+  { label: 'Συχνές ερωτήσεις', href: '/faq' },
 ]
+
+/** The primary conversion, now a real page rather than a modal trigger. */
+const CTA = {
+  label: 'Ζητήστε προσφορά',
+  href: '/request-a-quote',
+}
+
+/** Matches `normalisePath` in App.tsx — trailing slashes must not defeat `aria-current`. */
+function isCurrent(href: string, pathname: string): boolean {
+  const strip = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p)
+  return strip(href) === strip(pathname)
+}
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
 
+  // Empty during SSR, so no link is marked current in the prerendered HTML and
+  // the attribute appears on hydration. `aria-current` is an enhancement for
+  // screen readers rather than something the markup has to ship with.
+  const [pathname, setPathname] = useState('')
+  useEffect(() => setPathname(window.location.pathname), [])
+
+  // Observed sentinel rather than a scroll listener. The listener fired on every
+  // scroll frame and called setState, re-rendering the nav continuously all the
+  // way down a long page; the observer fires twice, at the crossing.
+  const sentinelRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const el = sentinelRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting))
+    io.observe(el)
+    return () => io.disconnect()
   }, [])
 
+  // Escape closes, focus returns to the button that opened the panel, and Tab is
+  // held inside the panel while it is open — otherwise focus walks off into the
+  // page behind an overlay the user cannot see.
+  useEffect(() => {
+    if (!mobileOpen) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileOpen(false)
+        toggleRef.current?.focus()
+        return
+      }
+      if (e.key !== 'Tab') return
+
+      const focusables = panelRef.current?.querySelectorAll<HTMLElement>('a[href], button')
+      if (!focusables?.length) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    panelRef.current?.querySelector<HTMLElement>('a[href]')?.focus()
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [mobileOpen])
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-[100] grid grid-cols-3 items-center transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/90 backdrop-blur-xl border-b border-border py-3.5 px-5 md:px-12'
-          : 'py-6 px-5 md:px-12'
-      }`}
-    >
-      {/* Left — logo */}
-      <a href="#" className="relative z-10 justify-self-start flex items-center" aria-label="saos.studio — Home">
-        <img
-          src="/logos/logo-dark.png"
-          alt="saos.studio"
-          className={`w-auto transition-all duration-300 ${scrolled ? 'h-5' : 'h-6'}`}
-        />
+    <>
+      <a href="#main" className="skip-link font-body">
+        Μετάβαση στο περιεχόμενο
       </a>
 
-      {/* Center — nav links */}
-      <ul className="hidden md:flex items-center justify-center gap-9">
-        {links.map((l) => (
-          <li key={l.href}>
-            <a
-              href={l.href}
-              className="group relative text-[0.78rem] tracking-[0.02em] font-semibold text-muted transition-colors duration-200 hover:text-ink font-body"
-            >
-              {l.label}
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-ink transition-all duration-300 group-hover:w-full" />
-            </a>
-          </li>
-        ))}
-      </ul>
+      {/* Sits 40px down the document, outside the fixed nav so it scrolls away.
+          Once it leaves the viewport the nav has been scrolled past. */}
+      <div
+        ref={sentinelRef}
+        aria-hidden
+        className="pointer-events-none absolute top-10 left-0 h-px w-px"
+      />
 
-      {/* Right — CTA (desktop) / hamburger (mobile) */}
-      <div className="col-start-3 justify-self-end flex items-center">
+      <nav
+        aria-label="Κύρια πλοήγηση"
+        className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between gap-6 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/90 backdrop-blur-xl border-b border-border py-3.5 px-5 md:px-12'
+            : 'py-6 px-5 md:px-12'
+        }`}
+      >
         <a
-          href="https://calendly.com/tambakisgiannis/refloow-labs-discovery-call"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:inline-flex btn-primary px-6 py-2.5 text-[0.75rem]"
+          href="/"
+          className="relative z-10 flex flex-shrink-0 items-center"
+          aria-label="saos.studio — Αρχική"
         >
-          Κλείστε Κλήση
+          <img
+            src="/logos/logo-dark.png"
+            width={1746}
+            height={228}
+            alt="saos.studio"
+            className={`w-auto transition-all duration-300 ${scrolled ? 'h-5' : 'h-6'}`}
+          />
         </a>
 
-        <button
-          className="md:hidden relative z-10 -mr-2 flex h-10 w-10 items-center justify-center"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Menu"
-          aria-expanded={mobileOpen}
-        >
-          <span className="relative block h-4 w-6">
-            <span
-              className={`absolute left-0 right-0 h-[2px] bg-ink transition-all duration-300 ${
-                mobileOpen ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-[5px]'
-              }`}
-            />
-            <span
-              className={`absolute left-0 right-0 h-[2px] bg-ink transition-all duration-300 ${
-                mobileOpen ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-[5px]'
-              }`}
-            />
-          </span>
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white border-b border-border py-8 px-6 md:hidden">
-          <ul className="flex flex-col gap-5">
-            {links.map((l) => (
+        <ul className="hidden lg:flex items-center justify-center gap-7 xl:gap-8">
+          {links.map((l) => {
+            const current = isCurrent(l.href, pathname)
+            return (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="text-[0.95rem] font-bold text-ink font-body"
-                  onClick={() => setMobileOpen(false)}
+                  aria-current={current ? 'page' : undefined}
+                  className={`group relative whitespace-nowrap text-[0.78rem] tracking-[0.02em] font-semibold transition-colors duration-200 hover:text-ink font-body ${
+                    current ? 'text-ink' : 'text-muted'
+                  }`}
                 >
                   {l.label}
+                  <span
+                    aria-hidden
+                    className={`absolute -bottom-1 left-0 h-[1.5px] bg-warm transition-all duration-300 group-hover:w-full ${
+                      current ? 'w-full' : 'w-0'
+                    }`}
+                  />
                 </a>
               </li>
-            ))}
-          </ul>
-          <div className="mt-8 pt-6 border-t border-border">
-            <a
-              href="https://calendly.com/tambakisgiannis/refloow-labs-discovery-call"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary px-6 py-3 text-[0.8rem]"
-              onClick={() => setMobileOpen(false)}
-            >
-              Κλείστε Κλήση →
-            </a>
-          </div>
+            )
+          })}
+        </ul>
+
+        <div className="flex flex-shrink-0 items-center">
+          <a
+            href={CTA.href}
+            className="hidden lg:inline-flex btn-accent px-6 py-2.5 text-[0.75rem]"
+          >
+            {CTA.label} <span aria-hidden>→</span>
+          </a>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="lg:hidden relative z-10 -mr-2 flex h-11 w-11 items-center justify-center"
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-label={mobileOpen ? 'Κλείσιμο μενού' : 'Άνοιγμα μενού'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+          >
+            <span aria-hidden className="relative block h-4 w-6">
+              <span
+                className={`absolute left-0 right-0 h-[2px] bg-ink transition-all duration-300 ${
+                  mobileOpen ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-[5px]'
+                }`}
+              />
+              <span
+                className={`absolute left-0 right-0 h-[2px] bg-ink transition-all duration-300 ${
+                  mobileOpen ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-[5px]'
+                }`}
+              />
+            </span>
+          </button>
         </div>
-      )}
-    </nav>
+
+        {mobileOpen && (
+          <div
+            id="mobile-menu"
+            ref={panelRef}
+            className="absolute top-full left-0 right-0 max-h-[calc(100svh-100%)] overflow-y-auto bg-white border-b border-border py-8 px-6 lg:hidden"
+          >
+            <ul className="flex flex-col gap-5">
+              {[...links, { label: 'Κριτικές', href: '/reviews' }].map((l) => (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    aria-current={isCurrent(l.href, pathname) ? 'page' : undefined}
+                    className="block text-[1rem] font-bold text-ink font-body aria-[current=page]:text-warm-ink"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 pt-6 border-t border-border">
+              <a
+                href={CTA.href}
+                className="btn-accent px-6 py-3 text-[0.85rem]"
+                onClick={() => setMobileOpen(false)}
+              >
+                {CTA.label} <span aria-hidden>→</span>
+              </a>
+            </div>
+          </div>
+        )}
+      </nav>
+    </>
   )
 }
