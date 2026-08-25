@@ -23,6 +23,31 @@ export type SubmitPayload = Record<string, string>
 const STORAGE_KEY = 'saos_pending_submissions_v1'
 
 /**
+ * User-facing Greek for the failure modes every form shares.
+ *
+ * These lived as literals in QuoteForm, ApplicationModal and EvaluationForm —
+ * seven strings, each written out two or three times, already drifting (the
+ * network-failure message existed in two wordings). They belong here rather
+ * than in `components/form/Fields.tsx` because that module is JSX
+ * presentational and `EvaluationForm` does not use it, and because the two
+ * validators these messages describe — `isValidEmail` and `normaliseUrl` — are
+ * defined immediately below.
+ *
+ * Keyed by what went wrong, not by which form asks. Form-specific wording stays
+ * in the form: `ApplicationModal` asks for «το όνομα της επιχείρησης» where
+ * `QuoteForm` asks for «την επωνυμία», and that difference is deliberate.
+ */
+export const FORM_ERRORS = {
+  REQUIRED_NAME: 'Συμπληρώστε το όνομά σας.',
+  REQUIRED_EMAIL: 'Συμπληρώστε το email σας.',
+  REQUIRED_INDUSTRY: 'Επιλέξτε κλάδο.',
+  INVALID_EMAIL: 'Το email δεν φαίνεται σωστό.',
+  INVALID_URL: 'Η διεύθυνση δεν φαίνεται σωστή. Δοκιμάστε κάτι σαν example.gr',
+  FIX_MARKED_FIELDS: 'Ελέγξτε τα πεδία που είναι σημειωμένα παρακάτω.',
+  SUBMIT_FAILED: 'Κάτι πήγε στραβά. Δοκιμάστε ξανά σε λίγο.',
+} as const
+
+/**
  * Deliberately permissive. Anything stricter starts rejecting addresses that are
  * perfectly valid (apostrophes, plus-addressing, long TLDs), and the only real
  * check is whether a message arrives — which is the backend's job, not ours.
@@ -84,7 +109,7 @@ function persistLocally(formName: FormName, payload: SubmitPayload): void {
  *     headers: { 'Content-Type': 'application/json' },
  *     body: JSON.stringify({ formName, ...payload }),
  *   })
- *   if (!res.ok) return { ok: false, error: 'Κάτι πήγε στραβά. Δοκιμάστε ξανά.' }
+ *   if (!res.ok) return { ok: false, error: FORM_ERRORS.SUBMIT_FAILED }
  *   return { ok: true }
  *
  * Note for whoever wires this up: these payloads are personal data under GDPR.

@@ -3,8 +3,7 @@ import { Plus } from 'lucide-react'
 import Layout from '../components/Layout'
 import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
-import Reveal from '../components/Reveal'
-import { faqs, faqsByCategory, type Faq } from '../lib/faqs'
+import { faqsByCategory, type Faq } from '../lib/faqs'
 
 function Item({ faq, index }: { faq: Faq; index: number }) {
   const [open, setOpen] = useState(false)
@@ -79,7 +78,6 @@ function Item({ faq, index }: { faq: Faq; index: number }) {
 
 export default function FaqPage() {
   const groups = faqsByCategory()
-  const unverified = faqs.filter((f) => f.needsReview).length
 
   return (
     <Layout>
@@ -126,14 +124,9 @@ export default function FaqPage() {
             </section>
           ))}
 
-          {unverified > 0 && (
-            <Reveal>
-              <p className="text-[0.78rem] leading-[1.7] text-muted font-body">
-                {unverified} απαντήσεις περιέχουν στοιχεία που πρέπει να επιβεβαιωθούν πριν
-                τη δημοσίευση (χρόνοι παράδοσης, όροι υποστήριξης, κριτήρια αποδοχής).
-              </p>
-            </Reveal>
-          )}
+          {/* See the matching note in components/Faq.tsx: the per-answer
+              «Προς επιβεβαίωση» badge is the honest disclosure. An aggregate
+              count of unverified answers is internal QA state, not visitor copy. */}
         </div>
       </Chapter>
 

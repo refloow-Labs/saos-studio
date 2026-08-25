@@ -2,7 +2,7 @@ import { useId, useState, type FormEvent } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { TextField, TextareaField, SelectField, RadioGroupField } from './form/Fields'
 import { INDUSTRIES } from '../lib/industries'
-import { isValidEmail, normaliseUrl, submit } from '../lib/submit'
+import { FORM_ERRORS, isValidEmail, normaliseUrl, submit } from '../lib/submit'
 import { CONTACT_EMAIL, BOOKING_URL } from '../lib/seo'
 
 type FieldName = 'name' | 'business' | 'industry' | 'need' | 'website' | 'email' | 'project'
@@ -25,8 +25,8 @@ const EMPTY: Record<FieldName, string> = {
  */
 const NEEDS = [
   { value: 'new', label: 'Νέα ιστοσελίδα', desc: 'Δεν έχω ιστοσελίδα σήμερα.' },
-  { value: 'redesign', label: 'Redesign', desc: 'Έχω, αλλά θέλει ανανέωση.' },
-  { value: 'seo', label: 'SEO', desc: 'Θέλω να με βρίσκουν περισσότεροι.' },
+  { value: 'redesign', label: 'Ανανέωση υπάρχουσας', desc: 'Έχω, αλλά δείχνει παλιά ή δεν φέρνει δουλειά.' },
+  { value: 'seo', label: 'Προβολή στη Google', desc: 'Θέλω να με βρίσκουν περισσότεροι.' },
 ]
 
 /**
@@ -60,16 +60,16 @@ export default function QuoteForm() {
 
   function validate() {
     const next: Partial<Record<FieldName, string>> = {}
-    if (!values.name.trim()) next.name = 'Συμπληρώστε το όνομά σας.'
+    if (!values.name.trim()) next.name = FORM_ERRORS.REQUIRED_NAME
     if (!values.business.trim()) next.business = 'Συμπληρώστε την επωνυμία της επιχείρησης.'
-    if (!values.industry) next.industry = 'Επιλέξτε κλάδο.'
+    if (!values.industry) next.industry = FORM_ERRORS.REQUIRED_INDUSTRY
     if (!values.need) next.need = 'Επιλέξτε τι χρειάζεστε.'
-    if (!values.email.trim()) next.email = 'Συμπληρώστε το email σας.'
-    else if (!isValidEmail(values.email)) next.email = 'Το email δεν φαίνεται σωστό.'
+    if (!values.email.trim()) next.email = FORM_ERRORS.REQUIRED_EMAIL
+    else if (!isValidEmail(values.email)) next.email = FORM_ERRORS.INVALID_EMAIL
     if (!values.project.trim()) next.project = 'Πείτε μας λίγα λόγια για το project.'
     // Website stays optional — not having one is the most common reason to ask.
     if (values.website.trim() && !normaliseUrl(values.website))
-      next.website = 'Η διεύθυνση δεν φαίνεται σωστή. Δοκιμάστε κάτι σαν example.gr'
+      next.website = FORM_ERRORS.INVALID_URL
     return next
   }
 
@@ -81,7 +81,7 @@ export default function QuoteForm() {
     setErrors(found)
     if (Object.keys(found).length) {
       setStatus('error')
-      setFormError('Ελέγξτε τα πεδία που είναι σημειωμένα παρακάτω.')
+      setFormError(FORM_ERRORS.FIX_MARKED_FIELDS)
       // Move focus to the first problem so keyboard users are not left hunting.
       const first = (Object.keys(found) as FieldName[])[0]
       document.getElementById(ids[first])?.focus()
@@ -99,7 +99,7 @@ export default function QuoteForm() {
 
     if (!result.ok) {
       setStatus('error')
-      setFormError(result.error ?? 'Κάτι πήγε στραβά. Δοκιμάστε ξανά σε λίγο.')
+      setFormError(result.error ?? FORM_ERRORS.SUBMIT_FAILED)
       return
     }
 
@@ -137,10 +137,10 @@ export default function QuoteForm() {
           <TextField
             id={ids.name}
             name="name"
-            label="Όνομα"
+            label="Ονοματεπώνυμο"
             required
             autoComplete="name"
-            placeholder="Ονοματεπώνυμο"
+            placeholder="Όνομα και επώνυμο"
             value={values.name}
             onChange={(v) => set('name', v)}
             error={errors.name}
@@ -161,7 +161,7 @@ export default function QuoteForm() {
         <SelectField
           id={ids.industry}
           name="industry"
-          label="Κλάδος δραστηριότητας"
+          label="Κλάδος"
           required
           options={INDUSTRIES}
           value={values.industry}

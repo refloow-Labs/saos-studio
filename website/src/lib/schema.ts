@@ -28,6 +28,34 @@ import { team } from './story'
 const ORG_ID = `${SITE_URL}/#organization`
 const SITE_ID = `${SITE_URL}/#website`
 
+/**
+ * Service area, shared by the Organization and Service nodes so the two can
+ * never disagree.
+ *
+ * Named administrative places rather than a `GeoCircle`. A circle is what Google
+ * documents for service-area businesses, but it forces publishing a midpoint and
+ * a radius — a quantitative claim, and this file's whole posture is to omit
+ * rather than invent (no LocalBusiness node, no street address, no prices).
+ * Named places are also what people actually type.
+ *
+ * «Ανατολική Μακεδονία και Θράκη» is repeated from `addressRegion` below on
+ * purpose: same string, so the graph is internally consistent.
+ *
+ * Deliberately NOT a `LocalBusiness` / `ProfessionalService` node. Narrowing to
+ * a service area is the classic trigger for adding one, and it stays forbidden
+ * while the studio publishes no postal address or phone number.
+ */
+const AREA_SERVED = [
+  {
+    '@type': 'AdministrativeArea',
+    name: 'Ανατολική Μακεδονία και Θράκη',
+    containedInPlace: { '@type': 'Country', name: 'Greece' },
+  },
+  { '@type': 'AdministrativeArea', name: 'Έβρος' },
+  { '@type': 'City', name: 'Αλεξανδρούπολη' },
+  { '@type': 'City', name: 'Σαμοθράκη' },
+]
+
 function organization() {
   return {
     '@type': 'Organization',
@@ -40,8 +68,11 @@ function organization() {
       url: `${SITE_URL}/logos/logo-dark.png`,
     },
     image: `${SITE_URL}${OG_IMAGE}`,
+    // Keep in step with public/llms.txt, which states the same thing in prose.
+    // The two had already drifted into two wordings of the AI-speed claim; that
+    // claim is no longer the positioning, so both were rewritten together.
     description:
-      'Στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Σαμοθράκη, το web division της Rhooa Labs. Συνδυάζει AI με ανθρώπινο σχεδιασμό, παραδίδοντας επαγγελματικά sites σε μέρες αντί για μήνες.',
+      'Στούντιο σχεδιασμού ιστοσελίδων με έδρα τη Σαμοθράκη, το web division της Rhooa Labs. Μικρή ομάδα που κατασκευάζει ιστοσελίδες για μικρές επιχειρήσεις στη Θράκη, χωρίς μεσάζοντες.',
     // The studio takes its name from Σάος, the mountain on Samothraki. Stating
     // it explicitly helps search engines and AI models tie the brand name to the
     // place rather than reading it as an acronym.
@@ -64,10 +95,7 @@ function organization() {
       addressRegion: 'Ανατολική Μακεδονία και Θράκη',
       addressCountry: 'GR',
     },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Greece',
-    },
+    areaServed: AREA_SERVED,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'sales',
@@ -105,7 +133,7 @@ function serviceOffer() {
     name: 'Σχεδιασμός και κατασκευή ιστοσελίδων',
     serviceType: 'Web design and development',
     provider: { '@id': ORG_ID },
-    areaServed: { '@type': 'Country', name: 'Greece' },
+    areaServed: AREA_SERVED,
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Υπηρεσίες',
@@ -272,11 +300,17 @@ export function schemaFor(path: string, title: string, description: string): str
    * actually renders — structured data that describes something absent from the
    * page is a violation, not an optimisation.
    *
-   * Note what is deliberately missing: `/reviews` gets nothing beyond the base
-   * nodes. The reviews on it are labelled samples (`REVIEWS_ARE_SAMPLES` in
-   * reviews.ts), and `Review`/`AggregateRating` markup for invented reviews is
-   * the kind of thing that earns a manual action. Add them in the same commit
-   * that replaces the samples with real ones, never before.
+   * `/reviews` has no entry here and needs none: the route is currently held
+   * out of `seo.ts` entirely (`REVIEWS_PUBLISHED`), and the prerenderer only
+   * ever calls this function for routes in that list, so `schemaFor('/reviews')`
+   * is unreachable in the build. Do not read its absence as "reviews get base
+   * nodes only" — there is no such page in production.
+   *
+   * The rule that outlives the flag: `Review`/`AggregateRating` markup for
+   * invented reviews is the kind of thing that earns a manual action against
+   * the whole domain. Add those nodes in the same commit that replaces the
+   * samples with real ones and republishes the route, never before and never
+   * separately.
    */
   const perRoute: Record<string, () => unknown[]> = {
     '/': () => [faqPage(canonical, homeFaqs())],

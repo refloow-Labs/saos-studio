@@ -29,8 +29,6 @@ export default function Faq() {
     })
   }
 
-  const unverified = faqs.filter((f) => f.needsReview).length
-
   return (
     <div className="w-full">
       <SectionOpener
@@ -133,14 +131,10 @@ export default function Faq() {
           </a>
         </Reveal>
 
-        {unverified > 0 && (
-          <Reveal className="mt-6">
-            <p className="text-center text-[0.78rem] leading-[1.7] text-muted font-body">
-              {unverified} απαντήσεις περιέχουν στοιχεία που πρέπει να επιβεβαιωθούν πριν
-              τη δημοσίευση (χρόνοι παράδοσης, όροι υποστήριξης, κριτήρια αποδοχής).
-            </p>
-          </Reveal>
-        )}
+        {/* No aggregate "n answers need verifying" line. That was editorial
+            process addressed to the owner, rendered to visitors; the per-answer
+            «Προς επιβεβαίωση» badge already discloses the same thing where it
+            actually matters, next to the claim it qualifies. */}
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { REVIEWS_PUBLISHED } from '../lib/reviews'
 
 /**
  * Real routes, not homepage anchors.
@@ -7,9 +8,10 @@ import { useEffect, useRef, useState } from 'react'
  * the homepage and the nav still had to work from /privacy and /404. Each now
  * has its own prerendered page.
  *
- * «Κριτικές» is intentionally absent: six labels plus the CTA overflows the
- * desktop bar in Greek, and reviews are the least load-bearing of the seven. It
- * is reachable from the footer and from the homepage section.
+ * «Κριτικές» is absent from the desktop bar for layout reasons — six labels plus
+ * the CTA overflows it in Greek — and is currently absent from the mobile panel
+ * too, because `/reviews` is unpublished while the testimonials are invented.
+ * See REVIEWS_PUBLISHED.
  */
 const links = [
   { label: 'Η ιστορία μας', href: '/our-story' },
@@ -133,8 +135,8 @@ export default function Navigation({ overDark = false }: Props) {
         aria-label="Κύρια πλοήγηση"
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between gap-6 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/90 backdrop-blur-xl border-b border-border py-3.5 px-5 md:px-12'
-            : 'py-6 px-5 md:px-12'
+            ? 'bg-white/90 backdrop-blur-xl border-b border-border py-3.5 px-5 sm:px-8 md:px-12'
+            : 'py-6 px-5 sm:px-8 md:px-12'
         }`}
       >
         <a
@@ -195,7 +197,13 @@ export default function Navigation({ overDark = false }: Props) {
           <button
             ref={toggleRef}
             type="button"
-            className="lg:hidden relative z-10 -mr-2 flex h-11 w-11 items-center justify-center"
+            /* -mr-2.5, not -mr-2. The 44px hit area is required, but it is the
+                 24px glyph inside it that the eye aligns to. Pulling the button
+                 10px past the padding line lands the glyph's right edge exactly
+                 on the padding, level with the logo's left edge; at -8px it sat
+                 2px short and the bar read very slightly lopsided. Measured, not
+                 assumed. */
+            className="lg:hidden relative z-10 -mr-2.5 flex h-11 w-11 items-center justify-center"
             onClick={() => setMobileOpen((open) => !open)}
             aria-label={mobileOpen ? 'Κλείσιμο μενού' : 'Άνοιγμα μενού'}
             aria-expanded={mobileOpen}
@@ -227,7 +235,12 @@ export default function Navigation({ overDark = false }: Props) {
             className="absolute top-full left-0 right-0 max-h-[calc(100svh-100%)] overflow-y-auto bg-white border-b border-border py-8 px-6 lg:hidden"
           >
             <ul className="flex flex-col gap-5">
-              {[...links, { label: 'Κριτικές', href: '/reviews' }].map((l) => (
+              {[
+                ...links,
+                ...(REVIEWS_PUBLISHED
+                  ? [{ label: 'Κριτικές', href: '/reviews' }]
+                  : []),
+              ].map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}

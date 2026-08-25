@@ -56,11 +56,12 @@ export default function RequestQuotePage() {
 
             <div className="mt-10 rounded-2xl border border-border bg-surface p-6">
               <h3 className="text-[0.9rem] font-extrabold text-ink font-body">
-                Δεν είστε σίγουροι τι χρειάζεστε;
+                Δεν ξέρετε τι να γράψετε;
               </h3>
               <p className="mt-2 text-[0.85rem] leading-[1.75] text-muted font-body">
-                Συμπληρώστε τη φόρμα ούτως ή άλλως και γράψτε το στην περιγραφή. Μέρος της
-                δουλειάς μας είναι να σας βοηθήσουμε να το ξεκαθαρίσετε.
+                Γράψτε απλώς τι σας εμποδίζει σήμερα. Το να ξεκαθαρίσουμε τι
+                χρειάζεται είναι μέρος της δουλειάς μας, όχι δική σας δουλειά
+                πριν μας μιλήσετε.
               </p>
               <a
                 href="/services"

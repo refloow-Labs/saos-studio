@@ -104,7 +104,7 @@ export default function WhatsIncluded() {
             <Search aria-hidden className={ICON} strokeWidth={1.75} />
             <h3 className={TITLE}>Βασική δομή SEO</h3>
             <p className={BODY}>
-              Τίτλοι, επικεφαλίδες, structured data, sitemap και σύνδεση με το Google Search
+              Τίτλοι, επικεφαλίδες, sitemap, σήμανση που διαβάζει η Google και σύνδεση με το Search
               Console. Ό,τι χρειάζεται για να σας βρίσκουν από την πρώτη μέρα.
             </p>
           </div>
@@ -138,7 +138,7 @@ export default function WhatsIncluded() {
               href="/services#anaptyxi"
               className="btn-outline flex-shrink-0 justify-center px-7 py-3.5 text-[0.85rem]"
             >
-              Αναλυτικά <span aria-hidden>→</span>
+              Δείτε τι περιλαμβάνει <span aria-hidden>→</span>
             </a>
           </div>
         </Reveal>

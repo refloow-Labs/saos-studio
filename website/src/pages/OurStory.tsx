@@ -229,9 +229,16 @@ export default function OurStoryPage() {
 
       <Chapter id="story-cta" tone="gray">
         <div className="mx-auto max-w-2xl text-center">
+          {/* Argues from this page specifically — the reader has just read how
+              the team works and what it refuses to do. The generic closer that
+              used to be here was identical to the homepage one. */}
           <h2 className="text-headline text-[clamp(1.6rem,3.4vw,2.4rem)]">
-            Ας φτιάξουμε κάτι <em>όμορφο.</em>
+            Αν σας ταιριάζει ο τρόπος που <em>δουλεύουμε.</em>
           </h2>
+          <p className="mx-auto mt-5 max-w-[46ch] text-[0.95rem] leading-[1.8] text-muted font-body">
+            Πείτε μας τι χρειάζεστε. Αν δεν είμαστε οι κατάλληλοι για τη δουλειά,
+            θα σας το πούμε από την πρώτη κουβέντα.
+          </p>
           <a
             href="/request-a-quote"
             className="btn-accent mt-8 justify-center px-8 py-4 text-[0.9rem]"

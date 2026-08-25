@@ -32,7 +32,7 @@ export default function FreeWebsite() {
 
         <div className="relative max-w-3xl">
           <h2 className="text-headline on-dark text-[clamp(1.9rem,4.6vw,3.1rem)]">
-            Κάνε αίτηση για ένα <em>δωρεάν website.</em>
+            Κάντε αίτηση για ένα <em>δωρεάν website.</em>
           </h2>
 
           <p className="mt-6 max-w-[64ch] text-[1rem] leading-[1.8] text-white/70 font-body">
@@ -46,7 +46,7 @@ export default function FreeWebsite() {
               onClick={() => setOpen(true)}
               className="btn-accent w-full justify-center px-9 py-4 text-center text-[0.9rem] sm:w-auto"
             >
-              Κάνε αίτηση σε 2 λεπτά <span aria-hidden>→</span>
+              Κάντε αίτηση <span aria-hidden>→</span>
             </button>
 
             <a
@@ -64,11 +64,12 @@ export default function FreeWebsite() {
           </div>
 
           {/* The honest limit stays here rather than moving to the page. The
-              acceptance figure itself does not: it is still unconfirmed by the
-              owner, so it lives on /free-website inside a Placeholder. */}
+              generic reassurance does not — it lives inside the application
+              modal, next to the fields it reassures about. No acceptance figure
+              anywhere: the owner has never confirmed one. */}
           <p className="mt-7 max-w-[72ch] text-[0.8rem] leading-[1.65] text-white/50 font-body">
-            Χρειάζεται περίπου 2 λεπτά. Δεν ζητάμε κάρτα και δεν υπάρχει δέσμευση. Οι
-            αιτήσεις αξιολογούνται με συγκεκριμένα κριτήρια και δεν γίνονται όλες δεκτές.
+            Οι αιτήσεις αξιολογούνται με συγκεκριμένα κριτήρια και δεν γίνονται
+            όλες δεκτές. Απαντάμε είτε έτσι είτε αλλιώς.
           </p>
         </div>
       </div>

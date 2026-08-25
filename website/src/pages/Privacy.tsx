@@ -1,13 +1,16 @@
 import { useConsentStore } from '../lib/consent'
 import Layout from '../components/Layout'
+import { CONTACT_EMAIL, SITE_URL } from '../lib/seo'
 
 /**
  * Privacy & Cookie policy page. Plain editorial layout — same brand as the
  * main site but no animated gradient (this is a legal page, should be calm
  * and easy to read).
  *
- * NB: replace the placeholder contact email + studio details with the
- * actual ones before going live.
+ * NB: the statutory business identity (επωνυμία, έδρα, ΑΦΜ/ΔΟΥ, ΓΕΜΗ) is still
+ * missing and is flagged as a Placeholder in the footer. This page needs a
+ * lawyer's pass before launch — the corrections made here fix statements that
+ * were plainly wrong, they do not make the document complete.
  */
 
 const STUDIO = {
@@ -15,7 +18,11 @@ const STUDIO = {
   // Keep in sync with the Organization address in src/lib/schema.ts — search
   // engines cross-check the location stated on the page against the markup.
   city: 'Σαμοθράκη, Ελλάδα',
-  email: 'saos.ventures@gmail.com',
+  // Sourced from seo.ts rather than repeated, so the address cannot drift from
+  // the one every other page and the JSON-LD publish.
+  email: CONTACT_EMAIL,
+  // Likewise: this page previously named a domain the site is not served from.
+  domain: SITE_URL.replace(/^https?:\/\//, ''),
 }
 
 export default function PrivacyPage() {
@@ -33,15 +40,16 @@ export default function PrivacyPage() {
           </h1>
 
           <p className="text-muted text-[0.78rem] tracking-[0.05em] uppercase font-semibold font-body mb-12">
-            Τελευταία ενημέρωση: Απρίλιος 2026
+            Τελευταία ενημέρωση: Αύγουστος 2026
           </p>
 
           <Section title="1. Ποιοι είμαστε">
             <p>
               Το <strong className="text-text">{STUDIO.name}</strong> είναι μικρό
-              στούντιο σχεδιασμού ιστοσελίδων με έδρα τη {STUDIO.city}. Υπεύθυνος
-              επεξεργασίας δεδομένων είστε εσείς όταν χρησιμοποιείτε το site μας
-              στη διεύθυνση <em className="text-accent not-italic">saosstudio.gr</em>.
+              στούντιο σχεδιασμού ιστοσελίδων με έδρα τη {STUDIO.city}. Είμαστε ο
+              υπεύθυνος επεξεργασίας των προσωπικών δεδομένων που συλλέγονται
+              μέσω της ιστοσελίδας μας στη διεύθυνση{' '}
+              <em className="text-accent not-italic">{STUDIO.domain}</em>.
             </p>
             <p>
               Για ερωτήσεις σχετικά με τα δεδομένα σας, επικοινωνήστε στο{' '}
@@ -129,8 +137,8 @@ export default function PrivacyPage() {
                 προγραμματισμός ραντεβού, μόνο όταν επιλέγετε να κλείσετε call.
               </li>
               <li>
-                <strong className="text-text/85">Netlify / Vercel</strong> —
-                hosting του site (logs, χωρίς προσωπικά δεδομένα).
+                <strong className="text-text/85">Netlify</strong> — hosting του
+                site (logs, χωρίς προσωπικά δεδομένα).
               </li>
             </ul>
           </Section>

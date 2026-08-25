@@ -3,7 +3,6 @@ import Layout from '../components/Layout'
 import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
-import Placeholder from '../components/Placeholder'
 
 /**
  * `/free-website` — the detail behind the homepage offer.
@@ -13,18 +12,18 @@ import Placeholder from '../components/Placeholder'
  * inclusions, exclusions and the selection rate moved here, where a reader who
  * is already interested can actually read them.
  *
- * Nothing on this page is new content. Every list below was lifted verbatim
- * from the old `FreeWebsite` section, and the acceptance rate keeps its
- * `Placeholder` wrapper — the figure is still unconfirmed by the owner and must
- * not ship as a plain claim.
+ * The lists below came verbatim from the old `FreeWebsite` section. The one
+ * thing that did not survive is the «20%» acceptance rate: it was never
+ * confirmed by the owner, and a `Placeholder` wrapper does not stop a hard
+ * figure from reading as a claim. The selectivity is stated without a number.
  */
 
 const INCLUDED = [
   'Σχεδιασμός και κατασκευή μονοσέλιδης ιστοσελίδας',
-  'Mobile-first υλοποίηση για σωστή εμφάνιση σε κάθε οθόνη',
+  'Σχεδιασμός πρώτα για το κινητό, ώστε να δείχνει σωστά σε κάθε οθόνη',
   'Φόρμα επικοινωνίας και σύνδεση με τα κανάλια σας',
   'Βασική ρύθμιση SEO ώστε να σας βρίσκουν',
-  'Τεχνική ρύθμιση: domain, DNS, SSL, deployment',
+  'Τεχνική ρύθμιση: domain, DNS, πιστοποιητικό SSL και δημοσίευση',
 ]
 
 const NOT_INCLUDED = [
@@ -37,7 +36,7 @@ const NOT_INCLUDED = [
 const STEPS = [
   {
     title: 'Κάνετε αίτηση',
-    body: 'Χρειάζεται περίπου 2 λεπτά. Δεν ζητάμε κάρτα και δεν υπάρχει δέσμευση.',
+    body: 'Έξι ερωτήσεις για την επιχείρησή σας και το πώς να σας βρούμε.',
   },
   {
     title: 'Την εξετάζουμε',
@@ -65,7 +64,7 @@ export default function FreeWebsitePage() {
               Ένα δωρεάν website για όσους το <em>χρειάζονται.</em>
             </>
           }
-          lead="Δεν είναι διαγωνισμός ούτε δοκιμή: μια ιστοσελίδα που σχεδιάζουμε και κατασκευάζουμε χωρίς χρέωση, για επιχειρήσεις που επιλέγουμε κάθε μήνα."
+          lead="Κάθε μήνα κρατάμε μια θέση για μια επιχείρηση που θα ωφελούνταν πραγματικά από μια σωστή ιστοσελίδα αλλά δεν μπορεί να την πληρώσει. Χωρίς χρέωση και χωρίς αντάλλαγμα."
         />
 
         <Reveal className="mt-10">
@@ -93,7 +92,7 @@ export default function FreeWebsitePage() {
 
       <Chapter id="diadikasia" tone="white">
         <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[20ch]">
-          Πώς <em>λειτουργεί.</em>
+          Από την αίτηση στην <em>παράδοση.</em>
         </h2>
 
         <ol className="mt-10">
@@ -179,28 +178,30 @@ export default function FreeWebsitePage() {
           Πώς γίνεται η <em>επιλογή.</em>
         </h2>
 
-        {/* The figure is still unconfirmed by the owner, so it keeps the loud
-            Placeholder marker it had in the old homepage section. */}
+        {/* The «20%» acceptance rate that used to sit here has been removed, not
+            moved. A hard figure inside a Placeholder still reads as a claim to
+            anyone who does not parse the dashed border, and the owner has never
+            confirmed it. What is true without it — that not everyone is accepted
+            and that we say so up front — is the part that does the work anyway.
+            Restore a number only with a real one. */}
         <Reveal className="mt-8">
-          <Placeholder
-            note="Ποσοστό αποδοχής αιτήσεων: να επιβεβαιωθεί από τον ιδιοκτήτη πριν δημοσιευτεί"
-            className="max-w-[64ch] p-5 text-[0.92rem] leading-[1.8] font-body"
-          >
-            Οι αιτήσεις αξιολογούνται με συγκεκριμένα κριτήρια και περίπου το{' '}
-            <strong>20%</strong> γίνεται αποδεκτό. Δεν εγγυόμαστε αποδοχή — προτιμάμε να το
-            πούμε από την αρχή παρά να σας αφήσουμε να περιμένετε.
-          </Placeholder>
+          <p className="max-w-[64ch] text-[0.92rem] leading-[1.8] text-muted font-body">
+            Οι αιτήσεις αξιολογούνται με τα κριτήρια που περιγράφονται παραπάνω,
+            όχι με σειρά προτεραιότητας και όχι με κλήρωση. Δεν γίνονται όλες
+            δεκτές και δεν εγγυόμαστε αποδοχή — προτιμάμε να το πούμε από την
+            αρχή παρά να σας αφήσουμε να περιμένετε.
+          </p>
         </Reveal>
       </Chapter>
 
       <Chapter id="free-website-cta" tone="dark">
         <div className="mx-auto max-w-[40rem] text-center">
           <h2 className="text-headline text-[clamp(1.7rem,3.6vw,2.6rem)]">
-            Έτοιμοι να κάνετε <em>αίτηση;</em>
+            Αν η κατασκευή είναι το έξοδο που δεν <em>χωράει ποτέ.</em>
           </h2>
           <p className="mx-auto mt-5 max-w-[50ch] text-[0.98rem] leading-[1.8] text-white/70 font-body">
-            Χρειάζεται περίπου 2 λεπτά. Δεν ζητάμε κάρτα, δεν υπάρχει δέσμευση, και
-            απαντάμε είτε έτσι είτε αλλιώς.
+            Αυτός είναι ακριβώς ο λόγος που κρατάμε μια θέση κάθε μήνα. Πείτε μας
+            για την επιχείρησή σας.
           </p>
           {/* The application form is a modal on the homepage section, so this
               routes back to it rather than duplicating ApplicationModal here. */}
@@ -208,7 +209,7 @@ export default function FreeWebsitePage() {
             href="/#free-website"
             className="btn-accent mt-9 justify-center px-9 py-4 text-[0.9rem]"
           >
-            Κάνε αίτηση <span aria-hidden>→</span>
+            Κάντε αίτηση <span aria-hidden>→</span>
           </a>
         </div>
       </Chapter>

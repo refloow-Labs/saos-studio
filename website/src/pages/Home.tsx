@@ -11,26 +11,33 @@ import ProcessTeaser from '../components/ProcessTeaser'
 import FreeWebsite from '../components/FreeWebsite'
 import Faq from '../components/Faq'
 import Contact from '../components/Contact'
+import { REVIEWS_PUBLISHED } from '../lib/reviews'
 
 /**
  * The homepage.
  *
  * Argument order, not feature order: what it costs (offer) → why you need one at
  * all (why) → what you get (included) → what the optional part is (seo) → proof
- * of the work (examples) → proof of the people (reviews) → how it runs (process)
- * → the alternative route in (free website) → objections (faq) → the ask.
+ * of the work (examples) → how it runs (process) → the alternative route in
+ * (free website) → objections (faq) → the ask.
+ *
+ * There is deliberately no proof-of-the-people beat. The reviews section sat
+ * between examples and process until the invented testimonials were pulled; the
+ * argument has to carry itself on specificity and process transparency until
+ * real reviews exist. Do not fill the gap with borrowed credibility.
  *
  * Two things this page deliberately does not do any more. It no longer carries a
  * story section or a full services grid: /our-story and /services own those, and
  * duplicating them here made the homepage a table of contents for itself. And it
  * no longer opens every section with a banner word. `SectionOpener` is now spent
- * on exactly three sections (Έργα, Τι λένε για εμάς, Ερωτήσεις) where the page
- * changes gear; the rest open with `SectionHeading`, headline only. Six
- * identically-shaped section openers read as a template, however good each one
- * is on its own.
+ * on exactly two sections (Έργα, Ερωτήσεις) where the page changes gear; the
+ * rest open with `SectionHeading`, headline only. Six identically-shaped section
+ * openers read as a template, however good each one is on its own.
  *
  * Tone alternation keeps the two dark breaks apart (positions 3 and 6) and
- * outnumbered by light sections, per REDESIGN.md.
+ * outnumbered by light sections, per REDESIGN.md. With reviews pulled, `work`
+ * (dark) now meets `diadikasia` (gray) directly — still no two adjacent
+ * sections sharing a ground.
  *
  * Highlighter sweeps land on three of the ten sections. That ratio is the whole
  * device: a mark on every section is a texture, a mark on a few is a decision.
@@ -65,9 +72,15 @@ export default function HomePage() {
         <Portfolio />
       </Chapter>
 
-      <Chapter id="reviews" tone="white">
-        <Reviews />
-      </Chapter>
+      {/* Unrendered while the reviews are invented — see REVIEWS_PUBLISHED.
+          Kept gated rather than deleted so the import stays used: tsconfig sets
+          noUnusedLocals and `npm run build` runs tsc first, so an orphaned
+          import fails the build. */}
+      {REVIEWS_PUBLISHED && (
+        <Chapter id="reviews" tone="white">
+          <Reviews />
+        </Chapter>
+      )}
 
       <Chapter id="diadikasia" tone="gray" sweep>
         <ProcessTeaser />

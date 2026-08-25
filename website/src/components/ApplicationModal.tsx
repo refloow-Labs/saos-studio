@@ -3,7 +3,7 @@ import { CheckCircle2 } from 'lucide-react'
 import Modal from './Modal'
 import { TextField, SelectField } from './form/Fields'
 import { INDUSTRIES } from '../lib/industries'
-import { isValidEmail, normaliseUrl, submit } from '../lib/submit'
+import { FORM_ERRORS, isValidEmail, normaliseUrl, submit } from '../lib/submit'
 
 interface Props {
   open: boolean
@@ -65,15 +65,15 @@ export default function ApplicationModal({ open, onClose }: Props) {
 
   function validate() {
     const next: Partial<Record<FieldName, string>> = {}
-    if (!values.business.trim()) next.business = 'Συμπληρώστε το όνομα της επιχείρησης.'
-    if (!values.name.trim()) next.name = 'Συμπληρώστε το όνομά σας.'
-    if (!values.industry) next.industry = 'Επιλέξτε κλάδο.'
-    if (!values.email.trim()) next.email = 'Συμπληρώστε το email σας.'
-    else if (!isValidEmail(values.email)) next.email = 'Το email δεν φαίνεται σωστό.'
+    if (!values.business.trim()) next.business = 'Συμπληρώστε την επωνυμία της επιχείρησης.'
+    if (!values.name.trim()) next.name = FORM_ERRORS.REQUIRED_NAME
+    if (!values.industry) next.industry = FORM_ERRORS.REQUIRED_INDUSTRY
+    if (!values.email.trim()) next.email = FORM_ERRORS.REQUIRED_EMAIL
+    else if (!isValidEmail(values.email)) next.email = FORM_ERRORS.INVALID_EMAIL
     if (!values.contact.trim()) next.contact = 'Πείτε μας πώς να επικοινωνήσουμε μαζί σας.'
     // Website is optional on purpose — not having one is a reason to apply.
     if (values.website.trim() && !normaliseUrl(values.website))
-      next.website = 'Η διεύθυνση δεν φαίνεται σωστή. Δοκιμάστε κάτι σαν example.gr'
+      next.website = FORM_ERRORS.INVALID_URL
     return next
   }
 
@@ -85,7 +85,7 @@ export default function ApplicationModal({ open, onClose }: Props) {
     setErrors(found)
     if (Object.keys(found).length) {
       setStatus('error')
-      setFormError('Ελέγξτε τα πεδία που είναι σημειωμένα παρακάτω.')
+      setFormError(FORM_ERRORS.FIX_MARKED_FIELDS)
       // Move focus to the first problem so keyboard users are not left hunting.
       const first = (Object.keys(found) as FieldName[])[0]
       document.getElementById(ids[first])?.focus()
@@ -102,7 +102,7 @@ export default function ApplicationModal({ open, onClose }: Props) {
 
     if (!result.ok) {
       setStatus('error')
-      setFormError(result.error ?? 'Κάτι πήγε στραβά. Δοκιμάστε ξανά σε λίγο.')
+      setFormError(result.error ?? FORM_ERRORS.SUBMIT_FAILED)
       return
     }
 
@@ -158,10 +158,10 @@ export default function ApplicationModal({ open, onClose }: Props) {
             <TextField
               id={ids.business}
               name="business"
-              label="Επιχείρηση"
+              label="Επωνυμία επιχείρησης"
               required
               autoComplete="organization"
-              placeholder="Το όνομα της επιχείρησής σας"
+              placeholder="Πώς λέγεται η επιχείρησή σας"
               value={values.business}
               onChange={(v) => set('business', v)}
               error={errors.business}
@@ -173,7 +173,7 @@ export default function ApplicationModal({ open, onClose }: Props) {
               label="Ονοματεπώνυμο"
               required
               autoComplete="name"
-              placeholder="Πώς σας λένε"
+              placeholder="Όνομα και επώνυμο"
               value={values.name}
               onChange={(v) => set('name', v)}
               error={errors.name}
@@ -223,7 +223,7 @@ export default function ApplicationModal({ open, onClose }: Props) {
             <TextField
               id={ids.website}
               name="website"
-              label="Υπάρχουσα ιστοσελίδα"
+              label="Ιστοσελίδα"
               inputMode="url"
               autoComplete="url"
               placeholder="π.χ. example.gr"

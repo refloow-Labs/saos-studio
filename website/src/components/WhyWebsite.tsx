@@ -49,22 +49,27 @@ export default function WhyWebsite() {
         {/* `.on-dark` comes from Chapter tone="dark", which renders the heading
             white and the <em> in the warm accent. */}
         <h2 className="text-headline text-[clamp(1.9rem,4.4vw,3.15rem)]">
-          Θα σας πούμε ένα <em>μυστικό</em>
+          Θα σας πούμε αν χρειάζεστε <em>λιγότερα</em> απ' όσα νομίζετε.
         </h2>
 
         {/* Four sentences, so the measure widens toward the ~65ch cap in
             REDESIGN.md and the type steps down; at the previous 50ch it ran to
             eight centred lines and stopped reading as a single thought. The
-            closing outcome is emphasised so the paragraph still has a hierarchy
-            when it is skimmed. */}
+            closing line is emphasised because it is the one that sets up the
+            button underneath it.
+
+            This is the one place on the homepage that states the positioning
+            outright. It is deliberately not repeated in the modal below, on
+            /services or on /reviews — it used to appear six times sitewide and
+            read as a tic rather than a promise. */}
         <p className="mt-6 max-w-[62ch] text-[clamp(0.95rem,1.2vw,1.08rem)] leading-[1.8] text-white/70 font-body">
-          Η ιστοσελίδα σας δεν χρειάζεται απλώς να είναι όμορφη. Χρειάζεται να
-          εμφανίζεται όταν οι σωστοί άνθρωποι αναζητούν τις υπηρεσίες σας. Πρέπει να
-          εμπνέει εμπιστοσύνη, να εξηγεί ξεκάθαρα τι προσφέρετε και να οδηγεί τον
-          επισκέπτη στο επόμενο βήμα.{' '}
+          Οι περισσότερες παλιές ιστοσελίδες δεν θέλουν πέταμα. Θέλουν να
+          φορτώνουν γρήγορα στο κινητό, να λένε καθαρά τι κάνετε και να κάνουν
+          εύκολο το επόμενο βήμα — μια κλήση, μια κράτηση, ένα μήνυμα. Καμιά
+          φορά αυτό είναι δυο μέρες δουλειάς, όχι καινούργια κατασκευή.{' '}
           <span className="font-semibold text-white">
-            Στόχος είναι περισσότερες επισκέψεις, κρατήσεις και αιτήματα επικοινωνίας
-            για την επιχείρησή σας.
+            Στείλτε μας τη διεύθυνσή σας και θα σας πούμε ποιο από τα δύο ισχύει
+            για εσάς.
           </span>
         </p>
 
@@ -87,9 +92,10 @@ export default function WhyWebsite() {
       >
         <div className="px-6 py-6 sm:px-8">
           <p className="max-w-[54ch] text-[0.9rem] leading-[1.8] text-muted font-body">
-            Ταχύτητα φόρτωσης, εμφάνιση στο κινητό, βασικό SEO. Θα σας πούμε ειλικρινά αν
-            αξίζει διόρθωση ή νέα κατασκευή, ακόμα κι αν η απάντηση σημαίνει μικρότερη
-            δουλειά για εμάς.
+            Ανοίγουμε αμέσως την ανάλυση της Google για τη σελίδα σας: ταχύτητα
+            φόρτωσης, εμφάνιση στο κινητό, βασικά τεχνικά. Αν αφήσετε και email,
+            τη διαβάζουμε εμείς και σας στέλνουμε τι αξίζει να διορθώσετε — και
+            τι μπορείτε να αφήσετε όπως είναι.
           </p>
           <EvaluationForm className="mt-6" />
         </div>

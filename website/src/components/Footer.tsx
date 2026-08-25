@@ -1,4 +1,5 @@
 import { useConsentStore } from '../lib/consent'
+import { REVIEWS_PUBLISHED } from '../lib/reviews'
 import { CONTACT_EMAIL } from '../lib/seo'
 import Placeholder from './Placeholder'
 
@@ -22,7 +23,9 @@ const NAV: FooterLink[] = [
 ]
 
 const COMPANY: FooterLink[] = [
-  { label: 'Κριτικές', href: '/reviews' },
+  // Omitted while `/reviews` is unpublished — see REVIEWS_PUBLISHED. The route
+  // 404s in production, and netlify.toml has no SPA fallback to soften that.
+  ...(REVIEWS_PUBLISHED ? [{ label: 'Κριτικές', href: '/reviews' }] : []),
   { label: 'Συχνές ερωτήσεις', href: '/faq' },
   { label: 'Ζητήστε προσφορά', href: '/request-a-quote' },
   { label: 'Δωρεάν website', href: '/#free-website' },
@@ -62,7 +65,7 @@ export default function Footer() {
   const reopen = useConsentStore((s) => s.reopen)
 
   return (
-    <footer className="relative bg-ink text-white py-16 px-5 md:px-12">
+    <footer className="relative bg-ink text-white py-16 px-5 sm:px-8 md:px-12">
       <div className="max-w-6xl mx-auto">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
           <div>

@@ -99,8 +99,10 @@ These are not style preferences.
   `robots.txt` deliberately does not block `/work/*`, so that tag is the only thing keeping
   them out of the index.
 - **No fabricated authority.** No award badges, invented client counts or rating aggregates.
-- **Sample reviews are labelled as samples and emit no `Review`/`AggregateRating` JSON-LD.**
-  Fabricated review markup is a structured-data violation that can earn a manual action.
+- **Reviews are switched off entirely** while they are invented — `REVIEWS_PUBLISHED`
+  in `src/lib/reviews.ts` hides the homepage section and unpublishes `/reviews`.
+  Fabricated review markup is a structured-data violation that can earn a manual action,
+  and `noindex` is not sufficient: the content must not be fetchable.
 - Business, contact and legal details are `Placeholder` until the owner supplies them.
 
 ## Build constraints that predate this spec

@@ -37,6 +37,28 @@ export interface Review {
  */
 export const REVIEWS_ARE_SAMPLES = true
 
+/**
+ * Whether reviews are shown to the public at all.
+ *
+ * Currently **false**: the studio is pre-first-client, every review below is
+ * invented, and a page of fabricated testimonials at a guessable URL is not
+ * something `noindex` makes acceptable. While this is false the homepage
+ * section is not rendered and `/reviews` is dropped from `seo.ts`, which takes
+ * it out of the prerender, the sitemap and IndexNow in one move. The route
+ * stays in App's `pages` map so the page still renders on the dev server —
+ * `scripts/prerender.mjs` only throws the other way round (a route in `seo.ts`
+ * with no page), so an unreferenced page entry is free.
+ *
+ * The explicit `: boolean` matters. Without it TypeScript narrows to the
+ * literal `false` and reports the `true` branches as unreachable.
+ *
+ * TODO(owner): to publish reviews, all three must land in the same commit —
+ * a real Google Business Profile feed replacing the array below,
+ * `REVIEWS_ARE_SAMPLES = false`, and the `Review`/`AggregateRating` nodes in
+ * `schema.ts`. Never this flag alone.
+ */
+export const REVIEWS_PUBLISHED: boolean = false
+
 export const reviews: Review[] = [
   {
     id: 'r1',

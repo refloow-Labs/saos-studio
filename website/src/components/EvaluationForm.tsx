@@ -1,5 +1,5 @@
 import { useId, useState, type FormEvent } from 'react'
-import { isValidEmail, normaliseUrl, submit } from '../lib/submit'
+import { FORM_ERRORS, isValidEmail, normaliseUrl, submit } from '../lib/submit'
 
 const PAGESPEED_BASE = 'https://pagespeed.web.dev/analysis?url='
 
@@ -55,14 +55,14 @@ export default function EvaluationForm({ onDark = false, className = '' }: Props
 
     const normalisedSite = normaliseUrl(site)
     if (!normalisedSite) {
-      fail('site', 'Η διεύθυνση δεν φαίνεται σωστή. Δοκιμάστε κάτι σαν example.gr')
+      fail('site', FORM_ERRORS.INVALID_URL)
       return
     }
 
     // Optional — but if they typed something, it has to be usable.
     const trimmedEmail = email.trim()
     if (trimmedEmail && !isValidEmail(trimmedEmail)) {
-      fail('email', 'Το email δεν φαίνεται σωστό. Ελέγξτε το ή αφήστε το κενό.')
+      fail('email', `${FORM_ERRORS.INVALID_EMAIL} Ελέγξτε το ή αφήστε το κενό.`)
       return
     }
 
@@ -96,7 +96,7 @@ export default function EvaluationForm({ onDark = false, className = '' }: Props
     })
 
     if (!result.ok) {
-      fail('site', result.error ?? 'Κάτι πήγε στραβά. Δοκιμάστε ξανά σε λίγο.')
+      fail('site', result.error ?? FORM_ERRORS.SUBMIT_FAILED)
       return
     }
 
@@ -169,7 +169,7 @@ export default function EvaluationForm({ onDark = false, className = '' }: Props
             name="email"
             inputMode="email"
             autoComplete="email"
-            placeholder="Email (προαιρετικό) — για να λάβετε πλήρη αναφορά"
+            placeholder="Email (προαιρετικό)"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
@@ -186,8 +186,9 @@ export default function EvaluationForm({ onDark = false, className = '' }: Props
               onDark ? 'text-white/50' : 'text-muted'
             }`}
           >
-            Αφήστε το email σας μόνο αν θέλετε να σας στείλουμε αναλυτική αναφορά με το τι
-            μπορείτε να βελτιώσετε.
+            Η ανάλυση της Google ανοίγει έτσι κι αλλιώς. Αφήστε email μόνο αν
+            θέλετε να τη διαβάσουμε εμείς και να σας πούμε τι αξίζει να
+            διορθώσετε.
           </p>
         </div>
       </div>

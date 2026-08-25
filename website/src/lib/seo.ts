@@ -8,6 +8,8 @@
  * that the prerenderer marked noindex.
  */
 
+import { REVIEWS_PUBLISHED } from './reviews'
+
 export const SITE_URL = 'https://saos.studio'
 export const SITE_NAME = 'SAOS Studio'
 export const SITE_LOCALE = 'el_GR'
@@ -40,13 +42,34 @@ export interface RouteMeta {
   breadcrumb?: string
 }
 
+/**
+ * Held out of `routes` while `REVIEWS_PUBLISHED` is false, which is what keeps
+ * `/reviews` out of the prerender, the sitemap and IndexNow simultaneously —
+ * all three read this list. Kept as a named const rather than deleted so
+ * republishing is a one-word change rather than a reconstruction.
+ *
+ * The old description claimed «Τι λένε οι πελάτες μας … και τα αποτελέσματα»
+ * about nine invented reviews and zero measured results; it is rewritten here
+ * so that a future republish does not restore the claim along with the route.
+ */
+const reviewsRoute: RouteMeta = {
+  path: '/reviews',
+  file: 'reviews/index.html',
+  title: 'Κριτικές — SAOS Studio',
+  description:
+    'Τι λένε οι επιχειρήσεις που δούλεψαν μαζί μας για τη συνεργασία και το αποτέλεσμα.',
+  priority: '0.6',
+  changefreq: 'monthly',
+  breadcrumb: 'Κριτικές',
+}
+
 export const routes: RouteMeta[] = [
   {
     path: '/',
     file: 'index.html',
-    title: 'SAOS Studio — Κατασκευή ιστοσελίδων για την επιχείρησή σας',
+    title: 'Κατασκευή ιστοσελίδων στην Αλεξανδρούπολη — SAOS Studio',
     description:
-      'Σχεδιάζουμε websites που συνδυάζουν καθαρό design, ταχύτητα και πραγματική χρησιμότητα. Εφάπαξ κατασκευή ιστοσελίδας, με προαιρετικό μηνιαίο SEO για συνεχή ανάπτυξη.',
+      'Ιστοσελίδες για μικρές επιχειρήσεις στη Θράκη. Πληρώνετε μία φορά για την κατασκευή και είναι δική σας — το μηνιαίο SEO είναι προαιρετικό.',
     priority: '1.0',
     changefreq: 'weekly',
   },
@@ -55,7 +78,7 @@ export const routes: RouteMeta[] = [
     file: 'our-story/index.html',
     title: 'Η ιστορία μας — SAOS Studio',
     description:
-      'Ποιοι είμαστε, γιατί ξεκινήσαμε και πώς δουλεύουμε. Μια μικρή ομάδα από τη Σαμοθράκη που φτιάχνει ιστοσελίδες για μικρές και μεσαίες επιχειρήσεις.',
+      'Μια μικρή ομάδα από τη Σαμοθράκη και την Αλεξανδρούπολη. Μιλάτε απευθείας με αυτούς που σχεδιάζουν και χτίζουν — και σας λένε όταν χρειάζεστε λιγότερα.',
     priority: '0.7',
     changefreq: 'monthly',
     breadcrumb: 'Η ιστορία μας',
@@ -63,9 +86,9 @@ export const routes: RouteMeta[] = [
   {
     path: '/services',
     file: 'services/index.html',
-    title: 'Υπηρεσίες — Κατασκευή ιστοσελίδων & SEO | SAOS Studio',
+    title: 'Υπηρεσίες: κατασκευή ιστοσελίδων & SEO — SAOS Studio',
     description:
-      'Κατασκευή ιστοσελίδας με εφάπαξ κόστος, μηνιαία συνδρομή SEO και custom πακέτα. Δείτε τι περιλαμβάνει κάθε υπηρεσία και ζητήστε προσφορά.',
+      'Κατασκευή ιστοσελίδας με εφάπαξ κόστος, προαιρετική μηνιαία συνδρομή SEO, ή ο συνδυασμός που χρειάζεστε. Δείτε αναλυτικά τι περιλαμβάνει το καθένα.',
     priority: '0.9',
     changefreq: 'monthly',
     breadcrumb: 'Υπηρεσίες',
@@ -73,7 +96,7 @@ export const routes: RouteMeta[] = [
   {
     path: '/how-it-works',
     file: 'how-it-works/index.html',
-    title: 'Πώς λειτουργεί — Η διαδικασία μας | SAOS Studio',
+    title: 'Πώς λειτουργεί — Η διαδικασία μας — SAOS Studio',
     description:
       'Από την πρώτη κουβέντα μέχρι τη δημοσίευση: προσφορά, σχεδιασμός, κατασκευή, διορθώσεις και launch. Δείτε βήμα βήμα τι συμβαίνει και πότε.',
     priority: '0.8',
@@ -83,29 +106,20 @@ export const routes: RouteMeta[] = [
   {
     path: '/examples',
     file: 'examples/index.html',
-    title: 'Έργα & παραδείγματα σχεδιασμού — SAOS Studio',
+    title: 'Δείγματα σχεδιασμού ιστοσελίδων — SAOS Studio',
     description:
-      'Δείγματα σχεδιασμού από εστίαση, φιλοξενία, υγεία και βραχυχρόνια μίσθωση. Δείτε το εύρος της δουλειάς μας και πώς προσεγγίζουμε κάθε κλάδο.',
+      'Δείγματα σχεδιασμού από εστίαση, φιλοξενία, υγεία και βραχυχρόνια μίσθωση — σχεδιασμένα για να δείξουν εύρος, όχι έργα πελατών.',
     priority: '0.8',
     changefreq: 'monthly',
     breadcrumb: 'Έργα',
   },
-  {
-    path: '/reviews',
-    file: 'reviews/index.html',
-    title: 'Κριτικές πελατών — SAOS Studio',
-    description:
-      'Τι λένε οι πελάτες μας για τη συνεργασία, τον σχεδιασμό και τα αποτελέσματα.',
-    priority: '0.6',
-    changefreq: 'monthly',
-    breadcrumb: 'Κριτικές',
-  },
+  ...(REVIEWS_PUBLISHED ? [reviewsRoute] : []),
   {
     path: '/faq',
     file: 'faq/index.html',
-    title: 'Συχνές ερωτήσεις — SAOS Studio',
+    title: 'Συχνές ερωτήσεις για ιστοσελίδες — SAOS Studio',
     description:
-      'Απαντήσεις για κόστος, χρόνο κατασκευής, hosting και domain, αλλαγές μετά την παράδοση, SEO και υποστήριξη.',
+      'Κόστος, χρόνος κατασκευής, hosting και domain, αλλαγές μετά την παράδοση, SEO και υποστήριξη. Δώδεκα ερωτήσεις που μας κάνουν πριν ξεκινήσουμε.',
     priority: '0.7',
     changefreq: 'monthly',
     breadcrumb: 'Συχνές ερωτήσεις',
@@ -113,9 +127,9 @@ export const routes: RouteMeta[] = [
   {
     path: '/free-website',
     file: 'free-website/index.html',
-    title: 'Δωρεάν website — SAOS Studio',
+    title: 'Δωρεάν website για μικρές επιχειρήσεις — SAOS Studio',
     description:
-      'Κάθε μήνα σχεδιάζουμε και κατασκευάζουμε μια ιστοσελίδα χωρίς χρέωση. Δείτε ποιοι μπορούν να κάνουν αίτηση, τι περιλαμβάνει, τι δεν περιλαμβάνει και πώς γίνεται η επιλογή.',
+      'Κάθε μήνα κατασκευάζουμε μια ιστοσελίδα χωρίς χρέωση. Ποιοι μπορούν να κάνουν αίτηση, τι περιλαμβάνει και τι δεν περιλαμβάνει.',
     priority: '0.8',
     changefreq: 'monthly',
     breadcrumb: 'Δωρεάν website',
@@ -123,9 +137,9 @@ export const routes: RouteMeta[] = [
   {
     path: '/request-a-quote',
     file: 'request-a-quote/index.html',
-    title: 'Ζητήστε προσφορά — SAOS Studio',
+    title: 'Ζητήστε προσφορά για ιστοσελίδα — SAOS Studio',
     description:
-      'Πείτε μας λίγα λόγια για την επιχείρηση και το project σας. Θα το εξετάσουμε και θα επικοινωνήσουμε σύντομα με πρόταση και κόστος.',
+      'Επτά σύντομες ερωτήσεις για την επιχείρησή σας. Λαμβάνετε γραπτή πρόταση με συγκεκριμένο κόστος και χρονοδιάγραμμα, χωρίς δέσμευση.',
     priority: '0.9',
     changefreq: 'monthly',
     breadcrumb: 'Ζητήστε προσφορά',
@@ -145,7 +159,7 @@ export const routes: RouteMeta[] = [
     file: 'terms/index.html',
     title: 'Όροι χρήσης — SAOS Studio',
     description:
-      'Οι όροι που διέπουν τη χρήση της ιστοσελίδας και τη συνεργασία με τη SAOS Studio.',
+      'Οι όροι που διέπουν τη χρήση της ιστοσελίδας και τη συνεργασία με τη SAOS Studio: αντικείμενο υπηρεσιών, τιμολόγηση, πνευματικά δικαιώματα και ευθύνη.',
     priority: '0.2',
     changefreq: 'yearly',
     breadcrumb: 'Όροι χρήσης',

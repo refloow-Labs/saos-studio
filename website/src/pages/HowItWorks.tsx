@@ -96,17 +96,17 @@ export default function HowItWorksPage() {
       <Chapter id="process-cta" tone="dark">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-headline text-[clamp(1.8rem,4vw,2.8rem)]">
-            Έτοιμοι να <em>ξεκινήσουμε;</em>
+            Τώρα ξέρετε ακριβώς τι <em>θα γίνει.</em>
           </h2>
           <p className="mx-auto mt-5 max-w-[50ch] text-[0.98rem] leading-[1.8] text-white/70 font-body">
-            Το πρώτο βήμα είναι δύο λεπτά. Δεν σας δεσμεύει σε τίποτα και θα λάβετε
-            γραπτή πρόταση πριν αποφασίσετε.
+            Μένει μόνο το πρώτο βήμα. Δεν σας δεσμεύει σε τίποτα και σταματάει
+            εδώ αν η πρόταση δεν σας πείσει.
           </p>
           <a
             href="/request-a-quote"
             className="btn-accent mt-9 justify-center px-8 py-4 text-[0.9rem]"
           >
-            Ζητήστε προσφορά σε 2 λεπτά <span aria-hidden>→</span>
+            Ζητήστε γραπτή προσφορά <span aria-hidden>→</span>
           </a>
         </div>
       </Chapter>

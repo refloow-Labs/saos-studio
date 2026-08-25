@@ -110,7 +110,7 @@ the `Service`/`hasOfferCatalog`, `/how-it-works` a `HowTo`, `/examples` an
 `ItemList` of `CreativeWork` (never `LocalBusiness` — the demos depict invented
 companies), `/our-story` an `AboutPage` with `Person` nodes, `/request-a-quote` a
 `ContactPage`, and every non-home route a `BreadcrumbList` built from
-`route.breadcrumb`. **`/reviews` deliberately gets none of it** — see below.
+`route.breadcrumb`. **`/reviews` is currently unpublished** — see below.
 
 - **`submit.ts` is the only integration point for forms.** Both the hero evaluation
   form and the application modal call `submit(formName, payload)`. It currently
@@ -138,10 +138,20 @@ companies), `/our-story` an `AboutPage` with `Person` nodes, `/request-a-quote` 
   it.** `robots.txt` intentionally does *not* disallow `/work/*`: a crawler has to
   fetch a page to see its noindex, and blocking the path would leave the URLs
   indexable as bare entries. The meta tag is the only thing keeping them out.
-- **Reviews in `reviews.ts` are invented.** They are labelled as samples in the UI
-  and emit **no `Review` / `AggregateRating` JSON-LD** — fabricated review markup is
-  a policy violation that can earn a manual action. `REVIEWS_ARE_SAMPLES` gates the
-  labels.
+- **Reviews in `reviews.ts` are invented, and the whole feature is switched off.**
+  `REVIEWS_PUBLISHED` (in `reviews.ts`) is `false`, which holds the `/reviews`
+  route out of `routes` in `seo.ts` — removing it from the prerender, the sitemap
+  and IndexNow at once — and hides the homepage strip, the mobile nav link and the
+  footer link. The route stays in App's `pages` map on purpose: `prerender.mjs`
+  only throws for a route with *no* page entry, never the reverse, so the page
+  still renders on the dev server while being unreachable in production.
+  `REVIEWS_ARE_SAMPLES` still gates the per-card labels for when it returns.
+  Republishing takes all three together — a real feed, `REVIEWS_ARE_SAMPLES = false`,
+  and the `Review`/`AggregateRating` nodes — never the flag alone. Fabricated review
+  markup is a policy violation that can earn a manual action.
+  Note the gating pattern: `tsconfig` sets `noUnusedLocals` and `npm run build` runs
+  `tsc` first, so deleting a JSX usage while leaving its import **fails the build**.
+  Gate with `{FLAG && …}` rather than deleting.
 - Business, contact and legal details are `Placeholder` until the owner supplies
   them. `llms.txt` explicitly tells AI crawlers the old €46/€52/€83 figures are
   withdrawn and must not be quoted.

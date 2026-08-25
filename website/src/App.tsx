@@ -59,6 +59,11 @@ const pages: Record<string, ComponentType> = {
   '/services': ServicesPage,
   '/how-it-works': HowItWorksPage,
   '/examples': ExamplesPage,
+  // Retained deliberately while `/reviews` is unpublished. The route is held out
+  // of `routes` in seo.ts, which is what removes it from the prerender, the
+  // sitemap and IndexNow; prerender.mjs only throws the other way round (a route
+  // with no page entry), so keeping this costs nothing and lets the page still
+  // render on the dev server for preview. See REVIEWS_PUBLISHED in lib/reviews.
   '/reviews': ReviewsPage,
   '/faq': FaqPage,
   '/free-website': FreeWebsitePage,

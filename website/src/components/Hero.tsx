@@ -9,8 +9,10 @@ import { projects } from '../lib/projects'
  *
  * Centred composition on a dark ground, with the Mount Saos ridgeline drawn
  * behind it. The mountain is not decoration: the studio is local to Samothraki
- * and Alexandroupoli — `schema.ts` publishes a Σαμοθράκη locality — so the
- * silhouette and the geographic headline are making the same claim.
+ * and Alexandroupoli — `schema.ts` publishes a Σαμοθράκη locality and a Thrace
+ * service area — so the silhouette, the badge and the subhead all make the same
+ * claim. The headline no longer carries the geography; it carries the argument,
+ * and the region moved to the line beneath it.
  *
  * Five deliberate layers, back to front:
  *
@@ -80,8 +82,16 @@ export default function Hero() {
           </p>
 
           {/*
-            Exact wording, fixed by the brief. The only addition is the <em>,
-            which the `.on-dark` rule renders in the warm accent.
+            The headline makes the argument; it does not name the category. That
+            job moved to the subhead, the <title> and the h2s further down, which
+            is where the «κατασκευή ιστοσελίδων» keyword now lives. The previous
+            wording («Ανάπτυξη και προώθηση ιστοσελίδων στη Βόρεια Ελλάδα») was a
+            label: true, searchable, and making no case to anyone already
+            unhappy with the site they have.
+
+            «Τηλέφωνα» is deliberate and concrete — it is what a tradesperson in
+            Alexandroupoli actually wants from a website, and it sets up the
+            contrast that does the arguing.
 
             Mixed case with the tonos intact — never text-transform. Greek drops
             the tonos in all-caps, which is why banner words elsewhere on the
@@ -91,7 +101,7 @@ export default function Hero() {
             id="hero-heading"
             className="text-headline mt-7 max-w-[17ch] text-balance text-[clamp(2.05rem,5.6vw,4.4rem)]"
           >
-            Ανάπτυξη και προώθηση ιστοσελίδων στη <em>Βόρεια Ελλάδα</em>
+            Μια ιστοσελίδα που φέρνει <em>τηλέφωνα</em>. Όχι εντυπώσεις.
           </h1>
 
           {/* text-white/70, not text-muted: #6B6257 on #14110C fails contrast
@@ -102,14 +112,13 @@ export default function Hero() {
               slightly. At the old size and width this ran to six centred lines
               and started competing with the headline. */}
           <p className="mt-9 max-w-[64ch] text-[clamp(0.94rem,1.15vw,1.06rem)] leading-[1.8] text-white/70 font-body">
-            Το Saos Studio, μέρος της Rhooa Labs, δημιουργεί και προωθεί websites για
-            επιχειρήσεις της Βόρειας Ελλάδας.{' '}
+            Κατασκευή και προώθηση ιστοσελίδων για μικρές επιχειρήσεις στη Θράκη.{' '}
             <span className="font-semibold text-white">
-              Ξεκινάμε πάντα με δωρεάν SEO audit, για να δείτε τι αποδίδει πριν
-              δεσμευτείτε.
+              Μιλάτε απευθείας με τους ανθρώπους που θα σχεδιάσουν και θα χτίσουν
+              τη δική σας.
             </span>{' '}
-            Στόχος μας είναι περισσότερες κρατήσεις, αιτήματα επικοινωνίας και τοπική
-            προβολή, όχι απλώς μια πιο όμορφη homepage.
+            Χωρίς μεσάζοντες και χωρίς πακέτα που δεν καταλαβαίνετε τι
+            περιλαμβάνουν.
           </p>
 
           <div className="mt-12 flex w-full flex-col items-center gap-5 sm:w-auto md:mt-14">
@@ -117,7 +126,7 @@ export default function Hero() {
               href="/request-a-quote"
               className="btn-accent w-full justify-center px-6 py-4 text-center text-[0.95rem] sm:w-auto sm:px-9"
             >
-              Ζητήστε προσφορά σε 2 λεπτά <span aria-hidden>→</span>
+              Ζητήστε γραπτή προσφορά <span aria-hidden>→</span>
             </a>
 
             <a

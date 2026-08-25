@@ -16,8 +16,10 @@ import { projects, type Project } from '../lib/projects'
  * dialog still exists, on /examples, where a visitor has arrived to browse.
  * Here the single destination keeps the section to one outcome.
  *
- * Ground stays dark: switching it to light would sit it directly against the
- * white reviews section below with nothing separating the two.
+ * Ground stays dark. It used to be justified by the white reviews section that
+ * followed; that section is gone (see REVIEWS_PUBLISHED) and the dark ground now
+ * earns its place differently — it is one of only two dark breaks on the page,
+ * and it marks the switch from argument to evidence.
  */
 
 /**

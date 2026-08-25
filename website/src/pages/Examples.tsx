@@ -95,62 +95,12 @@ export default function ExamplesPage() {
         </p>
       </Chapter>
 
-      {/* Case-study breakdowns. `caseStudy` is unpopulated for now, so this
-          renders nothing rather than inventing briefs — see projects.ts. */}
-      {projects.some((p) => p.caseStudy) && (
-        <Chapter id="case-studies" tone="white">
-          <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[20ch]">
-            Πώς σκεφτήκαμε <em>κάθε δείγμα.</em>
-          </h2>
-          <div className="mt-12 space-y-16">
-            {projects
-              .filter((p) => p.caseStudy)
-              .map((p) => (
-                <Reveal key={p.slug}>
-                  <article className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-14">
-                    <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-warm-ink font-body">
-                        {p.category}
-                      </span>
-                      <h3 className="mt-2 text-headline text-[clamp(1.3rem,2.4vw,1.8rem)]">
-                        {p.name}
-                      </h3>
-                    </div>
-                    <div>
-                      <h4 className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-muted font-body">
-                        Το ζητούμενο
-                      </h4>
-                      <p className="mt-3 max-w-[60ch] text-[0.93rem] leading-[1.8] text-ink font-body">
-                        {p.caseStudy!.brief}
-                      </p>
-
-                      <h4 className="mt-7 text-[0.72rem] font-bold uppercase tracking-[0.16em] text-muted font-body">
-                        Σχεδιαστικές αποφάσεις
-                      </h4>
-                      <ul className="mt-3 space-y-2.5">
-                        {p.caseStudy!.decisions.map((d) => (
-                          <li
-                            key={d}
-                            className="max-w-[60ch] border-l border-border pl-4 text-[0.9rem] leading-[1.75] text-muted font-body"
-                          >
-                            {d}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <h4 className="mt-7 text-[0.72rem] font-bold uppercase tracking-[0.16em] text-muted font-body">
-                        Τι δείχνει
-                      </h4>
-                      <p className="mt-3 max-w-[60ch] text-[0.9rem] leading-[1.8] text-muted font-body">
-                        {p.caseStudy!.demonstrates}
-                      </p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-          </div>
-        </Chapter>
-      )}
+      {/* The case-study breakdowns that used to sit here have been removed.
+          `caseStudy` is declared on Project but populated on none of the eight
+          samples, and it never will be for these: there is no client and no
+          campaign behind them, so a "brief" and "results" would be invented
+          alongside the businesses. The layout is recoverable from git history if
+          real client work ever earns the section. */}
 
       <Chapter id="examples-cta" tone="dark">
         <div className="mx-auto max-w-3xl text-center">

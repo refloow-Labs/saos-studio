@@ -36,18 +36,21 @@ messages — that it would not otherwise have received.
 differentiator the owner stands behind is direct access to the people who design and
 build, and advice that is honest against the studio's own short-term interest.
 
-> **Open decision — stated position vs. shipped copy.** The site currently leads
-> with a different claim: "AI for speed, human designer for quality, days instead of
-> months". That claim is load-bearing in `public/llms.txt`, the `Organization`
-> description in `src/lib/schema.ts`, and the FAQ answer `giati-oikonomikoi`. The
-> owner names the small-team/honesty position instead. These are not the same claim
-> and future work should not treat both as settled. Resolve before any messaging
-> pass.
+> **Resolved (Aug 2026) — stated position.** The site used to lead with "AI for
+> speed, human designer for quality, days instead of months", which is *not* the
+> same claim as the one above. The owner chose the small-team/honesty position, and
+> the AI-speed framing has been removed from the three places it was load-bearing:
+> `public/llms.txt`, the `Organization` description in `src/lib/schema.ts`, and the
+> FAQ answer `giati-oikonomikoi`. AI is no longer part of the pitch — the remaining
+> mentions in `story.ts` describe Rhooa Labs, the parent company, and are accurate.
 
-> **Open decision — service area.** `schema.ts` publishes
-> `areaServed: Country/Greece` and copy addresses "μικρές επιχειρήσεις στην Ελλάδα",
-> which is wider than the confirmed regional focus. Narrowing it is a strategy
-> choice with real SEO consequences, not a copy edit.
+> **Resolved (Aug 2026) — service area is regional.** `schema.ts` now publishes an
+> `areaServed` array of named administrative places (Ανατολική Μακεδονία και Θράκη,
+> Έβρος, Αλεξανδρούπολη, Σαμοθράκη) instead of `Country/Greece`, and the copy in
+> `Hero.tsx`, `index.html`, `seo.ts` and `llms.txt` says Θράκη rather than Ελλάδα or
+> Βόρεια Ελλάδα. Deliberately **not** a `GeoCircle` — that would require publishing
+> a midpoint and radius, and deliberately still **not** a `LocalBusiness` node,
+> which stays forbidden while no address or phone is published.
 
 ## Operating Context
 
@@ -110,11 +113,14 @@ invent replacements:
   names, addresses, staff, opening hours, review counts and testimonials. They are
   presented as design samples only, each carries `noindex,follow`, and
   `public/llms.txt` discloses it.
-- The nine reviews in `src/lib/reviews.ts` are **invented**, gated behind
-  `REVIEWS_ARE_SAMPLES`, labelled per card. **No `Review` or `AggregateRating`
+- The nine reviews in `src/lib/reviews.ts` are **invented**, and are no longer
+  shown anywhere: `REVIEWS_PUBLISHED = false` hides the homepage strip and
+  unpublishes the `/reviews` route entirely. **No `Review` or `AggregateRating`
   JSON-LD is emitted anywhere**, and none may be added until real reviews exist.
 - Unconfirmed and rendered as `Placeholder`: year founded, number of sites
-  delivered, typical delivery timeline, free-programme acceptance rate.
+  delivered, typical delivery timeline. The free-programme **acceptance rate was
+  removed outright** — a hard «20%» inside a dashed box still reads as a claim,
+  and the owner never confirmed it. Selectivity is stated without a number.
 - Not yet supplied: business phone, social profiles, and the Greek statutory
   business details (επωνυμία, έδρα, ΑΦΜ/ΔΟΥ, ΓΕΜΗ) that a commercial site must
   publish. `/terms` is structure only and needs a lawyer.
