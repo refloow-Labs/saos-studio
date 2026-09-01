@@ -174,7 +174,7 @@
      so keyboard users had no visible focus at all. Offset keeps it clear of
      pill buttons; the warm accent reads against both white and near-black. */
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 3px solid #fdb226;
+    outline: 3px solid #3d3e69;
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -194,7 +194,7 @@
   .text-headline strong {
     font-style: normal;
     font-weight: 800;
-    color: #9ca3af;
+    color: #0a0a0a;
   }
 
 
@@ -226,7 +226,7 @@
   .on-dark .text-headline strong,
   .text-headline.on-dark em,
   .text-headline.on-dark strong {
-    color: #FDB226;
+    color: #9496D4;
   }
 
 
@@ -276,21 +276,22 @@
     gap: 0.9rem;
   }
 
-  /* Warm pill — the conversion CTA. Deliberately the only warm-filled element
-     on a light section, so "the orange button" is unambiguously the next step.
-     Black text, not white: #FDB226 against white fails contrast badly. */
+  /* Accent pill — the conversion CTA. Deliberately the only accent-filled
+     element on a light section, so "the indigo button" is unambiguously the
+     next step. White text, not black: #3d3e69 is dark enough that black text
+     fails contrast. */
   .btn-accent {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    background: #fdb226;
-    color: #0a0a0a;
+    background: #3d3e69;
+    color: #ffffff;
     font-weight: 700;
     border-radius: 9999px;
     transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .btn-accent:hover {
-    background: #e89f14;
+    background: #2f3055;
     gap: 0.9rem;
   }
 
@@ -409,9 +410,9 @@
      to miss in review, and `components/Placeholder.tsx` also refuses to render
      silently in a production build. */
   .placeholder-mark {
-    outline: 2px dashed #e89f14;
+    outline: 2px dashed #2f3055;
     outline-offset: 3px;
-    background: #fff4dc;
+    background: #E7E7F1;
     border-radius: 4px;
     /* The ground is always cream, so the text colour cannot be inherited — on a
        dark section it would arrive as white and the marker would render blank. */

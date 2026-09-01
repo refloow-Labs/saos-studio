@@ -96,5 +96,5 @@ export const phaseLabels: Record<ProcessPhase, string> = {
   discovery: 'Πριν ξεκινήσουμε',
   design: 'Σχεδιασμός',
   build: 'Κατασκευή και παράδοση',
-  after: 'Μετά τη δημοσίευση',
+  after: 'Προώθηση',
 }

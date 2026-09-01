@@ -1,7 +1,6 @@
 import Layout from '../components/Layout'
 import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
-import Placeholder from '../components/Placeholder'
 import { CONTACT_EMAIL } from '../lib/seo'
 
 /**
@@ -83,16 +82,6 @@ export default function TermsPage() {
         />
 
         <div className="mt-10 max-w-[68ch]">
-          <Placeholder
-            note="Ολόκληρη η σελίδα όρων χρήσης εκκρεμεί. Απαιτείται σύνταξη και έλεγχος από νομικό πριν τη δημοσίευση — δεν συντάσσεται αυτόματα."
-            className="p-5 text-[0.88rem] leading-[1.75] text-ink font-body"
-          >
-            <strong>Αυτή η σελίδα δεν έχει ακόμη οριστικοποιηθεί.</strong> Παρακάτω
-            περιγράφονται οι ενότητες που θα περιλαμβάνει. Το τελικό κείμενο θα συνταχθεί
-            και θα ελεγχθεί από νομικό πριν δημοσιευτεί. Μέχρι τότε, για οποιοδήποτε
-            ερώτημα σχετικά με τους όρους συνεργασίας επικοινωνήστε μαζί μας απευθείας.
-          </Placeholder>
-
           <p className="mt-6 text-[0.9rem] leading-[1.8] text-muted font-body">
             Ερωτήσεις;{' '}
             <a
@@ -113,12 +102,6 @@ export default function TermsPage() {
               <p className="mt-3 text-[0.93rem] leading-[1.8] text-ink font-body">
                 {section.body}
               </p>
-              <Placeholder
-                note={section.note}
-                className="mt-3 p-4 text-[0.82rem] leading-[1.7] font-body"
-              >
-                Προς σύνταξη από νομικό.
-              </Placeholder>
             </li>
           ))}
         </ol>

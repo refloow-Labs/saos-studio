@@ -1,10 +1,19 @@
+import {
+  MessageCircle,
+  FileText,
+  CheckCircle2,
+  Palette,
+  Code2,
+  RefreshCw,
+  Rocket,
+  TrendingUp,
+  type LucideIcon,
+} from 'lucide-react'
 import Layout from '../components/Layout'
 import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
-import Placeholder from '../components/Placeholder'
 import { processStages, phaseLabels, type ProcessPhase } from '../lib/process'
-import { storyPlaceholders } from '../lib/story'
 
 /** Stages grouped by phase, preserving the order both arrays declare. */
 function grouped() {
@@ -17,6 +26,21 @@ function grouped() {
     }))
     .filter((g) => g.stages.length > 0)
 }
+
+/** One icon per stage, keyed by slug — a visual anchor `processStages` (the
+ * schema.org HowTo source) has no reason to carry itself. */
+const STAGE_ICON: Record<string, LucideIcon> = {
+  'peite-mas': MessageCircle,
+  protasi: FileText,
+  egkrisi: CheckCircle2,
+  schediasmos: Palette,
+  anaptyxi: Code2,
+  diorthoseis: RefreshCw,
+  dimosiefsi: Rocket,
+  'miniaio-seo': TrendingUp,
+}
+
+const PHASE_ORDER: ProcessPhase[] = ['discovery', 'design', 'build', 'after']
 
 export default function HowItWorksPage() {
   return (
@@ -33,15 +57,33 @@ export default function HowItWorksPage() {
           lead="Οκτώ βήματα, χωρίς εκπλήξεις. Ξέρετε από την αρχή τι θα γίνει, πότε θα το δείτε και τι χρειαζόμαστε από εσάς σε κάθε στάδιο."
         />
 
-        <Reveal className="mt-10">
-          <Placeholder
-            note={storyPlaceholders.timeline}
-            className="max-w-[62ch] p-4 text-[0.85rem] leading-[1.75] font-body"
-          >
-            Τυπικός συνολικός χρόνος παράδοσης — προς επιβεβαίωση από τον ιδιοκτήτη πριν
-            δημοσιευτεί συγκεκριμένο διάστημα.
-          </Placeholder>
-        </Reveal>
+        {/* Overview stepper — the four phases at a glance, each linking to its
+            chapter below. Read top-to-bottom on mobile, left-to-right on
+            desktop; the connecting line is one element behind all four dots so
+            it never needs to be redrawn per breakpoint. */}
+        <div className="relative mt-14">
+          <div
+            aria-hidden
+            className="absolute left-[1.1rem] top-2 h-[calc(100%-1rem)] w-px bg-border sm:left-0 sm:top-[1.1rem] sm:h-px sm:w-full"
+          />
+          <ol className="relative flex flex-col gap-6 sm:flex-row sm:justify-between sm:gap-4">
+            {PHASE_ORDER.map((phase, i) => (
+              <li key={phase} className="flex items-center gap-4 sm:flex-col sm:items-center sm:gap-3 sm:text-center">
+                <a
+                  href={`#phase-${phase}`}
+                  className="group flex items-center gap-4 sm:flex-col sm:gap-3"
+                >
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-warm text-[0.8rem] font-extrabold text-white ring-4 ring-bg transition-transform duration-200 group-hover:scale-110">
+                    {i + 1}
+                  </span>
+                  <span className="text-[0.82rem] font-bold text-ink font-body sm:max-w-[10ch]">
+                    {phaseLabels[phase]}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
       </Chapter>
 
       {grouped().map((group, gi) => (
@@ -54,41 +96,57 @@ export default function HowItWorksPage() {
             {group.label}
           </h2>
 
-          <ol className="mt-8 space-y-12">
-            {group.stages.map((stage) => (
-              <Reveal as="li" key={stage.slug} className="scroll-mt-32">
-                <div id={stage.slug} className="grid gap-5 md:grid-cols-[6rem_1fr] md:gap-8">
-                  <span
-                    aria-hidden
-                    className="text-display text-[clamp(2.2rem,5vw,3.4rem)] leading-none text-muted"
-                  >
-                    {stage.num}
-                  </span>
+          {/* Vertical timeline: a single rail behind every icon node in this
+              phase, each node linking to its own anchor. The rail is measured
+              off the icon column (2.75rem wide, centred) rather than a fixed
+              offset, so it lines up regardless of font metrics. */}
+          <ol className="relative mt-10">
+            <div
+              aria-hidden
+              className="absolute left-[1.375rem] top-3 bottom-3 w-px bg-border"
+            />
+            {group.stages.map((stage) => {
+              const Icon = STAGE_ICON[stage.slug] ?? CheckCircle2
+              return (
+                <Reveal as="li" key={stage.slug} className="scroll-mt-32">
+                  <div id={stage.slug} className="relative grid gap-5 pb-12 last:pb-0 md:grid-cols-[2.75rem_1fr] md:gap-8">
+                    <div className="relative flex md:flex-col md:items-center">
+                      <span className="relative z-10 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-warm-soft text-warm-ink ring-4 ring-bg">
+                        <Icon aria-hidden className="h-5 w-5" strokeWidth={2} />
+                      </span>
+                      <span
+                        aria-hidden
+                        className="ml-3 text-display text-[1.3rem] leading-none text-muted md:ml-0 md:mt-2"
+                      >
+                        {stage.num}
+                      </span>
+                    </div>
 
-                  <div>
-                    <h3 className="text-headline text-[clamp(1.2rem,2.2vw,1.65rem)]">
-                      {stage.label}
-                      {stage.optional && (
-                        <span className="ml-3 align-middle rounded-full bg-warm-soft px-2.5 py-1 text-[0.6rem] font-extrabold uppercase tracking-[0.1em] text-warm-ink font-body">
-                          Προαιρετικό
-                        </span>
-                      )}
-                    </h3>
+                    <div>
+                      <h3 className="text-headline text-[clamp(1.2rem,2.2vw,1.65rem)]">
+                        {stage.label}
+                        {stage.optional && (
+                          <span className="ml-3 align-middle rounded-full bg-warm-soft px-2.5 py-1 text-[0.6rem] font-extrabold uppercase tracking-[0.1em] text-warm-ink font-body">
+                            Προαιρετικό
+                          </span>
+                        )}
+                      </h3>
 
-                    <p className="mt-4 max-w-[64ch] text-[0.95rem] leading-[1.85] text-muted font-body">
-                      {stage.desc}
-                    </p>
-
-                    {stage.youProvide && (
-                      <p className="mt-4 max-w-[58ch] border-l-2 border-warm pl-4 text-[0.87rem] leading-[1.75] text-ink font-body">
-                        <span className="font-extrabold">Τι χρειαζόμαστε από εσάς:</span>{' '}
-                        {stage.youProvide}
+                      <p className="mt-4 max-w-[64ch] text-[0.95rem] leading-[1.85] text-muted font-body">
+                        {stage.desc}
                       </p>
-                    )}
+
+                      {stage.youProvide && (
+                        <p className="mt-4 max-w-[58ch] border-l-2 border-warm pl-4 text-[0.87rem] leading-[1.75] text-ink font-body">
+                          <span className="font-extrabold">Τι χρειαζόμαστε από εσάς:</span>{' '}
+                          {stage.youProvide}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              )
+            })}
           </ol>
         </Chapter>
       ))}

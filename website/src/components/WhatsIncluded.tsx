@@ -37,8 +37,7 @@ export default function WhatsIncluded() {
                 Σχεδιασμός φτιαγμένος για την επιχείρησή σας
               </h3>
               <p className="mt-3 max-w-[48ch] text-[0.91rem] leading-[1.75] text-muted font-body">
-                Ξεκινάμε από το τι κάνετε και ποιον θέλετε να φτάσετε, όχι από ένα έτοιμο
-                template με αλλαγμένα χρώματα. Βλέπετε τον σχεδιασμό πριν γραφτεί κώδικας.
+                Σχεδιάζουμε με βάση τις ανάγκες σας.
               </p>
             </div>
             <div className="relative mt-auto h-48 overflow-hidden border-t border-border bg-white sm:h-56">
@@ -63,7 +62,7 @@ export default function WhatsIncluded() {
           <div className="flex h-full flex-col overflow-hidden rounded-card border border-border bg-bg">
             <div className="p-7">
               <Smartphone aria-hidden className={ICON} strokeWidth={1.75} />
-              <h3 className={TITLE}>Σωστό στο κινητό</h3>
+              <h3 className={TITLE}>Προτεραιότητα στην Mobile εμπειρία</h3>
               <p className={BODY}>
                 Το κινητό δεν είναι η μικρή έκδοση της σελίδας. Είναι η κύρια, και
                 σχεδιάζουμε πρώτα γι' αυτό.

@@ -1,7 +1,5 @@
 import { Star } from 'lucide-react'
 import SectionOpener from './SectionOpener'
-import Reveal from './Reveal'
-import Placeholder from './Placeholder'
 import {
   reviews,
   formatReviewDate,
@@ -96,19 +94,6 @@ export default function Reviews() {
         }
         doodle="circle"
       />
-
-      {REVIEWS_ARE_SAMPLES && (
-        <Reveal className="mt-8">
-          <Placeholder
-            note="Πραγματικές κριτικές Google: απαιτείται σύνδεση με το Google Business Profile"
-            className="mx-auto max-w-[62ch] p-4 text-center text-[0.85rem] leading-[1.7] text-ink font-body"
-          >
-            Οι κριτικές που ακολουθούν είναι <strong>ενδεικτικές</strong> και δεν είναι
-            πραγματικές. Θα αντικατασταθούν με τις πραγματικές κριτικές Google μόλις
-            συνδεθεί το προφίλ της επιχείρησης.
-          </Placeholder>
-        </Reveal>
-      )}
 
       {/* Fixed-height viewport with the columns drifting inside it. */}
       <div

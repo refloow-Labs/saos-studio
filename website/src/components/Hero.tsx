@@ -1,5 +1,4 @@
 import Carousel from './Carousel'
-import Doodle from './Doodle'
 import HeroShowcaseCard from './HeroShowcaseCard'
 import MountSaos from './MountSaos'
 import { projects } from '../lib/projects'
@@ -76,11 +75,6 @@ export default function Hero() {
             So this carries something true and checkable instead of a number
             that would have to be retracted later.
           */}
-          <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.07] px-4 py-2 text-[0.72rem] font-semibold tracking-[0.01em] text-white/80 font-body sm:text-[0.78rem]">
-            <Doodle variant="sparkle" className="h-4 w-4 flex-shrink-0" strokeWidth={4} />
-            Στούντιο από τη Σαμοθράκη &amp; την Αλεξανδρούπολη
-          </p>
-
           {/*
             The headline makes the argument; it does not name the category. That
             job moved to the subhead, the <title> and the h2s further down, which
@@ -101,7 +95,7 @@ export default function Hero() {
             id="hero-heading"
             className="text-headline mt-7 max-w-[17ch] text-balance text-[clamp(2.05rem,5.6vw,4.4rem)]"
           >
-            Μια ιστοσελίδα που φέρνει <em>τηλέφωνα</em>. Όχι εντυπώσεις.
+            Ανάπτυξη <em>ιστοσελίδων</em> στην Βόρεια Ελλάδα
           </h1>
 
           {/* text-white/70, not text-muted: #6B6257 on #14110C fails contrast
@@ -112,13 +106,11 @@ export default function Hero() {
               slightly. At the old size and width this ran to six centred lines
               and started competing with the headline. */}
           <p className="mt-9 max-w-[64ch] text-[clamp(0.94rem,1.15vw,1.06rem)] leading-[1.8] text-white/70 font-body">
-            Κατασκευή και προώθηση ιστοσελίδων για μικρές επιχειρήσεις στη Θράκη.{' '}
+            Κατασκευή και προώθηση ιστοσελίδων για μικρές επιχειρήσεις.{' '}
             <span className="font-semibold text-white">
-              Μιλάτε απευθείας με τους ανθρώπους που θα σχεδιάσουν και θα χτίσουν
-              τη δική σας.
-            </span>{' '}
-            Χωρίς μεσάζοντες και χωρίς πακέτα που δεν καταλαβαίνετε τι
-            περιλαμβάνουν.
+              Αναπτύξτε την εικόνα της επιχείρησης σας μέσα σε λίγα μόνο
+              βήματα.
+            </span>
           </p>
 
           <div className="mt-12 flex w-full flex-col items-center gap-5 sm:w-auto md:mt-14">

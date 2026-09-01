@@ -59,7 +59,7 @@ export default function Portfolio() {
         and «Συχνές ερωτήσεις», which is what keeps it reading as deliberate.
       */}
       <SectionHeading align="center" body="Από την εστίαση και τη φιλοξενία μέχρι την υγεία.">
-        Δείγματα <em>σχεδιασμού</em>
+        Παραδείγματα <em>σχεδίων</em>
       </SectionHeading>
 
       {/*

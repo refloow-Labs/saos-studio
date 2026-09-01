@@ -237,6 +237,7 @@ export default function Navigation({ overDark = false }: Props) {
             <ul className="flex flex-col gap-5">
               {[
                 ...links,
+                { label: 'Δωρεάν έλεγχος ταχύτητας', href: '/website-review' },
                 ...(REVIEWS_PUBLISHED
                   ? [{ label: 'Κριτικές', href: '/reviews' }]
                   : []),

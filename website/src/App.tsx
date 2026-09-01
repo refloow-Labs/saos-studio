@@ -7,6 +7,7 @@ import ExamplesPage from './pages/Examples'
 import ReviewsPage from './pages/Reviews'
 import FaqPage from './pages/Faq'
 import FreeWebsitePage from './pages/FreeWebsite'
+import WebsiteReviewPage from './pages/WebsiteReview'
 import RequestQuotePage from './pages/RequestQuote'
 import PrivacyPage from './pages/Privacy'
 import TermsPage from './pages/Terms'
@@ -67,6 +68,7 @@ const pages: Record<string, ComponentType> = {
   '/reviews': ReviewsPage,
   '/faq': FaqPage,
   '/free-website': FreeWebsitePage,
+  '/website-review': WebsiteReviewPage,
   '/request-a-quote': RequestQuotePage,
   '/privacy': PrivacyPage,
   '/terms': TermsPage,

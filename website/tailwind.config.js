@@ -32,26 +32,30 @@ export default {
         // light page reading as one undifferentiated scroll.
         break: '#14110C',
         'break-2': '#1E1A14',
-        // The single warm accent. Black stays the structural colour; `warm` is the
+        // The single accent. Black stays the structural colour; `warm` is the
         // page's one non-monochrome signal, reserved for conversion CTAs, emphasis
         // words inside dark breaks, and the hand-drawn doodles. Changing this one
         // value re-tints every accent on the site — that is the point.
-        warm: '#FDB226',
-        'warm-dim': '#E89F14',
-        // Accent as TEXT. warm-dim is a hover/fill tone: measured as text it is
-        // 2.23:1 on white, 2.05:1 on warm-soft, 1.96:1 on surface -- it fails AA
-        // on every ground the site has. warm-ink is the same hue darkened until
-        // it clears 4.5:1 everywhere (5.70 / 5.22 / 5.01). Use it for badges,
-        // labels, form errors and accent hover states; keep warm-dim for fills,
-        // borders and decorative icons.
-        'warm-ink': '#8A5E09',
-        'warm-soft': '#FFF4DC',
+        // Re-tinted from amber (#FDB226) to indigo (#3d3e69) per Giannis, Aug 2026.
+        warm: '#3d3e69',
+        'warm-dim': '#2f3055',
+        // Accent as TEXT. warm-ink is the same hue darkened slightly for extra
+        // margin as running text on light grounds. Use it for badges, labels,
+        // form errors and accent hover states; keep warm-dim for fills, borders
+        // and decorative icons.
+        'warm-ink': '#2f3055',
+        'warm-soft': '#E7E7F1',
+        // On a near-black `break` ground, the base indigo reads too close to the
+        // background to stand out (both are dark). This lighter tint is used only
+        // for text/doodles sitting directly on `break`/`break-2` — see index.css
+        // `.on-dark .text-headline em`.
+        'warm-light': '#9496D4',
         // Ground ladder. `warm` at full chroma cannot carry running text --
-        // muted text on it measures 3.3:1 -- so the grounds that whole sections
-        // sit on are separate, lighter steps of the same hue. See Ground.tsx.
-        wash: '#FDF6E9',
-        'wash-2': '#FBEDD3',
-        'amber-soft': '#FCD68A',
+        // so the grounds that whole sections sit on are separate, lighter steps
+        // of the same hue. See Ground.tsx.
+        wash: '#F1F1F6',
+        'wash-2': '#E8E8F1',
+        'amber-soft': '#C7C8DE',
       },
       fontFamily: {
         display: ['Manrope', 'system-ui', 'sans-serif'],

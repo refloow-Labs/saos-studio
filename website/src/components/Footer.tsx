@@ -1,7 +1,6 @@
 import { useConsentStore } from '../lib/consent'
 import { REVIEWS_PUBLISHED } from '../lib/reviews'
 import { CONTACT_EMAIL } from '../lib/seo'
-import Placeholder from './Placeholder'
 
 interface FooterLink {
   label: string
@@ -29,6 +28,7 @@ const COMPANY: FooterLink[] = [
   { label: 'Συχνές ερωτήσεις', href: '/faq' },
   { label: 'Ζητήστε προσφορά', href: '/request-a-quote' },
   { label: 'Δωρεάν website', href: '/#free-website' },
+  { label: 'Δωρεάν έλεγχος ταχύτητας', href: '/website-review' },
 ]
 
 const LEGAL: FooterLink[] = [
@@ -120,33 +120,42 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Placeholder note="Τηλέφωνο επιχείρησης" inline>
-                  +30 XXX XXX XXXX
-                </Placeholder>
+                <a href="tel:+306986693678" className="transition-colors duration-200 hover:text-warm">
+                  +30 698 669 3678
+                </a>
               </li>
             </ul>
 
             <h2 className={`${HEADING} mt-8`}>Social</h2>
-            <Placeholder
-              note="Σύνδεσμοι social media: Instagram, Facebook, LinkedIn"
-              className="mt-4 p-3 text-[0.8rem] font-body"
-            >
-              Instagram · Facebook · LinkedIn
-            </Placeholder>
+            <ul className="mt-4 flex flex-col gap-3 text-[0.85rem] font-semibold text-white/70 font-body">
+              <li>
+                <a
+                  href="https://www.instagram.com/saos.studio/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-200 hover:text-warm"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61591820069253"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-200 hover:text-warm"
+                >
+                  Facebook
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <Placeholder
-          note="Νομικά στοιχεία επιχείρησης (επωνυμία, έδρα, ΑΦΜ/ΔΟΥ, ΓΕΜΗ, αρ. αδείας), υποχρεωτικά για εμπορική ιστοσελίδα στην Ελλάδα"
-          className="mt-14 p-4 text-[0.78rem] leading-[1.7] font-body"
-        >
-          Επωνυμία · Έδρα · ΑΦΜ / ΔΟΥ · ΓΕΜΗ. Προς συμπλήρωση από τον ιδιοκτήτη. Απαιτείται
-          έλεγχος από νομικό πριν τη δημοσίευση.
-        </Placeholder>
-
         <div className="mt-8 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
           <span className="text-[0.75rem] font-medium text-white/40 font-body">
-            © {new Date().getFullYear()} saos.studio. Με επιφύλαξη παντός δικαιώματος.
+            © {new Date().getFullYear()} saos.studio. Με επιφύλαξη παντός δικαιώματος. Powered by
+            Rhooa Labs.
           </span>
           <button
             type="button"

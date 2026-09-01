@@ -9,6 +9,7 @@ import Portfolio from '../components/Portfolio'
 import Reviews from '../components/Reviews'
 import ProcessTeaser from '../components/ProcessTeaser'
 import FreeWebsite from '../components/FreeWebsite'
+import WebsiteReviewTeaser from '../components/WebsiteReviewTeaser'
 import Faq from '../components/Faq'
 import Contact from '../components/Contact'
 import { REVIEWS_PUBLISHED } from '../lib/reviews'
@@ -88,6 +89,10 @@ export default function HomePage() {
 
       <Chapter id="free-website" tone="white">
         <FreeWebsite />
+      </Chapter>
+
+      <Chapter id="website-review" tone="gray">
+        <WebsiteReviewTeaser />
       </Chapter>
 
       <Chapter id="faq" tone="gray">

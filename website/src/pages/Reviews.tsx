@@ -3,7 +3,6 @@ import Layout from '../components/Layout'
 import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
-import Placeholder from '../components/Placeholder'
 import {
   reviews,
   formatReviewDate,
@@ -97,20 +96,6 @@ export default function ReviewsPage() {
           }
         />
 
-        {REVIEWS_ARE_SAMPLES && (
-          <Reveal className="mt-8">
-            <Placeholder
-              note="Πραγματικές κριτικές Google — απαιτείται σύνδεση με το Google Business Profile"
-              className="max-w-[64ch] p-5 text-[0.88rem] leading-[1.75] text-ink font-body"
-            >
-              Οι κριτικές σε αυτή τη σελίδα είναι <strong>ενδεικτικές</strong> και δεν
-              είναι πραγματικές. Παρουσιάζουν τη μορφή που θα έχει η σελίδα και θα
-              αντικατασταθούν με τις πραγματικές κριτικές Google μόλις συνδεθεί το προφίλ
-              της επιχείρησης. Μέχρι τότε δεν δημοσιεύουμε συνολική βαθμολογία ούτε
-              structured data κριτικών.
-            </Placeholder>
-          </Reveal>
-        )}
       </Chapter>
 
       <Chapter id="kritikes" tone="gray">
@@ -122,24 +107,6 @@ export default function ReviewsPage() {
             </Reveal>
           ))}
         </ul>
-      </Chapter>
-
-      {/* Results. Nothing goes here until there are real numbers to report —
-          an empty, honest slot beats an invented one. */}
-      <Chapter id="apotelesmata" tone="white">
-        <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[22ch]">
-          Αποτελέσματα <em>πελατών.</em>
-        </h2>
-        <Reveal className="mt-8">
-          <Placeholder
-            note="Αποτελέσματα πελατών — απαιτούνται πραγματικά στοιχεία με άδεια του πελάτη (π.χ. αύξηση κλήσεων, κρατήσεων ή επισκεψιμότητας)"
-            className="max-w-[64ch] p-5 text-[0.88rem] leading-[1.75] text-ink font-body"
-          >
-            Εδώ θα μπουν μετρήσιμα αποτελέσματα από πραγματικές συνεργασίες, με τη
-            συγκατάθεση του πελάτη. Δεν δημοσιεύουμε νούμερα που δεν μπορούμε να
-            τεκμηριώσουμε.
-          </Placeholder>
-        </Reveal>
       </Chapter>
 
       <Chapter id="reviews-cta" tone="dark">

@@ -3,7 +3,6 @@ import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
 import Doodle from '../components/Doodle'
-import Placeholder from '../components/Placeholder'
 import {
   bridge,
   mission,
@@ -11,7 +10,6 @@ import {
   team,
   values,
   vision,
-  storyPlaceholders,
 } from '../lib/story'
 
 const WHY_US = [
@@ -215,16 +213,6 @@ export default function OurStoryPage() {
           ))}
         </ul>
 
-        <Reveal className="mt-16">
-          <Placeholder
-            note={`${storyPlaceholders.founded} · ${storyPlaceholders.delivered} · ${storyPlaceholders.timeline}`}
-            className="mx-auto max-w-[62ch] p-5 text-[0.85rem] leading-[1.7] text-ink font-body"
-          >
-            Προς συμπλήρωση: έτος ίδρυσης, αριθμός ιστοσελίδων που έχουμε παραδώσει, και ο
-            τυπικός χρόνος παράδοσης. Δεν τα συμπληρώνουμε μόνοι μας — χρειάζονται
-            επιβεβαίωση.
-          </Placeholder>
-        </Reveal>
       </Chapter>
 
       <Chapter id="story-cta" tone="gray">

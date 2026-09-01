@@ -49,7 +49,7 @@ export default function OfferSplit() {
         size="lg"
         body="Πληρώνετε μία φορά για την κατασκευή και είναι δική σας. Το μηνιαίο SEO είναι ξεχωριστό, προαιρετικό, και το σταματάτε όποτε θέλετε."
       >
-        Η ιστοσελίδα δεν είναι <em>συνδρομή.</em>
+        Δεν πληρώνετε <em>συνδρομή</em> για την ιστοσελίδα.
       </SectionHeading>
 
       <div className="mt-14 grid gap-6 md:mt-16 lg:grid-cols-[1.3fr_1fr]">

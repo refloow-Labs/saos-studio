@@ -125,6 +125,16 @@ export const routes: RouteMeta[] = [
     breadcrumb: 'Συχνές ερωτήσεις',
   },
   {
+    path: '/website-review',
+    file: 'website-review/index.html',
+    title: 'Δωρεάν έλεγχος ταχύτητας ιστοσελίδας — SAOS Studio',
+    description:
+      'Βάλτε τη διεύθυνσή σας και δείτε αυτόματα, μέσω pagespeed.web.dev της Google, πόσο γρήγορο είναι το site σας σε κινητό και υπολογιστή.',
+    priority: '0.7',
+    changefreq: 'monthly',
+    breadcrumb: 'Έλεγχος ταχύτητας',
+  },
+  {
     path: '/free-website',
     file: 'free-website/index.html',
     title: 'Δωρεάν website για μικρές επιχειρήσεις — SAOS Studio',

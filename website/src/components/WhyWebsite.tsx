@@ -49,7 +49,7 @@ export default function WhyWebsite() {
         {/* `.on-dark` comes from Chapter tone="dark", which renders the heading
             white and the <em> in the warm accent. */}
         <h2 className="text-headline text-[clamp(1.9rem,4.4vw,3.15rem)]">
-          Θα σας πούμε αν χρειάζεστε <em>λιγότερα</em> απ' όσα νομίζετε.
+          <em>Δωρεάν</em> αξιολόγηση της υπάρχουσας σελίδας σας.
         </h2>
 
         {/* Four sentences, so the measure widens toward the ~65ch cap in
@@ -65,11 +65,10 @@ export default function WhyWebsite() {
         <p className="mt-6 max-w-[62ch] text-[clamp(0.95rem,1.2vw,1.08rem)] leading-[1.8] text-white/70 font-body">
           Οι περισσότερες παλιές ιστοσελίδες δεν θέλουν πέταμα. Θέλουν να
           φορτώνουν γρήγορα στο κινητό, να λένε καθαρά τι κάνετε και να κάνουν
-          εύκολο το επόμενο βήμα — μια κλήση, μια κράτηση, ένα μήνυμα. Καμιά
-          φορά αυτό είναι δυο μέρες δουλειάς, όχι καινούργια κατασκευή.{' '}
+          εύκολο το επόμενο βήμα για τον πελάτη σας.{' '}
           <span className="font-semibold text-white">
-            Στείλτε μας τη διεύθυνσή σας και θα σας πούμε ποιο από τα δύο ισχύει
-            για εσάς.
+            Αξιολογούμε δωρεάν τι χρειάζεστε και σχεδιάζουμε μαζί την επόμενη
+            σας ψηφιακή εικόνα.
           </span>
         </p>
 
