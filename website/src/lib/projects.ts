@@ -123,3 +123,10 @@ export const projects: Project[] = [
     hasFullCapture: false,
   },
 ]
+
+/**
+ * "Name — category" options for the application form's template-preference
+ * field. Derived from `projects` rather than kept as a parallel list, so a demo
+ * added or renamed here shows up there without a second edit.
+ */
+export const TEMPLATE_OPTIONS = projects.map((p) => `${p.name} — ${p.category}`)

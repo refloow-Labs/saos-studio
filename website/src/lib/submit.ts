@@ -2,11 +2,13 @@
  * The single seam between every form on the site and whatever eventually
  * receives its data.
  *
- * Right now there is no backend. Submissions are kept in localStorage so the UI
- * has real success and error states to exercise during review, and so nothing is
- * silently dropped while the site is being built. Both the hero evaluation form
- * and the application modal call `submit()` — wiring a real destination is one
- * edit here, with no change to any component.
+ * Posts to Netlify Forms — the three matching hidden forms declared in
+ * `index.html` are what let Netlify's build-time HTML scan register them, so
+ * a payload key with no matching hidden `<input name>` there is silently
+ * dropped by Netlify even though this call still resolves `{ ok: true }`.
+ * Every submission is also mirrored to localStorage, both as a dev-time
+ * fallback (Netlify Forms only exists once deployed, not on `vite dev`) and
+ * as a local record in case a submission is lost in transit.
  */
 
 export type FormName = 'evaluation' | 'application' | 'quote'
@@ -92,30 +94,9 @@ function persistLocally(formName: FormName, payload: SubmitPayload): void {
 }
 
 /**
- * ---------------------------------------------------------------------------
- * BACKEND INTEGRATION POINT
- * ---------------------------------------------------------------------------
- * Replace the body below with a real call. The contract the UI depends on:
- *
- *   - resolves `{ ok: true }`  → the form shows its success state
- *   - resolves `{ ok: false, error }` → `error` is rendered verbatim, in Greek
- *   - never throws
- *
- * A Netlify Function, a form endpoint, an email service or a CRM webhook all
- * fit without touching a component. Example shape:
- *
- *   const res = await fetch('/.netlify/functions/submit', {
- *     method: 'POST',
- *     headers: { 'Content-Type': 'application/json' },
- *     body: JSON.stringify({ formName, ...payload }),
- *   })
- *   if (!res.ok) return { ok: false, error: FORM_ERRORS.SUBMIT_FAILED }
- *   return { ok: true }
- *
- * Note for whoever wires this up: these payloads are personal data under GDPR.
- * The privacy policy has to describe the destination and the retention period
- * before this goes live.
- * ---------------------------------------------------------------------------
+ * Note for whoever changes the destination later: these payloads are personal
+ * data under GDPR. The privacy policy has to describe Netlify Forms as the
+ * destination and a retention period.
  */
 export async function submit(
   formName: FormName,
@@ -123,9 +104,20 @@ export async function submit(
 ): Promise<SubmitResult> {
   persistLocally(formName, payload)
 
-  // Stands in for network latency so the loading state is actually visible
-  // during review. Remove along with the rest of this placeholder body.
-  await new Promise((resolve) => setTimeout(resolve, 600))
-
-  return { ok: true }
+  try {
+    const body = new URLSearchParams({ 'form-name': formName, ...payload })
+    const res = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+    })
+    // Netlify Forms is only live on a deployed site — `vite dev`/`preview`
+    // has no processing step and answers every POST to `/` with the SPA's
+    // own index.html (still `res.ok`), so this cannot fail locally. The
+    // localStorage copy above is what dev relies on instead.
+    if (!res.ok) return { ok: false, error: FORM_ERRORS.SUBMIT_FAILED }
+    return { ok: true }
+  } catch {
+    return { ok: false, error: FORM_ERRORS.SUBMIT_FAILED }
+  }
 }

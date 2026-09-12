@@ -186,7 +186,21 @@ export default function Navigation({ overDark = false }: Props) {
           })}
         </ul>
 
-        <div className="flex flex-shrink-0 items-center">
+        <div className="flex flex-shrink-0 items-center gap-3">
+          {/* The free-website campaign link. Kept out of `links` — a sixth
+              label plus the CTA overflows the bar (see file comment) — and
+              given its own accent colour so it reads as the current push
+              rather than one more nav item. */}
+          <a
+            href="/free-website"
+            aria-current={isCurrent('/free-website', pathname) ? 'page' : undefined}
+            className={`hidden xl:inline-flex whitespace-nowrap text-[0.78rem] font-bold transition-colors duration-200 font-body ${
+              light ? 'text-warm hover:text-white' : 'text-warm-ink hover:text-ink'
+            }`}
+          >
+            Δωρεάν website
+          </a>
+
           <a
             href={CTA.href}
             className="hidden lg:inline-flex btn-accent px-6 py-2.5 text-[0.75rem]"
@@ -236,6 +250,7 @@ export default function Navigation({ overDark = false }: Props) {
           >
             <ul className="flex flex-col gap-5">
               {[
+                { label: 'Δωρεάν website', href: '/free-website' },
                 ...links,
                 { label: 'Δωρεάν έλεγχος ταχύτητας', href: '/website-review' },
                 ...(REVIEWS_PUBLISHED

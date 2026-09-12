@@ -1,8 +1,31 @@
-import { Check, X } from 'lucide-react'
+import { Check, X, LayoutTemplate, MailCheck, Search, Server } from 'lucide-react'
 import Layout from '../components/Layout'
 import Chapter from '../components/Chapter'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
+
+const VALUE_PROPS = [
+  {
+    icon: LayoutTemplate,
+    title: 'WordPress',
+    body: 'Ιστοσελίδα σε WordPress — τον πιο διαδεδομένο τρόπο κατασκευής, εύκολο να το επεξεργαστείτε αργότερα αν χρειαστεί.',
+  },
+  {
+    icon: MailCheck,
+    title: 'Φόρμα επικοινωνίας',
+    body: 'Ενσωματωμένη από την πρώτη μέρα, ώστε οι πελάτες σας να μπορούν να σας γράψουν κατευθείαν από τη σελίδα.',
+  },
+  {
+    icon: Search,
+    title: 'Εργαλεία SEO',
+    body: 'Βασική ρύθμιση SEO ενσωματωμένη στην κατασκευή, όχι σαν πρόσθετη υπηρεσία.',
+  },
+  {
+    icon: Server,
+    title: 'Δημοσίευση',
+    body: 'Αναλαμβάνουμε όλη την τεχνική εγκατάσταση. Το μόνο που χρειάζεται από εσάς είναι ένας λογαριασμός hosting στη Hostinger.',
+  },
+]
 
 /**
  * `/free-website` — the detail behind the homepage offer.
@@ -19,15 +42,15 @@ import Reveal from '../components/Reveal'
  */
 
 const INCLUDED = [
-  'Σχεδιασμός και κατασκευή μονοσέλιδης ιστοσελίδας',
+  'Σχεδιασμός και κατασκευή ιστοσελίδας σε WordPress',
+  'Φόρμα επικοινωνίας, έτοιμη να δέχεται μηνύματα από την πρώτη μέρα',
+  'Βασικά εργαλεία SEO ενσωματωμένα, ώστε να σας βρίσκουν στην αναζήτηση',
   'Σχεδιασμός πρώτα για το κινητό, ώστε να δείχνει σωστά σε κάθε οθόνη',
-  'Φόρμα επικοινωνίας και σύνδεση με τα κανάλια σας',
-  'Βασική ρύθμιση SEO ώστε να σας βρίσκουν',
-  'Τεχνική ρύθμιση: domain, DNS, πιστοποιητικό SSL και δημοσίευση',
+  'Πλήρης τεχνική εγκατάσταση και δημοσίευση: domain, DNS, πιστοποιητικό SSL',
 ]
 
 const NOT_INCLUDED = [
-  'Κόστος domain και hosting, που πληρώνονται απευθείας στον πάροχο',
+  'Το hosting — πληρώνεται απευθείας στη Hostinger, τον μοναδικό πάροχο με τον οποίο συνεργαζόμαστε',
   'E-shop, σύστημα κρατήσεων ή πληρωμές',
   'Συγγραφή εκτενούς περιεχομένου ή επαγγελματική φωτογράφιση',
   'Συνεχής υποστήριξη μετά την παράδοση',
@@ -36,7 +59,7 @@ const NOT_INCLUDED = [
 const STEPS = [
   {
     title: 'Κάνετε αίτηση',
-    body: 'Έξι ερωτήσεις για την επιχείρησή σας και το πώς να σας βρούμε.',
+    body: 'Λίγες ερωτήσεις για την επιχείρησή σας, πώς να σας βρούμε, και ποιο στιλ σας αρέσει.',
   },
   {
     title: 'Την εξετάζουμε',
@@ -47,8 +70,12 @@ const STEPS = [
     body: 'Θα μάθετε την απόφαση και τον λόγο της, ακόμα κι αν είναι αρνητική.',
   },
   {
+    title: 'Ανοίγετε λογαριασμό στη Hostinger',
+    body: 'Το μόνο βήμα που κάνετε εσείς. Σας καθοδηγούμε με απλά λόγια, χωρίς τεχνική γνώση.',
+  },
+  {
     title: 'Σχεδιάζουμε και παραδίδουμε',
-    body: 'Η ιστοσελίδα παραδίδεται online, συνδεδεμένη και έτοιμη να δεχτεί επισκέπτες.',
+    body: 'Η ιστοσελίδα σε WordPress παραδίδεται online, συνδεδεμένη και έτοιμη να δεχτεί επισκέπτες.',
   },
 ]
 
@@ -77,7 +104,37 @@ export default function FreeWebsitePage() {
         </Reveal>
       </Chapter>
 
-      <Chapter id="poioi" tone="gray">
+      <Chapter id="ti-periechei-symfonia" tone="gray">
+        <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[22ch]">
+          WordPress, φόρμα, SEO και <em>δημοσίευση.</em> Χωρίς χρέωση.
+        </h2>
+        <Reveal className="mt-6">
+          <p className="max-w-[64ch] text-[0.92rem] leading-[1.8] text-muted font-body">
+            Το μόνο κόστος που έχετε εσείς είναι το hosting — πάντα μέσω{' '}
+            <strong className="text-ink">Hostinger</strong>, του μοναδικού πάροχου με
+            τον οποίο συνεργαζόμαστε. Ό,τι άλλο χρειάζεται μια σωστή ιστοσελίδα, το
+            καλύπτουμε εμείς.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          {VALUE_PROPS.map(({ icon: Icon, title, body }, i) => (
+            <Reveal key={title} delay={i * 70}>
+              <div className="flex h-full gap-4 rounded-card border border-border bg-bg p-6">
+                <Icon aria-hidden strokeWidth={1.75} className="h-6 w-6 flex-shrink-0 text-warm-ink" />
+                <div>
+                  <h3 className="text-[0.92rem] font-extrabold text-ink font-body">{title}</h3>
+                  <p className="mt-1.5 text-[0.85rem] leading-[1.7] text-muted font-body">
+                    {body}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Chapter>
+
+      <Chapter id="poioi" tone="white">
         <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[20ch]">
           Ποιοι μπορούν να κάνουν <em>αίτηση.</em>
         </h2>
@@ -90,7 +147,7 @@ export default function FreeWebsitePage() {
         </Reveal>
       </Chapter>
 
-      <Chapter id="diadikasia" tone="white">
+      <Chapter id="diadikasia" tone="gray">
         <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[20ch]">
           Από την αίτηση στην <em>παράδοση.</em>
         </h2>
@@ -119,14 +176,14 @@ export default function FreeWebsitePage() {
         </ol>
       </Chapter>
 
-      <Chapter id="ti-perilamvanei" tone="gray">
+      <Chapter id="ti-perilamvanei" tone="white">
         <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[22ch]">
           Τι περιλαμβάνει και τι <em>δεν περιλαμβάνει.</em>
         </h2>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <Reveal>
-            <div className="h-full rounded-card border border-border bg-bg p-7 sm:p-8">
+            <div className="h-full rounded-card border border-border bg-surface p-7 sm:p-8">
               <h3 className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-warm-ink font-body">
                 Τι περιλαμβάνει
               </h3>
@@ -149,7 +206,7 @@ export default function FreeWebsitePage() {
           </Reveal>
 
           <Reveal delay={90}>
-            <div className="h-full rounded-card border border-border bg-bg p-7 sm:p-8">
+            <div className="h-full rounded-card border border-border bg-surface p-7 sm:p-8">
               <h3 className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-muted font-body">
                 Τι δεν περιλαμβάνει
               </h3>
@@ -173,7 +230,7 @@ export default function FreeWebsitePage() {
         </div>
       </Chapter>
 
-      <Chapter id="epilogi" tone="white">
+      <Chapter id="epilogi" tone="gray">
         <h2 className="text-headline text-[clamp(1.6rem,3.2vw,2.4rem)] max-w-[20ch]">
           Πώς γίνεται η <em>επιλογή.</em>
         </h2>

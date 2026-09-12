@@ -36,8 +36,10 @@ export default function FreeWebsite() {
           </h2>
 
           <p className="mt-6 max-w-[64ch] text-[1rem] leading-[1.8] text-white/70 font-body">
-            Δεν είναι διαγωνισμός ούτε δοκιμή: μια ιστοσελίδα που σχεδιάζουμε και
-            κατασκευάζουμε χωρίς χρέωση, για επιχειρήσεις που επιλέγουμε κάθε μήνα.
+            Δεν είναι διαγωνισμός ούτε δοκιμή: μια ιστοσελίδα σε WordPress, με φόρμα
+            επικοινωνίας και εργαλεία SEO, που σχεδιάζουμε και δημοσιεύουμε χωρίς
+            χρέωση, για επιχειρήσεις που επιλέγουμε κάθε μήνα. Πληρώνετε μόνο το
+            hosting, πάντα μέσω Hostinger.
           </p>
 
           <div className="mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-7">

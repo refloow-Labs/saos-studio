@@ -55,6 +55,39 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Netlify Forms static detection. index.html is the prerender template
+         (see CLAUDE.md), so these hidden forms ship on every route and let
+         Netlify's build-time HTML scan register the three forms the app posts
+         to at runtime via fetch (src/lib/submit.ts). Field names here must
+         match the SubmitPayload keys exactly, or Netlify accepts the POST but
+         drops the fields it never declared. -->
+    <form name="application" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="business" />
+      <input type="text" name="name" />
+      <input type="text" name="industry" />
+      <input type="email" name="email" />
+      <input type="text" name="contact" />
+      <input type="text" name="website" />
+      <input type="text" name="template" />
+      <input type="text" name="bot-field" />
+    </form>
+    <form name="quote" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="text" name="business" />
+      <input type="text" name="industry" />
+      <input type="text" name="need" />
+      <input type="text" name="website" />
+      <input type="email" name="email" />
+      <input type="text" name="project" />
+      <input type="text" name="bot-field" />
+    </form>
+    <form name="evaluation" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="website" />
+      <input type="email" name="email" />
+      <input type="text" name="bot-field" />
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

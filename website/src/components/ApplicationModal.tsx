@@ -1,8 +1,9 @@
 import { useId, useState, type FormEvent } from 'react'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, Globe2 } from 'lucide-react'
 import Modal from './Modal'
 import { TextField, SelectField } from './form/Fields'
 import { INDUSTRIES } from '../lib/industries'
+import { TEMPLATE_OPTIONS } from '../lib/projects'
 import { FORM_ERRORS, isValidEmail, normaliseUrl, submit } from '../lib/submit'
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   onClose: () => void
 }
 
-type FieldName = 'business' | 'name' | 'industry' | 'email' | 'contact' | 'website'
+type FieldName = 'business' | 'name' | 'industry' | 'email' | 'contact' | 'website' | 'template'
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 const EMPTY: Record<FieldName, string> = {
@@ -20,6 +21,7 @@ const EMPTY: Record<FieldName, string> = {
   email: '',
   contact: '',
   website: '',
+  template: '',
 }
 
 /**
@@ -50,6 +52,7 @@ export default function ApplicationModal({ open, onClose }: Props) {
     email: useId(),
     contact: useId(),
     website: useId(),
+    template: useId(),
   }
   const statusId = useId()
 
@@ -139,6 +142,12 @@ export default function ApplicationModal({ open, onClose }: Props) {
             Δεν γίνονται όλες οι αιτήσεις δεκτές. Αν η δική σας δεν επιλεγεί, θα σας
             προτείνουμε εναλλακτικές.
           </p>
+          <p className="mx-auto mt-4 max-w-[46ch] text-[0.85rem] leading-[1.7] text-muted font-body">
+            Αν γίνει δεκτή, το μόνο βήμα από εσάς είναι να ανοίξετε λογαριασμό
+            hosting στη <strong className="text-ink">Hostinger</strong> — σας
+            καθοδηγούμε βήμα-βήμα, με απλά λόγια, και αναλαμβάνουμε εμείς όλη την
+            τεχνική εγκατάσταση.
+          </p>
           <button
             type="button"
             onClick={handleClose}
@@ -153,6 +162,22 @@ export default function ApplicationModal({ open, onClose }: Props) {
             Μόνο τα βασικά — χρειάζεται περίπου 2 λεπτά. Τα υπόλοιπα τα συζητάμε αν
             προχωρήσουμε.
           </p>
+
+          {/* The one thing an applicant must not discover after they have
+              already applied: design and deployment are free, hosting is not,
+              and hosting always means Hostinger — never a different provider,
+              never bundled into our price. Stated once, plainly, before the
+              fields rather than buried in a bullet list. */}
+          <div className="mt-5 flex gap-3 rounded-2xl border border-border bg-surface px-4 py-3.5 sm:px-5">
+            <Globe2 aria-hidden strokeWidth={2} className="mt-0.5 h-4 w-4 flex-shrink-0 text-warm-ink" />
+            <p className="text-[0.8rem] leading-[1.7] text-muted font-body">
+              Ο σχεδιασμός, η κατασκευή σε WordPress και η δημοσίευση είναι εντελώς
+              δωρεάν — μαζί με φόρμα επικοινωνίας και βασικά εργαλεία SEO, όλα έτοιμα
+              από την πρώτη μέρα. Το μόνο που πληρώνετε εσείς είναι το hosting, πάντα
+              μέσω <strong className="text-ink">Hostinger</strong> — του μοναδικού
+              πάροχου με τον οποίο συνεργαζόμαστε.
+            </p>
+          </div>
 
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <TextField
@@ -231,6 +256,18 @@ export default function ApplicationModal({ open, onClose }: Props) {
               onChange={(v) => set('website', v)}
               error={errors.website}
               hint="Προαιρετικό — αν δεν έχετε, δεν είναι μειονέκτημα."
+            />
+
+            <SelectField
+              id={ids.template}
+              name="template"
+              label="Στιλ που σας αρέσει"
+              options={TEMPLATE_OPTIONS}
+              value={values.template}
+              onChange={(v) => set('template', v)}
+              error={errors.template}
+              placeholder="Δεν είμαι σίγουρος/η ακόμα"
+              hint="Δείτε παραδείγματα στο saos.studio/examples — προαιρετικό, το αποφασίζουμε μαζί."
             />
           </div>
 

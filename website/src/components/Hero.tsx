@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import ApplicationModal from './ApplicationModal'
 import Carousel from './Carousel'
 import HeroShowcaseCard from './HeroShowcaseCard'
 import MountSaos from './MountSaos'
@@ -10,8 +12,9 @@ import { projects } from '../lib/projects'
  * behind it. The mountain is not decoration: the studio is local to Samothraki
  * and Alexandroupoli — `schema.ts` publishes a Σαμοθράκη locality and a Thrace
  * service area — so the silhouette, the badge and the subhead all make the same
- * claim. The headline no longer carries the geography; it carries the argument,
- * and the region moved to the line beneath it.
+ * claim. The headline leads with the free-website offer (matching the
+ * /free-website funnel); the primary CTA goes there, and the paid-subscription
+ * quote is the secondary link.
  *
  * Five deliberate layers, back to front:
  *
@@ -35,6 +38,7 @@ import { projects } from '../lib/projects'
  */
 export default function Hero() {
   const featured = projects.filter((p) => p.featured)
+  const [applyOpen, setApplyOpen] = useState(false)
 
   return (
     <section
@@ -67,6 +71,24 @@ export default function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-32 sm:px-8 md:px-12 md:pb-24 md:pt-36">
         {/* Layer 3 — content. */}
         <div className="flex flex-col items-center text-center">
+          {/* The free-website campaign badge. Sits above the headline rather
+              than competing with the primary CTA below — a reader who is here
+              for the free offer follows it immediately; everyone else reads
+              past a single small line and hits the argument as before. */}
+          <a
+            href="/free-website"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[0.78rem] font-semibold text-white/85 backdrop-blur-sm transition-colors duration-200 hover:border-warm/40 hover:text-white font-body"
+          >
+            <span aria-hidden className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-warm" />
+            Νέο: δωρεάν websites κάθε μήνα, περιορισμένες θέσεις
+            <span
+              aria-hidden
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </a>
+
           {/*
             A positioning badge, not a rating badge. REDESIGN.md rules out
             fabricated authority — award badges, client counts, rating
@@ -93,9 +115,9 @@ export default function Hero() {
           */}
           <h1
             id="hero-heading"
-            className="text-headline mt-7 max-w-[17ch] text-balance text-[clamp(2.05rem,5.6vw,4.4rem)]"
+            className="text-headline mt-7 max-w-[19ch] text-balance text-[clamp(2.05rem,5.6vw,4.4rem)]"
           >
-            Ανάπτυξη <em>ιστοσελίδων</em> στην Βόρεια Ελλάδα
+            Αποκτήστε επαγγελματική ιστοσελίδα <em>εντελώς δωρεάν</em>.
           </h1>
 
           {/* text-white/70, not text-muted: #6B6257 on #14110C fails contrast
@@ -106,26 +128,28 @@ export default function Hero() {
               slightly. At the old size and width this ran to six centred lines
               and started competing with the headline. */}
           <p className="mt-9 max-w-[64ch] text-[clamp(0.94rem,1.15vw,1.06rem)] leading-[1.8] text-white/70 font-body">
-            Κατασκευή και προώθηση ιστοσελίδων για μικρές επιχειρήσεις.{' '}
+            Κατασκευή ιστοσελίδας εντελώς δωρεάν, χωρίς κρυφές χρεώσεις.{' '}
             <span className="font-semibold text-white">
-              Αναπτύξτε την εικόνα της επιχείρησης σας μέσα σε λίγα μόνο
-              βήματα.
+              Εσείς πληρώνετε μόνο το hosting στη Hostinger — τον σχεδιασμό,
+              το WordPress, τις φόρμες επικοινωνίας και το SEO τα αναλαμβάνουμε
+              εμείς.
             </span>
           </p>
 
           <div className="mt-12 flex w-full flex-col items-center gap-5 sm:w-auto md:mt-14">
-            <a
-              href="/request-a-quote"
+            <button
+              type="button"
+              onClick={() => setApplyOpen(true)}
               className="btn-accent w-full justify-center px-6 py-4 text-center text-[0.95rem] sm:w-auto sm:px-9"
             >
-              Ζητήστε γραπτή προσφορά <span aria-hidden>→</span>
-            </a>
+              Κάντε αίτηση σε 2 λεπτά <span aria-hidden>→</span>
+            </button>
 
             <a
-              href="/how-it-works"
+              href="/request-a-quote"
               className="group link-arrow text-[0.88rem] font-bold text-white/60 transition-colors duration-200 hover:text-white font-body"
             >
-              Δείτε πώς λειτουργεί
+              Ή ζητήστε γραπτή προσφορά για το πλάνο συνδρομής
               <span
                 aria-hidden
                 className="transition-transform duration-300 group-hover:translate-x-1"
@@ -184,6 +208,8 @@ export default function Hero() {
           />
         </div>
       </div>
+
+      <ApplicationModal open={applyOpen} onClose={() => setApplyOpen(false)} />
     </section>
   )
 }

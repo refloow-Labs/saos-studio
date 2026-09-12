@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import Modal from './Modal'
-import EvaluationForm from './EvaluationForm'
 import MountSaos from './MountSaos'
 
 /**
@@ -17,18 +14,14 @@ import MountSaos from './MountSaos'
  * about taking on an existing site). Renaming it silently breaks that link —
  * nothing in the build checks cross-page anchors.
  *
- * The CTA opens `EvaluationForm` in a dialog rather than embedding it. This
- * section is the form's only route into the site, so dropping the form
- * altogether would strand the whole free-evaluation funnel; putting it in a
- * dialog keeps the section to a single action while leaving the funnel intact.
+ * The CTA links straight to `/website-review`, the live PageSpeed-backed
+ * report tool, rather than opening a lead-capture modal.
  *
  * The component and its `#giati-website` chapter id keep their old names on
  * purpose — renaming files and anchors for a copy change is churn with a real
  * chance of breaking an inbound link.
  */
 export default function WhyWebsite() {
-  const [open, setOpen] = useState(false)
-
   return (
     <div id="evaluation" className="relative isolate w-full scroll-mt-32 overflow-hidden">
       {/*
@@ -74,31 +67,13 @@ export default function WhyWebsite() {
 
         {/* Full width on mobile so the long Greek label has room to sit on one
             line; it wraps rather than overflowing if it still cannot. */}
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
+        <a
+          href="/website-review"
           className="btn-accent mt-10 w-full justify-center px-7 py-4 text-center text-[0.9rem] sm:w-auto sm:px-9 sm:text-[0.95rem]"
         >
           Λάβετε δωρεάν αξιολόγηση της ιστοσελίδας <span aria-hidden>→</span>
-        </button>
+        </a>
       </div>
-
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title="Δωρεάν αξιολόγηση ιστοσελίδας"
-        size="max-w-2xl"
-      >
-        <div className="px-6 py-6 sm:px-8">
-          <p className="max-w-[54ch] text-[0.9rem] leading-[1.8] text-muted font-body">
-            Ανοίγουμε αμέσως την ανάλυση της Google για τη σελίδα σας: ταχύτητα
-            φόρτωσης, εμφάνιση στο κινητό, βασικά τεχνικά. Αν αφήσετε και email,
-            τη διαβάζουμε εμείς και σας στέλνουμε τι αξίζει να διορθώσετε — και
-            τι μπορείτε να αφήσετε όπως είναι.
-          </p>
-          <EvaluationForm className="mt-6" />
-        </div>
-      </Modal>
     </div>
   )
 }

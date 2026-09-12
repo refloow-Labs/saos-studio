@@ -17,6 +17,10 @@ const REASSURANCE = [
     title: 'Καμία δέσμευση',
     desc: 'Το αίτημα δεν σας δεσμεύει. Δεν ζητάμε κάρτα και δεν υπάρχει κρυφή χρέωση.',
   },
+  {
+    title: 'Hosting ξεχωριστά, στη Hostinger',
+    desc: 'Το κόστος κατασκευής δεν περιλαμβάνει hosting. Συνεργαζόμαστε αποκλειστικά με τη Hostinger και σας καθοδηγούμε στη ρύθμιση.',
+  },
 ]
 
 export default function RequestQuotePage() {
